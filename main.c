@@ -1,4 +1,7 @@
-// gcc -g main.c -omain -lSDL2 -lSDL2_ttf -lSDL2_image -fsanitize=address
+// MANUÁLNĚ !NEFUNGUJÍ TEXTURY(ŠPATNÁ ADRESA) | gcc -g main.c player.c sceneManager.c -omain -lSDL2 -lSDL2_ttf -lSDL2_image -fsanitize=address
+// PŘES CMAKE | ./build/make
+// A PAK ./Bulanci
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
