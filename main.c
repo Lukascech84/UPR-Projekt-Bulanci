@@ -89,6 +89,7 @@ int main(int argc, char *argv[])
                 new_w = event.window.data1;
                 new_h = event.window.data2;
             }
+            // Výměna scén
             if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
             {
                 if (sceneManager.current_Scene->scene_index == 0)
@@ -99,10 +100,6 @@ int main(int argc, char *argv[])
                 {
                     target_scene = 0;
                 }
-            }
-            if (sceneManager.players_spawned)
-            {
-                input_Players(players, num_of_players, event);
             }
         }
 
@@ -140,6 +137,7 @@ int main(int argc, char *argv[])
                 resize_Players(players, num_of_players, new_h / 10, new_w / 10);
                 resized = 0;
             }
+            input_Players(players, num_of_players);
             move_Players(players, num_of_players, speed, deltaTime);
             render_Players(players, num_of_players, renderer);
         }

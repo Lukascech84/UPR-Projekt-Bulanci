@@ -3,10 +3,10 @@
 
 player *init_Players(player *p, int num_of_players)
 {
-    player_keybinds keysets[4] = {{.up = SDLK_w, .down = SDLK_s, .left = SDLK_a, .right = SDLK_d},
-                                  {.up = SDLK_UP, .down = SDLK_DOWN, .left = SDLK_LEFT, .right = SDLK_RIGHT},
-                                  {.up = SDLK_i, .down = SDLK_k, .left = SDLK_j, .right = SDLK_l},
-                                  {.up = SDLK_t, .down = SDLK_g, .left = SDLK_f, .right = SDLK_h}};
+    player_keybinds keysets[4] = {{.up = SDL_SCANCODE_W, .down = SDL_SCANCODE_S, .left = SDL_SCANCODE_A, .right = SDL_SCANCODE_D, .shoot = SDL_SCANCODE_E},
+                                  {.up = SDL_SCANCODE_UP, .down = SDL_SCANCODE_DOWN, .left = SDL_SCANCODE_LEFT, .right = SDL_SCANCODE_RIGHT, .shoot = SDL_SCANCODE_RSHIFT},
+                                  {.up = SDL_SCANCODE_I, .down = SDL_SCANCODE_K, .left = SDL_SCANCODE_J, .right = SDL_SCANCODE_L, .shoot = SDL_SCANCODE_O},
+                                  {.up = SDL_SCANCODE_T, .down = SDL_SCANCODE_G, .left = SDL_SCANCODE_F, .right = SDL_SCANCODE_H, .shoot = SDL_SCANCODE_SPACE}};
     p = realloc(p, num_of_players * sizeof(player));
     if (!p)
     {
@@ -15,6 +15,7 @@ player *init_Players(player *p, int num_of_players)
 
     for (size_t i = 0; i < num_of_players; i++)
     {
+        p[i].playerID = i;
         p[i].directionX = 0;
         p[i].directionY = 0;
         p[i].hitbox.h = 100;
@@ -73,27 +74,31 @@ void render_Players(player *p, int num_of_players, SDL_Renderer *renderer)
     }
 }
 
-void input_Players(player *p, int num_of_players, SDL_Event event)
+void input_Players(player *p, int num_of_players)
 {
-    if (event.type != SDL_KEYDOWN && event.type != SDL_KEYUP)
-        return;
-
-    SDL_Keycode code = event.key.keysym.sym;
-    int pressed = (event.type == SDL_KEYDOWN);
+    const Uint8 *state = SDL_GetKeyboardState(NULL);
 
     for (size_t i = 0; i < num_of_players; i++)
     {
-        if (code == p[i].keybinds.up)
-            p[i].directionY = pressed ? -1 : 0;
+        // Y
+        if (state[p[i].keybinds.up])
+            p[i].directionY = -1;
+        else if (state[p[i].keybinds.down])
+            p[i].directionY = 1;
+        else
+            p[i].directionY = 0;
 
-        else if (code == p[i].keybinds.down)
-            p[i].directionY = pressed ? 1 : 0;
+        // X
+        if (state[p[i].keybinds.left])
+            p[i].directionX = -1;
+        else if (state[p[i].keybinds.right])
+            p[i].directionX = 1;
+        else
+            p[i].directionX = 0;
 
-        else if (code == p[i].keybinds.left)
-            p[i].directionX = pressed ? -1 : 0;
-
-        else if (code == p[i].keybinds.right)
-            p[i].directionX = pressed ? 1 : 0;
+        // Shoot
+        if (state[p[i].keybinds.shoot])
+            shoot_Players(p[i]);
     }
 }
 
@@ -104,4 +109,9 @@ void resize_Players(player *p, int num_of_players, int new_h, int new_w)
         p[i].hitbox.h = new_h;
         p[i].hitbox.w = new_w;
     }
+}
+
+void shoot_Players(player p)
+{
+    printf("Player %d shot.\n", p.playerID);
 }
