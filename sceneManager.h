@@ -8,6 +8,7 @@ typedef struct
     char scene_name[50];
 
     // Map data
+    int have_players;
     char *bg_texture_address;
     SDL_Texture *bg_texture;
 
@@ -16,6 +17,7 @@ typedef struct
 typedef struct
 {
     scene *current_Scene;
+    int players_spawned;
 
 } sceneManager;
 

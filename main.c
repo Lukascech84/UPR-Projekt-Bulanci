@@ -50,24 +50,30 @@ int main(int argc, char *argv[])
     Uint64 last = SDL_GetPerformanceCounter();
 
     // Proměnné
+    // Hráči
     int num_of_players = 3;
     player *players = NULL;
-    players = init_Players(players, num_of_players);
     float speed = 200;
 
+    // Scény
     int num_of_scenes = 2;
-    scene scenes[2] = {{.scene_index = 0, .scene_name = "Menu", .bg_texture_address = "./assets/maps/00_Menu/menu_test.png"},
-                       {.scene_index = 1, .scene_name = "Mapa1", .bg_texture_address = "./assets/maps/01_Grass/map1_scaled.png"}};
+    scene scenes[2] = {{.scene_index = 0, .scene_name = "Menu", .have_players = 0, .bg_texture_address = "./assets/maps/00_Menu/menu_test.png"},
+                       {.scene_index = 1, .scene_name = "Mapa1", .have_players = 1, .bg_texture_address = "./assets/maps/01_Grass/map1_scaled.png"}};
 
     sceneManager sceneManager = {.current_Scene = &scenes[0]};
+    int target_scene = 0;
 
     // Načítání textur
     load_textures(scenes, num_of_scenes, renderer);
 
+    // Resize okna
+    int resized = 0;
+    int new_w, new_h;
+
+    // Eventy
     SDL_Event event;
     int running = 1;
 
-    // Eventy
     while (running == 1)
     {
         while (SDL_PollEvent(&event))
@@ -77,7 +83,27 @@ int main(int argc, char *argv[])
             {
                 running = 0;
             }
-            input_Players(players, num_of_players, event);
+            if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_RESIZED)
+            {
+                resized = 1;
+                new_w = event.window.data1;
+                new_h = event.window.data2;
+            }
+            if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+            {
+                if (sceneManager.current_Scene->scene_index == 0)
+                {
+                    target_scene = 1;
+                }
+                else
+                {
+                    target_scene = 0;
+                }
+            }
+            if (sceneManager.players_spawned)
+            {
+                input_Players(players, num_of_players, event);
+            }
         }
 
         Uint64 now = SDL_GetPerformanceCounter();
@@ -85,17 +111,38 @@ int main(int argc, char *argv[])
         SDL_RenderClear(renderer);
 
         // Kód
-        int target_scene = 1;
+        // Louding scén
         if (sceneManager.current_Scene->scene_index != target_scene)
         {
             load_scene(&sceneManager, target_scene, scenes);
             printf("Loading scene: %s\n", scenes[target_scene].scene_name);
         }
 
+        // Vykreslení pozadí
         SDL_RenderCopy(renderer, sceneManager.current_Scene->bg_texture, NULL, NULL);
 
-        move_Players(players, num_of_players, speed, deltaTime);
-        render_Players(players, num_of_players, renderer);
+        // Logika hráče
+        if (sceneManager.current_Scene->have_players && !sceneManager.players_spawned)
+        {
+            players = init_Players(players, num_of_players);
+            sceneManager.players_spawned = 1;
+        }
+        else if (!sceneManager.current_Scene->have_players && sceneManager.players_spawned)
+        {
+            clear_Players(players);
+            players = NULL;
+            sceneManager.players_spawned = 0;
+        }
+        if (sceneManager.players_spawned)
+        {
+            if (resized)
+            {
+                resize_Players(players, num_of_players, new_h / 10, new_w / 10);
+                resized = 0;
+            }
+            move_Players(players, num_of_players, speed, deltaTime);
+            render_Players(players, num_of_players, renderer);
+        }
 
         // Debug
 

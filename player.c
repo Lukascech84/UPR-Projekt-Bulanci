@@ -75,46 +75,33 @@ void render_Players(player *p, int num_of_players, SDL_Renderer *renderer)
 
 void input_Players(player *p, int num_of_players, SDL_Event event)
 {
+    if (event.type != SDL_KEYDOWN && event.type != SDL_KEYUP)
+        return;
+
+    SDL_Keycode code = event.key.keysym.sym;
+    int pressed = (event.type == SDL_KEYDOWN);
+
     for (size_t i = 0; i < num_of_players; i++)
     {
-        SDL_Keycode code = event.key.keysym.sym;
-        if (event.type == SDL_KEYDOWN)
-        {
-            if (code == p[i].keybinds.up)
-            {
-                p[i].directionY = -1;
-            }
-            else if (code == p[i].keybinds.down)
-            {
-                p[i].directionY = 1;
-            }
-            else if (code == p[i].keybinds.left)
-            {
-                p[i].directionX = -1;
-            }
-            else if (code == p[i].keybinds.right)
-            {
-                p[i].directionX = 1;
-            }
-        }
-        else if (event.type == SDL_KEYUP)
-        {
-            if (code == p[i].keybinds.up)
-            {
-                p[i].directionY = 0;
-            }
-            else if (code == p[i].keybinds.down)
-            {
-                p[i].directionY = 0;
-            }
-            else if (code == p[i].keybinds.left)
-            {
-                p[i].directionX = 0;
-            }
-            else if (code == p[i].keybinds.right)
-            {
-                p[i].directionX = 0;
-            }
-        }
+        if (code == p[i].keybinds.up)
+            p[i].directionY = pressed ? -1 : 0;
+
+        else if (code == p[i].keybinds.down)
+            p[i].directionY = pressed ? 1 : 0;
+
+        else if (code == p[i].keybinds.left)
+            p[i].directionX = pressed ? -1 : 0;
+
+        else if (code == p[i].keybinds.right)
+            p[i].directionX = pressed ? 1 : 0;
+    }
+}
+
+void resize_Players(player *p, int num_of_players, int new_h, int new_w)
+{
+    for (size_t i = 0; i < num_of_players; i++)
+    {
+        p[i].hitbox.h = new_h;
+        p[i].hitbox.w = new_w;
     }
 }
