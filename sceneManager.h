@@ -21,8 +21,12 @@ typedef struct
 
 } sceneManager;
 
-void load_scene(sceneManager *scm, int scene_index, scene scenes[]);
+sceneManager *scm_get_scm();
 
-int load_textures(scene scenes[], int num_of_scenes, SDL_Renderer *renderer);
+scene *scm_get_scene(int);
 
-void destroy_textures(scene scenes[], int num_of_scenes);
+void scm_load_scene(int);
+
+int scm_load_textures(SDL_Renderer *);
+
+void scm_destroy_textures();

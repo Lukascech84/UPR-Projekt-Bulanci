@@ -17,20 +17,20 @@ typedef struct
     int directionY;
     int directionX;
     SDL_Rect hitbox;
-    weapon current_weapon;
+    weapon *current_weapon;
     player_keybinds keybinds;
 } player;
 
-player *init_Players(player *p, int num_of_players, weapon weapons[]);
+void *init_Players();
 
-void clear_Players(player *p);
+void clear_Players();
 
-void move_Players(player *p, int num_of_players, int speed, double deltaTime);
+void move_Players(double deltaTime);
 
-void render_Players(player *p, int num_of_players, SDL_Renderer *renderer);
+void render_Players(SDL_Renderer *renderer);
 
-void input_Players(player *p, int num_of_players, SDL_Renderer *);
+void input_Players(SDL_Renderer *);
 
-void resize_Players(player *p, int num_of_players, int new_h, int new_w);
+void resize_Players(int new_h, int new_w);
 
 void shoot_Players(player *p, SDL_Renderer *);

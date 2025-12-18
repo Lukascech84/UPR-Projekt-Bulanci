@@ -24,6 +24,8 @@ typedef struct
     SDL_Texture *weapon_texture;
 } weapon;
 
+weapon *get_weapon(int);
+
 void init_bullet(bullet *);
 
 void spawn_bullet(SDL_Renderer *, int, int, weapon);

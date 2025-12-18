@@ -2,12 +2,28 @@
 #include <SDL2/SDL_image.h>
 #include "sceneManager.h"
 
-void load_scene(sceneManager *scm, int scene_index, scene scenes[])
+static int num_of_scenes = 2;
+static scene scenes[2] = {{.scene_index = 0, .scene_name = "Menu", .have_players = 0, .bg_texture_address = "./assets/maps/00_Menu/menu_test.png"},
+                          {.scene_index = 1, .scene_name = "Mapa1", .have_players = 1, .bg_texture_address = "./assets/maps/01_Grass/map1_scaled.png"}};
+
+static sceneManager scm = {.current_Scene = &scenes[0]};
+
+sceneManager *scm_get_scm()
 {
-    scm->current_Scene = &scenes[scene_index];
+    return &scm;
 }
 
-int load_textures(scene scenes[], int num_of_scenes, SDL_Renderer *renderer)
+scene *scm_get_scene(int index)
+{
+    return &scenes[index];
+}
+
+void scm_load_scene(int scene_index)
+{
+    scm.current_Scene = &scenes[scene_index];
+}
+
+int scm_load_textures(SDL_Renderer *renderer)
 {
     for (size_t i = 0; i < num_of_scenes; i++)
     {
@@ -29,7 +45,7 @@ int load_textures(scene scenes[], int num_of_scenes, SDL_Renderer *renderer)
     return 0;
 }
 
-void destroy_textures(scene scenes[], int num_of_scenes)
+void scm_destroy_textures()
 {
     for (size_t i = 0; i < num_of_scenes; i++)
     {

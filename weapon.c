@@ -1,6 +1,22 @@
 #include "weapon.h"
 
-bullet fired_bullets[MAX_BULLETS];
+static bullet fired_bullets[MAX_BULLETS];
+
+static int num_of_weapons = 2;
+static weapon weapons[2] = {{.weapon_name = "Pistol", .num_of_bullets = 1, .bullet_velocity = 100, .weapon_texture = NULL},
+                            {.weapon_name = "AK-47", .num_of_bullets = 1, .bullet_velocity = 200, .weapon_texture = NULL}};
+
+weapon *get_weapon(int index)
+{
+    if (index >= num_of_weapons || index < 0)
+    {
+        return NULL;
+    }
+    else
+    {
+        return &weapons[index];
+    }
+}
 
 void init_bullet(bullet *fired_bullets)
 {
