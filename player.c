@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 #include "player.h"
 
-player *init_Players(player *p, int num_of_players)
+player *init_Players(player *p, int num_of_players, weapon weapons[])
 {
     player_keybinds keysets[4] = {{.up = SDL_SCANCODE_W, .down = SDL_SCANCODE_S, .left = SDL_SCANCODE_A, .right = SDL_SCANCODE_D, .shoot = SDL_SCANCODE_E},
                                   {.up = SDL_SCANCODE_UP, .down = SDL_SCANCODE_DOWN, .left = SDL_SCANCODE_LEFT, .right = SDL_SCANCODE_RIGHT, .shoot = SDL_SCANCODE_RSHIFT},
@@ -22,6 +22,7 @@ player *init_Players(player *p, int num_of_players)
         p[i].hitbox.w = 100;
         p[i].hitbox.x = (1.5f * i) * 100;
         p[i].hitbox.y = 100;
+        p[i].current_weapon = weapons[0];
         p[i].keybinds = keysets[i];
     }
 
@@ -74,7 +75,7 @@ void render_Players(player *p, int num_of_players, SDL_Renderer *renderer)
     }
 }
 
-void input_Players(player *p, int num_of_players)
+void input_Players(player *p, int num_of_players, SDL_Renderer *renderer)
 {
     const Uint8 *state = SDL_GetKeyboardState(NULL);
 
@@ -98,7 +99,7 @@ void input_Players(player *p, int num_of_players)
 
         // Shoot
         if (state[p[i].keybinds.shoot])
-            shoot_Players(p[i]);
+            shoot_Players(&p[i], renderer);
     }
 }
 
@@ -111,7 +112,8 @@ void resize_Players(player *p, int num_of_players, int new_h, int new_w)
     }
 }
 
-void shoot_Players(player p)
+void shoot_Players(player *p, SDL_Renderer *renderer)
 {
-    printf("Player %d shot.\n", p.playerID);
+    printf("Player %d shot from %s.\n", p->playerID, p->current_weapon.weapon_name);
+    spawn_bullet(renderer, p->hitbox.x, p->hitbox.y, p->current_weapon);
 }

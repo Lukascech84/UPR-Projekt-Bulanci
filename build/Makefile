@@ -201,6 +201,30 @@ sceneManager.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/sceneManager.c.s
 .PHONY : sceneManager.c.s
 
+weapon.o: weapon.c.o
+.PHONY : weapon.o
+
+# target to build an object file
+weapon.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/weapon.c.o
+.PHONY : weapon.c.o
+
+weapon.i: weapon.c.i
+.PHONY : weapon.i
+
+# target to preprocess a source file
+weapon.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/weapon.c.i
+.PHONY : weapon.c.i
+
+weapon.s: weapon.c.s
+.PHONY : weapon.s
+
+# target to generate assembly for a file
+weapon.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/weapon.c.s
+.PHONY : weapon.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -219,6 +243,9 @@ help:
 	@echo "... sceneManager.o"
 	@echo "... sceneManager.i"
 	@echo "... sceneManager.s"
+	@echo "... weapon.o"
+	@echo "... weapon.i"
+	@echo "... weapon.s"
 .PHONY : help
 
 

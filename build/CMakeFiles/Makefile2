@@ -81,12 +81,12 @@ clean: CMakeFiles/Bulanci.dir/clean
 CMakeFiles/Bulanci.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=1,2,3,4 "Built target Bulanci"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target Bulanci"
 .PHONY : CMakeFiles/Bulanci.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Bulanci.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Bulanci.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles 0
 .PHONY : CMakeFiles/Bulanci.dir/rule

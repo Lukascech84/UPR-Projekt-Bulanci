@@ -1,1 +1,1 @@
-/usr/bin/cc  -fsanitize=address CMakeFiles/Bulanci.dir/main.c.o CMakeFiles/Bulanci.dir/player.c.o CMakeFiles/Bulanci.dir/sceneManager.c.o -o Bulanci  -lSDL2 -lSDL2_ttf -lSDL2 -lSDL2_image -lSDL2 -lm -lSDL2_ttf -lSDL2_image -lm 
+/usr/bin/cc  -fsanitize=address CMakeFiles/Bulanci.dir/main.c.o CMakeFiles/Bulanci.dir/player.c.o CMakeFiles/Bulanci.dir/sceneManager.c.o CMakeFiles/Bulanci.dir/weapon.c.o -o Bulanci  -lSDL2 -lSDL2_ttf -lSDL2 -lSDL2_image -lSDL2 -lm -lSDL2_ttf -lSDL2_image -lm 

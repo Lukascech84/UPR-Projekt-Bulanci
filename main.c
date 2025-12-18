@@ -7,6 +7,7 @@
 #include <SDL2/SDL_image.h>
 #include "player.h"
 #include "sceneManager.h"
+#include "weapon.h"
 
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 576
@@ -51,7 +52,7 @@ int main(int argc, char *argv[])
 
     // Proměnné
     // Hráči
-    int num_of_players = 3;
+    int num_of_players = 4;
     player *players = NULL;
     float speed = 200;
 
@@ -62,6 +63,10 @@ int main(int argc, char *argv[])
 
     sceneManager sceneManager = {.current_Scene = &scenes[0]};
     int target_scene = 0;
+
+    int num_of_weapons = 2;
+    weapon weapons[2] = {{.weapon_name = "Pistol", .num_of_bullets = 1, .bullet_velocity = 100, .weapon_texture = NULL},
+                         {.weapon_name = "AK-47", .num_of_bullets = 1, .bullet_velocity = 200, .weapon_texture = NULL}};
 
     // Načítání textur
     load_textures(scenes, num_of_scenes, renderer);
@@ -121,7 +126,7 @@ int main(int argc, char *argv[])
         // Logika hráče
         if (sceneManager.current_Scene->have_players && !sceneManager.players_spawned)
         {
-            players = init_Players(players, num_of_players);
+            players = init_Players(players, num_of_players, weapons);
             sceneManager.players_spawned = 1;
         }
         else if (!sceneManager.current_Scene->have_players && sceneManager.players_spawned)
@@ -137,9 +142,9 @@ int main(int argc, char *argv[])
                 resize_Players(players, num_of_players, new_h / 10, new_w / 10);
                 resized = 0;
             }
-            input_Players(players, num_of_players);
             move_Players(players, num_of_players, speed, deltaTime);
             render_Players(players, num_of_players, renderer);
+            input_Players(players, num_of_players, renderer);
         }
 
         // Debug
