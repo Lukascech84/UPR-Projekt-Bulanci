@@ -234,6 +234,7 @@ CMakeFiles/Bulanci.dir/main.c.o
 CMakeFiles/Bulanci.dir/player.c.o
  /home/lukas/UPR/Projekt_Bulanci/player.c
  /home/lukas/UPR/Projekt_Bulanci/player.h
+ /home/lukas/UPR/Projekt_Bulanci/sceneManager.h
  /home/lukas/UPR/Projekt_Bulanci/weapon.h
  /usr/include/SDL2/SDL.h
  /usr/include/SDL2/SDL_assert.h
@@ -688,6 +689,7 @@ CMakeFiles/Bulanci.dir/sceneManager.c.o
 
 CMakeFiles/Bulanci.dir/weapon.c.o
  /home/lukas/UPR/Projekt_Bulanci/weapon.c
+ /home/lukas/UPR/Projekt_Bulanci/player.h
  /home/lukas/UPR/Projekt_Bulanci/weapon.h
  /usr/include/SDL2/SDL.h
  /usr/include/SDL2/SDL_assert.h

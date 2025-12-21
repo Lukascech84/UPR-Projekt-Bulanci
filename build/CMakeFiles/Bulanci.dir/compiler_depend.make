@@ -232,6 +232,7 @@ CMakeFiles/Bulanci.dir/main.c.o: /home/lukas/UPR/Projekt_Bulanci/main.c \
 
 CMakeFiles/Bulanci.dir/player.c.o: /home/lukas/UPR/Projekt_Bulanci/player.c \
   /home/lukas/UPR/Projekt_Bulanci/player.h \
+  /home/lukas/UPR/Projekt_Bulanci/sceneManager.h \
   /home/lukas/UPR/Projekt_Bulanci/weapon.h \
   /usr/include/SDL2/SDL.h \
   /usr/include/SDL2/SDL_assert.h \
@@ -684,6 +685,7 @@ CMakeFiles/Bulanci.dir/sceneManager.c.o: /home/lukas/UPR/Projekt_Bulanci/sceneMa
   /usr/lib/gcc/x86_64-linux-gnu/13/include/xtestintrin.h
 
 CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c \
+  /home/lukas/UPR/Projekt_Bulanci/player.h \
   /home/lukas/UPR/Projekt_Bulanci/weapon.h \
   /usr/include/SDL2/SDL.h \
   /usr/include/SDL2/SDL_assert.h \

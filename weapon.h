@@ -4,10 +4,17 @@
 
 #define MAX_BULLETS 256
 
+typedef struct player player;
+
 typedef struct
 {
+    int playerID;
     SDL_Rect hitbox;
     int bullet_velocity;
+    int directionX;
+    int directionY;
+    int lastDirectionX;
+    int lastDirectionY;
     // int bullet_spread;
     int active;
     SDL_Texture *bullet_texture;
@@ -26,6 +33,12 @@ typedef struct
 
 weapon *get_weapon(int);
 
-void init_bullet(bullet *);
+void init_bullet();
 
-void spawn_bullet(SDL_Renderer *, int, int, weapon);
+void spawn_bullet(SDL_Renderer *, player *);
+
+void render_bullet(SDL_Renderer *);
+
+void update_bullet();
+
+void destroy_bullet(int);

@@ -188,4 +188,4 @@ CMakeFiles/Bulanci.dir/player.c.o: \
  /usr/include/SDL2/SDL_version.h /usr/include/SDL2/SDL_locale.h \
  /usr/include/SDL2/SDL_misc.h /home/lukas/UPR/Projekt_Bulanci/player.h \
  /home/lukas/UPR/Projekt_Bulanci/weapon.h /usr/include/SDL2/SDL_image.h \
- /usr/include/SDL2/SDL.h
+ /usr/include/SDL2/SDL.h /home/lukas/UPR/Projekt_Bulanci/sceneManager.h

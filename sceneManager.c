@@ -3,8 +3,8 @@
 #include "sceneManager.h"
 
 static int num_of_scenes = 2;
-static scene scenes[2] = {{.scene_index = 0, .scene_name = "Menu", .have_players = 0, .bg_texture_address = "./assets/maps/00_Menu/menu_test.png"},
-                          {.scene_index = 1, .scene_name = "Mapa1", .have_players = 1, .bg_texture_address = "./assets/maps/01_Grass/map1_scaled.png"}};
+static scene scenes[2] = {{.scene_index = 0, .scene_name = "Menu", .starting_respawn_timer = 0, .have_players = 0, .bg_texture_address = "./assets/maps/00_Menu/menu_test.png"},
+                          {.scene_index = 1, .scene_name = "Mapa1", .starting_respawn_timer = 5, .have_players = 1, .bg_texture_address = "./assets/maps/01_Grass/map1_scaled.png"}};
 
 static sceneManager scm = {.current_Scene = &scenes[0]};
 

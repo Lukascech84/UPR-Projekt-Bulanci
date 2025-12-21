@@ -11,11 +11,14 @@ typedef struct
     SDL_Scancode shoot;
 } player_keybinds;
 
-typedef struct
+typedef struct player
 {
     int playerID;
-    int directionY;
+    int player_speed;
     int directionX;
+    int directionY;
+    int isAlive;
+    int respawn_timer;
     SDL_Rect hitbox;
     weapon *current_weapon;
     player_keybinds keybinds;
@@ -25,6 +28,10 @@ void *init_Players();
 
 void clear_Players();
 
+int get_Num_Of_Players();
+
+player *get_Players();
+
 void move_Players(double deltaTime);
 
 void render_Players(SDL_Renderer *renderer);
@@ -33,4 +40,6 @@ void input_Players(SDL_Renderer *);
 
 void resize_Players(int new_h, int new_w);
 
-void shoot_Players(player *p, SDL_Renderer *);
+void shoot_Player(player *p, SDL_Renderer *);
+
+void kill_Player(int);

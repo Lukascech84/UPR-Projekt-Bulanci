@@ -56,6 +56,9 @@ int main(int argc, char *argv[])
     // Načítání textur
     scm_load_textures(renderer);
 
+    // Init bullet
+    init_bullet();
+
     // Resize okna
     int resized = 0;
     int new_w, new_h;
@@ -127,7 +130,9 @@ int main(int argc, char *argv[])
                 resized = 0;
             }
             move_Players(deltaTime);
+            update_bullet();
             render_Players(renderer);
+            render_bullet(renderer);
             input_Players(renderer);
         }
 
