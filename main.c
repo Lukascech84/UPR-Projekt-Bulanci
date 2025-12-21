@@ -56,9 +56,6 @@ int main(int argc, char *argv[])
     // Načítání textur
     scm_load_textures(renderer);
 
-    // Init bullet
-    init_bullet();
-
     // Resize okna
     int resized = 0;
     int new_w, new_h;
@@ -115,6 +112,7 @@ int main(int argc, char *argv[])
         if (scm_get_scm()->current_Scene->have_players && !scm_get_scm()->players_spawned)
         {
             init_Players();
+            init_bullet();
             scm_get_scm()->players_spawned = 1;
         }
         else if (!scm_get_scm()->current_Scene->have_players && scm_get_scm()->players_spawned)
@@ -131,6 +129,7 @@ int main(int argc, char *argv[])
             }
             move_Players(deltaTime);
             update_bullet();
+            update_Players_Respawn(deltaTime);
             render_Players(renderer);
             render_bullet(renderer);
             input_Players(renderer);

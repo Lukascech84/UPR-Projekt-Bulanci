@@ -18,7 +18,8 @@ typedef struct player
     int directionX;
     int directionY;
     int isAlive;
-    int respawn_timer;
+    float respawn_timer;
+    float respawn_timer_elapsed;
     SDL_Rect hitbox;
     weapon *current_weapon;
     player_keybinds keybinds;
@@ -43,3 +44,5 @@ void resize_Players(int new_h, int new_w);
 void shoot_Player(player *p, SDL_Renderer *);
 
 void kill_Player(int);
+
+void update_Players_Respawn(double);

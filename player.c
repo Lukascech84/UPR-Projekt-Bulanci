@@ -150,5 +150,33 @@ void shoot_Player(player *p, SDL_Renderer *renderer)
 void kill_Player(int i)
 {
     players[i].isAlive = 0;
-    players[i].respawn_timer = scm_get_scm()->current_Scene->starting_respawn_timer;
+    players[i].respawn_timer_elapsed = 0.0f;
+    players[i].respawn_timer = scm_get_scm()->current_Scene->respawn_timer;
+}
+
+void update_Players_Respawn(double deltaTime)
+{
+    for (size_t i = 0; i < num_of_players; i++)
+    {
+        if (players[i].isAlive)
+        {
+            continue;
+        }
+
+        players[i].respawn_timer_elapsed += deltaTime;
+
+        if (players[i].respawn_timer_elapsed >= players[i].respawn_timer)
+        {
+            respawn_Player(i);
+        }
+    }
+}
+
+void respawn_Player(int i)
+{
+    players[i].isAlive = 1;
+    players[i].respawn_timer_elapsed = 0.0f;
+
+    players[i].hitbox.x = (1.5f * i) * 100;
+    players[i].hitbox.y = 100;
 }

@@ -8,7 +8,7 @@ typedef struct
     char scene_name[50];
 
     // Map data
-    int starting_respawn_timer;
+    float respawn_timer;
     int have_players;
     char *bg_texture_address;
     SDL_Texture *bg_texture;
