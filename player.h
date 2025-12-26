@@ -46,3 +46,5 @@ void shoot_Player(player *p, SDL_Renderer *);
 void kill_Player(int);
 
 void update_Players_Respawn(double);
+
+void respawn_Player(size_t);

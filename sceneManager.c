@@ -3,7 +3,7 @@
 #include "sceneManager.h"
 
 static int num_of_scenes = 2;
-static scene scenes[2] = {{.scene_index = 0, .scene_name = "Menu", .respawn_timer = 0.0f, .have_players = 0, .bg_texture_address = "./assets/maps/00_Menu/menu_test.png"},
+static scene scenes[2] = {{.scene_index = 0, .scene_name = "Menu", .respawn_timer = 0.0f, .have_players = 0, .bg_texture_address = "./assets/maps/00_Menu/menu_test.png", .buttons[0] = {.isActive = 1, .button_color = {0, 0, 0, 255}, .button = {.h = 100, .w = 200, .x = 0, .y = 0}, .text = "Play", .text_color = {255, 255, 255, 255}}},
                           {.scene_index = 1, .scene_name = "Mapa1", .respawn_timer = 5.0f, .have_players = 1, .bg_texture_address = "./assets/maps/01_Grass/map1_scaled.png"}};
 
 static sceneManager scm = {.current_Scene = &scenes[0]};
@@ -18,9 +18,11 @@ scene *scm_get_scene(int index)
     return &scenes[index];
 }
 
-void scm_load_scene(int scene_index)
+void scm_load_scene(int scene_index, SDL_Renderer *renderer)
 {
+    clear_ui();
     scm.current_Scene = &scenes[scene_index];
+    load_ui(renderer);
 }
 
 int scm_load_textures(SDL_Renderer *renderer)

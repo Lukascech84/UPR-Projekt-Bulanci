@@ -201,6 +201,30 @@ sceneManager.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/sceneManager.c.s
 .PHONY : sceneManager.c.s
 
+ui.o: ui.c.o
+.PHONY : ui.o
+
+# target to build an object file
+ui.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/ui.c.o
+.PHONY : ui.c.o
+
+ui.i: ui.c.i
+.PHONY : ui.i
+
+# target to preprocess a source file
+ui.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/ui.c.i
+.PHONY : ui.c.i
+
+ui.s: ui.c.s
+.PHONY : ui.s
+
+# target to generate assembly for a file
+ui.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/ui.c.s
+.PHONY : ui.c.s
+
 weapon.o: weapon.c.o
 .PHONY : weapon.o
 
@@ -243,6 +267,9 @@ help:
 	@echo "... sceneManager.o"
 	@echo "... sceneManager.i"
 	@echo "... sceneManager.s"
+	@echo "... ui.o"
+	@echo "... ui.i"
+	@echo "... ui.s"
 	@echo "... weapon.o"
 	@echo "... weapon.i"
 	@echo "... weapon.s"

@@ -16,6 +16,7 @@ add_executable(Bulanci
     player.c
     sceneManager.c
     weapon.c
+    ui.c
 )
 
 target_include_directories(Bulanci PRIVATE

@@ -42,8 +42,8 @@ void spawn_bullet(SDL_Renderer *renderer, player *p)
             // fired_bullets[i].bullet_spread = 0;
             fired_bullets[i].bullet_texture = p->current_weapon->bullet_texture;
             fired_bullets[i].bullet_velocity = p->current_weapon->bullet_velocity;
-            fired_bullets[i].hitbox.h = 20;
-            fired_bullets[i].hitbox.w = 20;
+            fired_bullets[i].hitbox.h = 5;
+            fired_bullets[i].hitbox.w = 5;
             fired_bullets[i].hitbox.x = p->hitbox.x;
             fired_bullets[i].hitbox.y = p->hitbox.y;
             return;

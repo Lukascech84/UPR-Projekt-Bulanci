@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Bulanci.dir/player.c.o.d"
   "CMakeFiles/Bulanci.dir/sceneManager.c.o"
   "CMakeFiles/Bulanci.dir/sceneManager.c.o.d"
+  "CMakeFiles/Bulanci.dir/ui.c.o"
+  "CMakeFiles/Bulanci.dir/ui.c.o.d"
   "CMakeFiles/Bulanci.dir/weapon.c.o"
   "CMakeFiles/Bulanci.dir/weapon.c.o.d"
 )

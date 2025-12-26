@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/lukas/UPR/Projekt_Bulanci/main.c" "CMakeFiles/Bulanci.dir/main.c.o" "gcc" "CMakeFiles/Bulanci.dir/main.c.o.d"
   "/home/lukas/UPR/Projekt_Bulanci/player.c" "CMakeFiles/Bulanci.dir/player.c.o" "gcc" "CMakeFiles/Bulanci.dir/player.c.o.d"
   "/home/lukas/UPR/Projekt_Bulanci/sceneManager.c" "CMakeFiles/Bulanci.dir/sceneManager.c.o" "gcc" "CMakeFiles/Bulanci.dir/sceneManager.c.o.d"
+  "/home/lukas/UPR/Projekt_Bulanci/ui.c" "CMakeFiles/Bulanci.dir/ui.c.o" "gcc" "CMakeFiles/Bulanci.dir/ui.c.o.d"
   "/home/lukas/UPR/Projekt_Bulanci/weapon.c" "CMakeFiles/Bulanci.dir/weapon.c.o" "gcc" "CMakeFiles/Bulanci.dir/weapon.c.o.d"
   )
 

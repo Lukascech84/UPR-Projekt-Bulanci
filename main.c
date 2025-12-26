@@ -8,6 +8,7 @@
 #include "player.h"
 #include "sceneManager.h"
 #include "weapon.h"
+#include "ui.h"
 
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 576
@@ -45,6 +46,14 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+    if (TTF_Init() == -1)
+    {
+        SDL_DestroyWindow(window);
+        printf("TTF_Init error: %s\n", TTF_GetError());
+        SDL_Quit();
+        return 1;
+    }
+
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
@@ -55,6 +64,8 @@ int main(int argc, char *argv[])
 
     // Načítání textur
     scm_load_textures(renderer);
+    init_ui();
+    load_ui(renderer);
 
     // Resize okna
     int resized = 0;
@@ -101,12 +112,13 @@ int main(int argc, char *argv[])
         // Loading scén
         if (scm_get_scm()->current_Scene->scene_index != target_scene)
         {
-            scm_load_scene(target_scene);
+            scm_load_scene(target_scene, renderer);
             printf("Loading scene: %s\n", scm_get_scene(target_scene)->scene_name);
         }
 
         // Vykreslení pozadí
         SDL_RenderCopy(renderer, scm_get_scm()->current_Scene->bg_texture, NULL, NULL);
+        render_ui(renderer);
 
         // Logika hráče
         if (scm_get_scm()->current_Scene->have_players && !scm_get_scm()->players_spawned)
@@ -146,9 +158,11 @@ int main(int argc, char *argv[])
         SDL_RenderPresent(renderer); // Prezentace kreslítka
     }
 
+    clear_ui();
     clear_Players();
     scm_destroy_textures();
     IMG_Quit();
+    TTF_Quit();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

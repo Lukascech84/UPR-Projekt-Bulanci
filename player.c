@@ -24,8 +24,8 @@ void *init_Players()
         players[i].player_speed = 200;
         players[i].directionX = 0;
         players[i].directionY = 0;
-        players[i].hitbox.h = 100;
-        players[i].hitbox.w = 100;
+        players[i].hitbox.h = 50;
+        players[i].hitbox.w = 50;
         players[i].hitbox.x = (1.5f * i) * 100;
         players[i].hitbox.y = 100;
         players[i].current_weapon = get_weapon(0);
@@ -172,7 +172,7 @@ void update_Players_Respawn(double deltaTime)
     }
 }
 
-void respawn_Player(int i)
+void respawn_Player(size_t i)
 {
     players[i].isAlive = 1;
     players[i].respawn_timer_elapsed = 0.0f;
