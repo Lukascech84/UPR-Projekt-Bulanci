@@ -13,6 +13,7 @@ pkg_check_modules(SDL2_IMAGE REQUIRED SDL2_image)
 
 add_executable(Bulanci
     main.c
+    engine.c
     player.c
     sceneManager.c
     weapon.c

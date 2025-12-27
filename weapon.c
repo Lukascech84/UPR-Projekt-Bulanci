@@ -27,8 +27,10 @@ void init_bullet()
     }
 }
 
-void spawn_bullet(SDL_Renderer *renderer, player *p)
+void spawn_bullet(player *p)
 {
+    SDL_Renderer *renderer = eng_get()->renderer;
+
     for (size_t i = 0; i < MAX_BULLETS; i++)
     {
         if (fired_bullets[i].active == 0)
@@ -51,8 +53,10 @@ void spawn_bullet(SDL_Renderer *renderer, player *p)
     }
 }
 
-void render_bullet(SDL_Renderer *renderer)
+void render_bullet()
 {
+    SDL_Renderer *renderer = eng_get()->renderer;
+
     SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
     for (size_t i = 0; i < MAX_BULLETS; i++)
     {

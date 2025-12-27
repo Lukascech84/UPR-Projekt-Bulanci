@@ -1,6 +1,8 @@
 #pragma once
 #include <SDL2/SDL.h>
+#include "engine.h"
 #include "weapon.h"
+#include "sceneManager.h"
 
 typedef struct
 {
@@ -33,18 +35,18 @@ int get_Num_Of_Players();
 
 player *get_Players();
 
-void move_Players(double deltaTime);
+void move_Players();
 
-void render_Players(SDL_Renderer *renderer);
+void render_Players();
 
-void input_Players(SDL_Renderer *);
+void input_Players();
 
 void resize_Players(int new_h, int new_w);
 
-void shoot_Player(player *p, SDL_Renderer *);
+void shoot_Player(player *p);
 
 void kill_Player(int);
 
-void update_Players_Respawn(double);
+void update_Players_Respawn();
 
 void respawn_Player(size_t);

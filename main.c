@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
+#include "engine.h"
 #include "player.h"
 #include "sceneManager.h"
 #include "weapon.h"
@@ -57,12 +58,13 @@ int main(int argc, char *argv[])
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
-    Uint64 last = SDL_GetPerformanceCounter();
+    eng_init(window, renderer, WINDOW_WIDTH, WINDOW_HEIGHT);
+    engine *eng = eng_get();
 
     // Proměnné
-    int target_scene = 0;
 
     // Načítání textur
+    init_scenes();
     scm_load_textures(renderer);
     init_ui();
     load_ui(renderer);
@@ -79,6 +81,7 @@ int main(int argc, char *argv[])
     {
         while (SDL_PollEvent(&event))
         {
+            update_buttons(&event);
 
             if (event.type == SDL_QUIT)
             {
@@ -90,31 +93,13 @@ int main(int argc, char *argv[])
                 new_w = event.window.data1;
                 new_h = event.window.data2;
             }
-            // Výměna scén
-            if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
-            {
-                if (scm_get_scm()->current_Scene->scene_index == 0)
-                {
-                    target_scene = 1;
-                }
-                else
-                {
-                    target_scene = 0;
-                }
-            }
         }
 
         Uint64 now = SDL_GetPerformanceCounter();
-        double deltaTime = (now - last) / (double)SDL_GetPerformanceFrequency();
+        eng->deltaTime = (now - eng->lastTicks) / (double)SDL_GetPerformanceFrequency();
         SDL_RenderClear(renderer);
 
         // Kód
-        // Loading scén
-        if (scm_get_scm()->current_Scene->scene_index != target_scene)
-        {
-            scm_load_scene(target_scene, renderer);
-            printf("Loading scene: %s\n", scm_get_scene(target_scene)->scene_name);
-        }
 
         // Vykreslení pozadí
         SDL_RenderCopy(renderer, scm_get_scm()->current_Scene->bg_texture, NULL, NULL);
@@ -139,12 +124,12 @@ int main(int argc, char *argv[])
                 resize_Players(new_h / 10, new_w / 10);
                 resized = 0;
             }
-            move_Players(deltaTime);
+            move_Players();
             update_bullet();
-            update_Players_Respawn(deltaTime);
-            render_Players(renderer);
-            render_bullet(renderer);
-            input_Players(renderer);
+            update_Players_Respawn();
+            render_Players();
+            render_bullet();
+            input_Players();
         }
 
         // Debug
@@ -153,7 +138,7 @@ int main(int argc, char *argv[])
         // printf("%dx%d\n", SDL_GetWindowSurface(window)->w, SDL_GetWindowSurface(window)->h);
         // printf("x1: %d, y1: %d, x2: %d, y2: %d\n", players[0].hitbox.x, players[0].hitbox.y, players[1].hitbox.x, players[1].hitbox.y);
 
-        last = now;
+        eng->lastTicks = now;
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderPresent(renderer); // Prezentace kreslítka
     }

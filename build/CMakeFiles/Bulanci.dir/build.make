@@ -83,10 +83,24 @@ CMakeFiles/Bulanci.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Bulanci.dir/main.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/main.c -o CMakeFiles/Bulanci.dir/main.c.s
 
+CMakeFiles/Bulanci.dir/engine.c.o: CMakeFiles/Bulanci.dir/flags.make
+CMakeFiles/Bulanci.dir/engine.c.o: /home/lukas/UPR/Projekt_Bulanci/engine.c
+CMakeFiles/Bulanci.dir/engine.c.o: CMakeFiles/Bulanci.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Bulanci.dir/engine.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/engine.c.o -MF CMakeFiles/Bulanci.dir/engine.c.o.d -o CMakeFiles/Bulanci.dir/engine.c.o -c /home/lukas/UPR/Projekt_Bulanci/engine.c
+
+CMakeFiles/Bulanci.dir/engine.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Bulanci.dir/engine.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/engine.c > CMakeFiles/Bulanci.dir/engine.c.i
+
+CMakeFiles/Bulanci.dir/engine.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Bulanci.dir/engine.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/engine.c -o CMakeFiles/Bulanci.dir/engine.c.s
+
 CMakeFiles/Bulanci.dir/player.c.o: CMakeFiles/Bulanci.dir/flags.make
 CMakeFiles/Bulanci.dir/player.c.o: /home/lukas/UPR/Projekt_Bulanci/player.c
 CMakeFiles/Bulanci.dir/player.c.o: CMakeFiles/Bulanci.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Bulanci.dir/player.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/Bulanci.dir/player.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/player.c.o -MF CMakeFiles/Bulanci.dir/player.c.o.d -o CMakeFiles/Bulanci.dir/player.c.o -c /home/lukas/UPR/Projekt_Bulanci/player.c
 
 CMakeFiles/Bulanci.dir/player.c.i: cmake_force
@@ -100,7 +114,7 @@ CMakeFiles/Bulanci.dir/player.c.s: cmake_force
 CMakeFiles/Bulanci.dir/sceneManager.c.o: CMakeFiles/Bulanci.dir/flags.make
 CMakeFiles/Bulanci.dir/sceneManager.c.o: /home/lukas/UPR/Projekt_Bulanci/sceneManager.c
 CMakeFiles/Bulanci.dir/sceneManager.c.o: CMakeFiles/Bulanci.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/Bulanci.dir/sceneManager.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/Bulanci.dir/sceneManager.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/sceneManager.c.o -MF CMakeFiles/Bulanci.dir/sceneManager.c.o.d -o CMakeFiles/Bulanci.dir/sceneManager.c.o -c /home/lukas/UPR/Projekt_Bulanci/sceneManager.c
 
 CMakeFiles/Bulanci.dir/sceneManager.c.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/Bulanci.dir/sceneManager.c.s: cmake_force
 CMakeFiles/Bulanci.dir/weapon.c.o: CMakeFiles/Bulanci.dir/flags.make
 CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c
 CMakeFiles/Bulanci.dir/weapon.c.o: CMakeFiles/Bulanci.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/Bulanci.dir/weapon.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/Bulanci.dir/weapon.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/weapon.c.o -MF CMakeFiles/Bulanci.dir/weapon.c.o.d -o CMakeFiles/Bulanci.dir/weapon.c.o -c /home/lukas/UPR/Projekt_Bulanci/weapon.c
 
 CMakeFiles/Bulanci.dir/weapon.c.i: cmake_force
@@ -128,7 +142,7 @@ CMakeFiles/Bulanci.dir/weapon.c.s: cmake_force
 CMakeFiles/Bulanci.dir/ui.c.o: CMakeFiles/Bulanci.dir/flags.make
 CMakeFiles/Bulanci.dir/ui.c.o: /home/lukas/UPR/Projekt_Bulanci/ui.c
 CMakeFiles/Bulanci.dir/ui.c.o: CMakeFiles/Bulanci.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/Bulanci.dir/ui.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/Bulanci.dir/ui.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/ui.c.o -MF CMakeFiles/Bulanci.dir/ui.c.o.d -o CMakeFiles/Bulanci.dir/ui.c.o -c /home/lukas/UPR/Projekt_Bulanci/ui.c
 
 CMakeFiles/Bulanci.dir/ui.c.i: cmake_force
@@ -142,6 +156,7 @@ CMakeFiles/Bulanci.dir/ui.c.s: cmake_force
 # Object files for target Bulanci
 Bulanci_OBJECTS = \
 "CMakeFiles/Bulanci.dir/main.c.o" \
+"CMakeFiles/Bulanci.dir/engine.c.o" \
 "CMakeFiles/Bulanci.dir/player.c.o" \
 "CMakeFiles/Bulanci.dir/sceneManager.c.o" \
 "CMakeFiles/Bulanci.dir/weapon.c.o" \
@@ -151,13 +166,14 @@ Bulanci_OBJECTS = \
 Bulanci_EXTERNAL_OBJECTS =
 
 Bulanci: CMakeFiles/Bulanci.dir/main.c.o
+Bulanci: CMakeFiles/Bulanci.dir/engine.c.o
 Bulanci: CMakeFiles/Bulanci.dir/player.c.o
 Bulanci: CMakeFiles/Bulanci.dir/sceneManager.c.o
 Bulanci: CMakeFiles/Bulanci.dir/weapon.c.o
 Bulanci: CMakeFiles/Bulanci.dir/ui.c.o
 Bulanci: CMakeFiles/Bulanci.dir/build.make
 Bulanci: CMakeFiles/Bulanci.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable Bulanci"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking C executable Bulanci"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Bulanci.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -189,4 +189,7 @@ CMakeFiles/Bulanci.dir/ui.c.o: /home/lukas/UPR/Projekt_Bulanci/ui.c \
  /usr/include/SDL2/SDL_misc.h /usr/include/SDL2/SDL_ttf.h \
  /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_image.h \
  /home/lukas/UPR/Projekt_Bulanci/ui.h \
- /home/lukas/UPR/Projekt_Bulanci/sceneManager.h
+ /home/lukas/UPR/Projekt_Bulanci/sceneManager.h \
+ /home/lukas/UPR/Projekt_Bulanci/engine.h \
+ /home/lukas/UPR/Projekt_Bulanci/player.h \
+ /home/lukas/UPR/Projekt_Bulanci/weapon.h

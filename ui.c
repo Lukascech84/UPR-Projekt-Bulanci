@@ -4,6 +4,7 @@
 #include <SDL2/SDL_image.h>
 #include "ui.h"
 #include "sceneManager.h"
+#include "player.h"
 
 #define FONT_ADDRESS "./assets/fonts/Jersey_Pixelated/Jersey10-Regular.ttf"
 
@@ -19,18 +20,16 @@ void init_ui()
         printf("Font load error: %s\n", TTF_GetError());
         return;
     }
-
-    init_buttons();
 }
 
-void load_ui(SDL_Renderer *renderer)
+void load_ui()
 {
-    load_buttons(renderer);
+    load_buttons();
 }
 
-void render_ui(SDL_Renderer *renderer)
+void render_ui()
 {
-    render_buttons(renderer);
+    render_buttons();
 }
 
 void clear_ui()
@@ -38,32 +37,7 @@ void clear_ui()
     clear_buttons();
 }
 
-void init_buttons()
-{
-    for (size_t i = 0; i < MAX_BUTTONS_PER_SCENE; i++)
-    {
-        loaded_buttons_in_scene[i].isActive = 0;
-
-        loaded_buttons_in_scene[i].button.h = 0;
-        loaded_buttons_in_scene[i].button.w = 0;
-        loaded_buttons_in_scene[i].button.x = 0;
-        loaded_buttons_in_scene[i].button.y = 0;
-        loaded_buttons_in_scene[i].button_color.a = 0;
-        loaded_buttons_in_scene[i].button_color.r = 0;
-        loaded_buttons_in_scene[i].button_color.g = 0;
-        loaded_buttons_in_scene[i].button_color.b = 0;
-
-        strcpy(loaded_buttons_in_scene[i].text, "");
-
-        loaded_buttons_in_scene[i].text_color.a = 0;
-        loaded_buttons_in_scene[i].text_color.r = 0;
-        loaded_buttons_in_scene[i].text_color.g = 0;
-        loaded_buttons_in_scene[i].text_color.b = 0;
-        loaded_buttons_in_scene[i].text_texture = NULL;
-    }
-}
-
-void load_buttons(SDL_Renderer *renderer)
+void load_buttons()
 {
     for (size_t i = 0; i < MAX_BUTTONS_PER_SCENE; i++)
     {
@@ -71,31 +45,41 @@ void load_buttons(SDL_Renderer *renderer)
         {
             loaded_buttons_in_scene[i] = scm_get_scm()->current_Scene->buttons[i];
 
-            create_button_text_texture(renderer, &loaded_buttons_in_scene[i]);
+            create_button_text_texture(&loaded_buttons_in_scene[i]);
         }
     }
 }
 
-void render_buttons(SDL_Renderer *renderer)
+void render_buttons()
 {
+    SDL_Renderer *renderer = eng_get()->renderer;
+
     for (size_t i = 0; i < MAX_BUTTONS_PER_SCENE; i++)
     {
-        if (!loaded_buttons_in_scene[i].isActive)
+        button *btn = &loaded_buttons_in_scene[i];
+
+        if (!btn->isActive)
         {
             continue;
         }
 
-        SDL_SetRenderDrawColor(renderer, loaded_buttons_in_scene[i].button_color.r, loaded_buttons_in_scene[i].button_color.g, loaded_buttons_in_scene[i].button_color.b, loaded_buttons_in_scene[i].button_color.a);
+        SDL_Color color = btn->button_color;
 
-        SDL_RenderFillRect(renderer, &loaded_buttons_in_scene[i].button);
-
-        if (loaded_buttons_in_scene[i].text_texture)
+        if (btn->state == BUTTON_HOVER)
         {
-            SDL_RenderCopy(
-                renderer,
-                loaded_buttons_in_scene[i].text_texture,
-                NULL,
-                &loaded_buttons_in_scene[i].text_size);
+            color = btn->hover_color;
+        }
+        else if (btn->state == BUTTON_PRESSED)
+        {
+            color = btn->pressed_color;
+        }
+
+        SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+        SDL_RenderFillRect(renderer, &btn->button);
+
+        if (btn->text_texture)
+        {
+            SDL_RenderCopy(renderer, btn->text_texture, NULL, &btn->text_size);
         }
     }
 }
@@ -114,8 +98,10 @@ void clear_buttons()
     }
 }
 
-void create_button_text_texture(SDL_Renderer *renderer, button *btn)
+void create_button_text_texture(button *btn)
 {
+    SDL_Renderer *renderer = eng_get()->renderer;
+
     if (btn->text_texture)
     {
         SDL_DestroyTexture(btn->text_texture);
@@ -149,4 +135,79 @@ void create_button_text_texture(SDL_Renderer *renderer, button *btn)
 
     btn->text_size.x = btn->button.x + (btn->button.w - btn->text_size.w) / 2;
     btn->text_size.y = btn->button.y + (btn->button.h - btn->text_size.h) / 2;
+}
+
+int is_mouse_over_button(button *btn, int mx, int my)
+{
+    return (mx >= btn->button.x &&
+            mx <= btn->button.x + btn->button.w &&
+            my >= btn->button.y &&
+            my <= btn->button.y + btn->button.h);
+}
+
+void update_buttons(SDL_Event *event)
+{
+    int mx, my;
+    SDL_GetMouseState(&mx, &my);
+
+    for (size_t i = 0; i < MAX_BUTTONS_PER_SCENE; i++)
+    {
+        button *btn = &loaded_buttons_in_scene[i];
+
+        if (!btn->isActive)
+        {
+            continue;
+        }
+
+        int hover = is_mouse_over_button(btn, mx, my);
+
+        if (!hover)
+        {
+            btn->state = BUTTON_NORMAL;
+            continue;
+        }
+
+        if (event->type == SDL_MOUSEBUTTONDOWN && event->button.button == SDL_BUTTON_LEFT)
+        {
+            btn->state = BUTTON_PRESSED;
+        }
+
+        else if (event->type == SDL_MOUSEBUTTONUP && event->button.button == SDL_BUTTON_LEFT)
+        {
+            if (btn->state == BUTTON_PRESSED)
+            {
+                if (btn->onClick)
+                {
+                    btn->onClick();
+                }
+
+                btn->state = BUTTON_HOVER;
+            }
+        }
+        else
+        {
+            if (btn->state != BUTTON_PRESSED)
+            {
+                btn->state = BUTTON_NORMAL;
+            }
+        }
+    }
+}
+
+void on_start_game()
+{
+    printf("Game started\n");
+    scm_load_scene(1);
+}
+
+void on_quit()
+{
+    clear_ui();
+    clear_Players();
+    scm_destroy_textures();
+    IMG_Quit();
+    TTF_Quit();
+    SDL_DestroyRenderer(eng_get()->renderer);
+    SDL_DestroyWindow(eng_get()->window);
+    SDL_Quit();
 }

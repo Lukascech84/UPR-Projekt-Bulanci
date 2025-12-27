@@ -1,6 +1,5 @@
 #include <SDL2/SDL.h>
 #include "player.h"
-#include "sceneManager.h"
 
 static int num_of_players = 4;
 
@@ -49,10 +48,11 @@ player *get_Players()
     return players;
 }
 
-void move_Players(double deltaTime)
+void move_Players()
 {
     for (size_t i = 0; i < num_of_players; i++)
     {
+        double deltaTime = eng_get()->deltaTime;
         SDL_Rect predict = players[i].hitbox;
         predict.x += players[i].directionX * players[i].player_speed * deltaTime;
         predict.y += players[i].directionY * players[i].player_speed * deltaTime;
@@ -80,8 +80,10 @@ void move_Players(double deltaTime)
     }
 }
 
-void render_Players(SDL_Renderer *renderer)
+void render_Players()
 {
+    SDL_Renderer *renderer = eng_get()->renderer;
+
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 
     for (size_t i = 0; i < num_of_players; i++)
@@ -95,7 +97,7 @@ void render_Players(SDL_Renderer *renderer)
     }
 }
 
-void input_Players(SDL_Renderer *renderer)
+void input_Players()
 {
     const Uint8 *state = SDL_GetKeyboardState(NULL);
 
@@ -128,7 +130,7 @@ void input_Players(SDL_Renderer *renderer)
 
         // Shoot
         if (state[players[i].keybinds.shoot])
-            shoot_Player(&players[i], renderer);
+            shoot_Player(&players[i]);
     }
 }
 
@@ -141,10 +143,10 @@ void resize_Players(int new_h, int new_w)
     }
 }
 
-void shoot_Player(player *p, SDL_Renderer *renderer)
+void shoot_Player(player *p)
 {
     printf("Player %d shot from %s.\n", p->playerID, p->current_weapon->weapon_name);
-    spawn_bullet(renderer, p);
+    spawn_bullet(p);
 }
 
 void kill_Player(int i)
@@ -154,7 +156,7 @@ void kill_Player(int i)
     players[i].respawn_timer = scm_get_scm()->current_Scene->respawn_timer;
 }
 
-void update_Players_Respawn(double deltaTime)
+void update_Players_Respawn()
 {
     for (size_t i = 0; i < num_of_players; i++)
     {
@@ -163,7 +165,7 @@ void update_Players_Respawn(double deltaTime)
             continue;
         }
 
-        players[i].respawn_timer_elapsed += deltaTime;
+        players[i].respawn_timer_elapsed += eng_get()->deltaTime;
 
         if (players[i].respawn_timer_elapsed >= players[i].respawn_timer)
         {

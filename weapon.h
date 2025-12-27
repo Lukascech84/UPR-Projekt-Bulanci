@@ -35,9 +35,9 @@ weapon *get_weapon(int);
 
 void init_bullet();
 
-void spawn_bullet(SDL_Renderer *, player *);
+void spawn_bullet(player *);
 
-void render_bullet(SDL_Renderer *);
+void render_bullet();
 
 void update_bullet();
 

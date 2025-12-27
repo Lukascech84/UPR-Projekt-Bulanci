@@ -1,12 +1,69 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "sceneManager.h"
+#include "engine.h"
+#include "ui.h"
 
-static int num_of_scenes = 2;
-static scene scenes[2] = {{.scene_index = 0, .scene_name = "Menu", .respawn_timer = 0.0f, .have_players = 0, .bg_texture_address = "./assets/maps/00_Menu/menu_test.png", .buttons[0] = {.isActive = 1, .button_color = {0, 0, 0, 255}, .button = {.h = 100, .w = 200, .x = 0, .y = 0}, .text = "Play", .text_color = {255, 255, 255, 255}}},
-                          {.scene_index = 1, .scene_name = "Mapa1", .respawn_timer = 5.0f, .have_players = 1, .bg_texture_address = "./assets/maps/01_Grass/map1_scaled.png"}};
+#define MAX_SCENES 2
+#define MAX_BUTTONS_PER_SCENE 10
 
-static sceneManager scm = {.current_Scene = &scenes[0]};
+static scene scenes[MAX_SCENES];
+static sceneManager scm = {.current_Scene = NULL};
+
+scene create_menu_scene()
+{
+    scene s = {0};
+
+    s.scene_index = 0;
+    s.scene_name = "Menu";
+    s.have_players = 0;
+    s.respawn_timer = 0.0f;
+    s.bg_texture_address = "./assets/maps/00_Menu/menu_test.png";
+
+    s.buttons[0] = (button){
+        .isActive = 1,
+        .button = {412, 238, 200, 100},
+        .button_color = {100, 100, 100, 255},
+        .hover_color = {140, 140, 140, 255},
+        .pressed_color = {180, 180, 180, 255},
+        .text = "Play",
+        .text_color = {255, 255, 255, 255},
+        .onClick = on_start_game,
+        .state = BUTTON_NORMAL};
+    s.buttons[1] = (button){
+        .isActive = 1,
+        .button = {25, 476 - 25, 200, 100},
+        .button_color = {100, 100, 100, 255},
+        .hover_color = {140, 140, 140, 255},
+        .pressed_color = {180, 180, 180, 255},
+        .text = "Exit",
+        .text_color = {255, 255, 255, 255},
+        .onClick = on_quit,
+        .state = BUTTON_NORMAL};
+
+    return s;
+}
+
+scene create_map1_scene()
+{
+    scene s = {0};
+
+    s.scene_index = 1;
+    s.scene_name = "Grass";
+    s.have_players = 1;
+    s.respawn_timer = 5.0f;
+    s.bg_texture_address = "./assets/maps/01_Grass/map1_scaled.png";
+
+    return s;
+}
+
+void init_scenes()
+{
+    scenes[0] = create_menu_scene();
+    scenes[1] = create_map1_scene();
+
+    scm.current_Scene = &scenes[0];
+}
 
 sceneManager *scm_get_scm()
 {
@@ -18,16 +75,19 @@ scene *scm_get_scene(int index)
     return &scenes[index];
 }
 
-void scm_load_scene(int scene_index, SDL_Renderer *renderer)
+void scm_load_scene(int scene_index)
 {
     clear_ui();
     scm.current_Scene = &scenes[scene_index];
-    load_ui(renderer);
+    printf("Loading scene: %s\n", scm_get_scene(scene_index)->scene_name);
+    load_ui();
 }
 
-int scm_load_textures(SDL_Renderer *renderer)
+int scm_load_textures()
 {
-    for (size_t i = 0; i < num_of_scenes; i++)
+    SDL_Renderer *renderer = eng_get()->renderer;
+
+    for (size_t i = 0; i < MAX_SCENES; i++)
     {
         SDL_Surface *background_sur = IMG_Load(scenes[i].bg_texture_address);
         if (background_sur == NULL)
@@ -49,7 +109,7 @@ int scm_load_textures(SDL_Renderer *renderer)
 
 void scm_destroy_textures()
 {
-    for (size_t i = 0; i < num_of_scenes; i++)
+    for (size_t i = 0; i < MAX_SCENES; i++)
     {
         SDL_DestroyTexture(scenes[i].bg_texture);
     }

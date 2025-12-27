@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "Bulanci"
   "Bulanci.pdb"
+  "CMakeFiles/Bulanci.dir/engine.c.o"
+  "CMakeFiles/Bulanci.dir/engine.c.o.d"
   "CMakeFiles/Bulanci.dir/main.c.o"
   "CMakeFiles/Bulanci.dir/main.c.o.d"
   "CMakeFiles/Bulanci.dir/player.c.o"
