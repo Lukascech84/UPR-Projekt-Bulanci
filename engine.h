@@ -1,8 +1,10 @@
 #pragma once
 #include <SDL2/SDL.h>
 
-typedef struct {
-    SDL_Window   *window;
+typedef struct
+{
+    int running;
+    SDL_Window *window;
     SDL_Renderer *renderer;
     int window_w;
     int window_h;
@@ -10,6 +12,10 @@ typedef struct {
     Uint64 lastTicks;
 } engine;
 
-void eng_init(SDL_Window *w, SDL_Renderer *r, int w_w, int w_h);
-
 engine *eng_get();
+
+int eng_init(char *title, int w, int h);
+
+void eng_run();
+
+void eng_quit();

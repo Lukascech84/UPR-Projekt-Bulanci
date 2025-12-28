@@ -3,6 +3,10 @@
 
 CMakeFiles/Bulanci.dir/engine.c.o: /home/lukas/UPR/Projekt_Bulanci/engine.c \
   /home/lukas/UPR/Projekt_Bulanci/engine.h \
+  /home/lukas/UPR/Projekt_Bulanci/player.h \
+  /home/lukas/UPR/Projekt_Bulanci/sceneManager.h \
+  /home/lukas/UPR/Projekt_Bulanci/ui.h \
+  /home/lukas/UPR/Projekt_Bulanci/weapon.h \
   /usr/include/SDL2/SDL.h \
   /usr/include/SDL2/SDL_assert.h \
   /usr/include/SDL2/SDL_atomic.h \
@@ -21,6 +25,7 @@ CMakeFiles/Bulanci.dir/engine.c.o: /home/lukas/UPR/Projekt_Bulanci/engine.c \
   /usr/include/SDL2/SDL_haptic.h \
   /usr/include/SDL2/SDL_hidapi.h \
   /usr/include/SDL2/SDL_hints.h \
+  /usr/include/SDL2/SDL_image.h \
   /usr/include/SDL2/SDL_joystick.h \
   /usr/include/SDL2/SDL_keyboard.h \
   /usr/include/SDL2/SDL_keycode.h \
@@ -49,6 +54,7 @@ CMakeFiles/Bulanci.dir/engine.c.o: /home/lukas/UPR/Projekt_Bulanci/engine.c \
   /usr/include/SDL2/SDL_thread.h \
   /usr/include/SDL2/SDL_timer.h \
   /usr/include/SDL2/SDL_touch.h \
+  /usr/include/SDL2/SDL_ttf.h \
   /usr/include/SDL2/SDL_version.h \
   /usr/include/SDL2/SDL_video.h \
   /usr/include/SDL2/begin_code.h \
@@ -1384,10 +1390,6 @@ CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c \
 
 /home/lukas/UPR/Projekt_Bulanci/ui.c:
 
-/home/lukas/UPR/Projekt_Bulanci/ui.h:
-
-/home/lukas/UPR/Projekt_Bulanci/player.h:
-
 /usr/lib/gcc/x86_64-linux-gnu/13/include/xsavesintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/xsaveintrin.h:
@@ -1462,14 +1464,6 @@ CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c \
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avx512vlbwintrin.h:
 
-/usr/include/SDL2/SDL_ttf.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/rdseedintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/lwpintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512vbmivlintrin.h:
-
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avx512vbmiintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/shaintrin.h:
@@ -1488,12 +1482,6 @@ CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c \
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avx512bwintrin.h:
 
-/home/lukas/UPR/Projekt_Bulanci/sceneManager.c:
-
-/home/lukas/UPR/Projekt_Bulanci/weapon.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512bitalgintrin.h:
-
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avx512bf16intrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avx5124vnniwintrin.h:
@@ -1510,35 +1498,13 @@ CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c \
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/amxbf16intrin.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/avxneconvertintrin.h:
+/usr/include/x86_64-linux-gnu/sys/cdefs.h:
 
-/usr/include/inttypes.h:
-
-/usr/include/features-time64.h:
-
-/usr/include/SDL2/SDL_gesture.h:
-
-/usr/include/ctype.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/avxintrin.h:
-
-/usr/include/x86_64-linux-gnu/bits/fp-logb.h:
-
-/usr/include/SDL2/SDL_image.h:
-
-/usr/include/alloca.h:
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avx5124fmapsintrin.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
-
-/usr/include/math.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/cetintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/bmiintrin.h:
-
-/usr/include/endian.h:
 
 /usr/include/SDL2/SDL_timer.h:
 
@@ -1548,9 +1514,9 @@ CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c \
 
 /usr/include/SDL2/SDL_system.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/prfchwintrin.h:
+/usr/include/x86_64-linux-gnu/sys/select.h:
 
-/usr/include/features.h:
+/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/cmpccxaddintrin.h:
 
@@ -1566,10 +1532,6 @@ CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c \
 
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
-
-/usr/include/SDL2/SDL_platform.h:
-
 /usr/include/SDL2/SDL_filesystem.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avxifmaintrin.h:
@@ -1578,31 +1540,75 @@ CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c \
 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
 
-/usr/include/SDL2/SDL_pixels.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/rdseedintrin.h:
 
-/usr/include/SDL2/SDL_error.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/lwpintrin.h:
 
-/usr/include/SDL2/SDL_mouse.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512vbmivlintrin.h:
 
-/home/lukas/UPR/Projekt_Bulanci/sceneManager.h:
+/usr/include/SDL2/SDL_ttf.h:
 
-/usr/include/SDL2/SDL_keycode.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/bmi2intrin.h:
 
-/usr/include/SDL2/SDL_render.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/adxintrin.h:
 
-/usr/include/SDL2/SDL_cpuinfo.h:
+/usr/include/x86_64-linux-gnu/bits/mathcalls.h:
 
-/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+/usr/include/SDL2/SDL_thread.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/prfchiintrin.h:
+/usr/include/SDL2/SDL_metal.h:
 
-/usr/include/SDL2/SDL_audio.h:
+/usr/include/SDL2/SDL_messagebox.h:
+
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512fintrin.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/amxint8intrin.h:
+
+/usr/include/x86_64-linux-gnu/bits/waitflags.h:
 
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
 /usr/include/SDL2/SDL_main.h:
 
 /usr/include/SDL2/SDL_endian.h:
+
+/usr/include/alloca.h:
+
+/usr/include/SDL2/SDL_image.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/prfchiintrin.h:
+
+/usr/include/SDL2/SDL_audio.h:
+
+/usr/include/SDL2/SDL_render.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512ifmaintrin.h:
+
+/usr/include/SDL2/SDL_misc.h:
+
+/usr/include/SDL2/SDL.h:
+
+/usr/include/SDL2/SDL_locale.h:
+
+/usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
+
+/home/lukas/UPR/Projekt_Bulanci/sceneManager.c:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512bitalgintrin.h:
+
+/home/lukas/UPR/Projekt_Bulanci/weapon.h:
+
+/usr/include/SDL2/SDL_mouse.h:
+
+/usr/include/SDL2/SDL_error.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/fmaintrin.h:
+
+/usr/include/SDL2/SDL_config.h:
+
+/usr/include/SDL2/SDL_gamecontroller.h:
 
 /usr/include/SDL2/SDL_atomic.h:
 
@@ -1614,57 +1620,51 @@ CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c \
 
 /usr/include/SDL2/SDL_shape.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512ifmaintrin.h:
+/home/lukas/UPR/Projekt_Bulanci/ui.h:
 
-/usr/include/SDL2/SDL_misc.h:
+/home/lukas/UPR/Projekt_Bulanci/player.h:
 
-/usr/include/SDL2/SDL.h:
+/usr/include/SDL2/SDL_pixels.h:
 
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/bmi2intrin.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512vldqintrin.h:
 
-/usr/include/x86_64-linux-gnu/bits/mathcalls.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512fp16vlintrin.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/adxintrin.h:
+/usr/include/SDL2/SDL_log.h:
 
-/usr/include/SDL2/SDL_thread.h:
+/usr/include/SDL2/SDL_keycode.h:
 
-/usr/include/SDL2/SDL_metal.h:
+/home/lukas/UPR/Projekt_Bulanci/sceneManager.h:
 
-/usr/include/SDL2/SDL_loadso.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/mwaitintrin.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/fmaintrin.h:
-
-/usr/include/SDL2/SDL_config.h:
-
-/usr/include/SDL2/SDL_gamecontroller.h:
-
-/usr/include/SDL2/SDL_clipboard.h:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
-
-/usr/include/SDL2/SDL_hints.h:
+/home/lukas/UPR/Projekt_Bulanci/engine.h:
 
 /usr/include/SDL2/SDL_keyboard.h:
 
+/usr/include/SDL2/SDL_clipboard.h:
+
+/usr/include/SDL2/SDL_hints.h:
+
+/usr/include/SDL2/SDL_loadso.h:
+
+/usr/include/SDL2/SDL_cpuinfo.h:
+
+/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+
+/usr/include/SDL2/SDL_gesture.h:
+
+/usr/include/features-time64.h:
+
 /usr/include/SDL2/SDL_guid.h:
-
-/usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
-
-/usr/include/SDL2/SDL_locale.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512fintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/amxint8intrin.h:
-
-/usr/include/x86_64-linux-gnu/bits/waitflags.h:
 
 /usr/include/SDL2/SDL_power.h:
 
-/usr/include/SDL2/SDL_video.h:
-
 /usr/include/SDL2/SDL_rect.h:
+
+/usr/include/SDL2/SDL_video.h:
 
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 
@@ -1678,19 +1678,31 @@ CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c \
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
-/usr/include/SDL2/SDL_messagebox.h:
+/usr/include/ctype.h:
 
-/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/avxintrin.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/mwaitintrin.h:
+/usr/include/x86_64-linux-gnu/bits/fp-logb.h:
 
-/home/lukas/UPR/Projekt_Bulanci/engine.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/cetintrin.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512vldqintrin.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/bmiintrin.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/avx512fp16vlintrin.h:
+/usr/include/endian.h:
 
-/usr/include/SDL2/SDL_log.h:
+/usr/include/SDL2/SDL_platform.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/prfchwintrin.h:
+
+/usr/include/features.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/avxneconvertintrin.h:
+
+/usr/include/inttypes.h:
+
+/usr/include/math.h:
 
 /usr/include/stdc-predef.h:
 
@@ -1830,8 +1842,6 @@ CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c \
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
 
-/usr/include/x86_64-linux-gnu/sys/cdefs.h:
-
 /usr/include/SDL2/SDL_blendmode.h:
 
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h:
@@ -1845,7 +1855,3 @@ CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c \
 /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/wchar.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
-
-/usr/include/x86_64-linux-gnu/sys/select.h:

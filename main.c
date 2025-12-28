@@ -1,156 +1,20 @@
-// MANUÁLNĚ !NEFUNGUJÍ TEXTURY(ŠPATNÁ ADRESA) | gcc -g main.c player.c sceneManager.c -omain -lSDL2 -lSDL2_ttf -lSDL2_image -fsanitize=address
-// PŘES CMAKE | ./build/make
+// ./build
+// make
 // A PAK ./Bulanci
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL_image.h>
 #include "engine.h"
-#include "player.h"
-#include "sceneManager.h"
-#include "weapon.h"
-#include "ui.h"
-
-#define WINDOW_WIDTH 1024
-#define WINDOW_HEIGHT 576
 
 int main(int argc, char *argv[])
 {
-    if (SDL_Init(SDL_INIT_VIDEO))
+    if (eng_init("Bulánci", 1024, 576))
     {
-        fprintf(stderr, "SDL_Init Error: %s\n", SDL_GetError());
+        printf("Engine failed to initialize.\n");
         return 1;
     }
 
-    SDL_Window *window = SDL_CreateWindow("Hra", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
-    if (!window)
-    {
-        fprintf(stderr, "SDL_CreateWindow Error: %s\n", SDL_GetError());
-        SDL_Quit();
-        return 1;
-    }
+    eng_run();
 
-    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (!renderer)
-    {
-        SDL_DestroyWindow(window);
-        fprintf(stderr, "SDL_CreateRenderer Error: %s", SDL_GetError());
-        SDL_Quit();
-        return 1;
-    }
-
-    if (IMG_Init(IMG_INIT_PNG) == 0)
-    {
-        SDL_DestroyWindow(window);
-        printf("Error SDL2_image Initialization");
-        SDL_Quit();
-        return 1;
-    }
-
-    if (TTF_Init() == -1)
-    {
-        SDL_DestroyWindow(window);
-        printf("TTF_Init error: %s\n", TTF_GetError());
-        SDL_Quit();
-        return 1;
-    }
-
-    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
-
-    eng_init(window, renderer, WINDOW_WIDTH, WINDOW_HEIGHT);
-    engine *eng = eng_get();
-
-    // Proměnné
-
-    // Načítání textur
-    init_scenes();
-    scm_load_textures(renderer);
-    init_ui();
-    load_ui(renderer);
-
-    // Resize okna
-    int resized = 0;
-    int new_w, new_h;
-
-    // Eventy
-    SDL_Event event;
-    int running = 1;
-
-    while (running == 1)
-    {
-        while (SDL_PollEvent(&event))
-        {
-            update_buttons(&event);
-
-            if (event.type == SDL_QUIT)
-            {
-                running = 0;
-            }
-            if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_RESIZED)
-            {
-                resized = 1;
-                new_w = event.window.data1;
-                new_h = event.window.data2;
-            }
-        }
-
-        Uint64 now = SDL_GetPerformanceCounter();
-        eng->deltaTime = (now - eng->lastTicks) / (double)SDL_GetPerformanceFrequency();
-        SDL_RenderClear(renderer);
-
-        // Kód
-
-        // Vykreslení pozadí
-        SDL_RenderCopy(renderer, scm_get_scm()->current_Scene->bg_texture, NULL, NULL);
-        render_ui(renderer);
-
-        // Logika hráče
-        if (scm_get_scm()->current_Scene->have_players && !scm_get_scm()->players_spawned)
-        {
-            init_Players();
-            init_bullet();
-            scm_get_scm()->players_spawned = 1;
-        }
-        else if (!scm_get_scm()->current_Scene->have_players && scm_get_scm()->players_spawned)
-        {
-            clear_Players();
-            scm_get_scm()->players_spawned = 0;
-        }
-        if (scm_get_scm()->players_spawned)
-        {
-            if (resized)
-            {
-                resize_Players(new_h / 10, new_w / 10);
-                resized = 0;
-            }
-            move_Players();
-            update_bullet();
-            update_Players_Respawn();
-            render_Players();
-            render_bullet();
-            input_Players();
-        }
-
-        // Debug
-
-        // printf("Current scene: %s\n", sceneManager.current_Scene.scene_name);
-        // printf("%dx%d\n", SDL_GetWindowSurface(window)->w, SDL_GetWindowSurface(window)->h);
-        // printf("x1: %d, y1: %d, x2: %d, y2: %d\n", players[0].hitbox.x, players[0].hitbox.y, players[1].hitbox.x, players[1].hitbox.y);
-
-        eng->lastTicks = now;
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        SDL_RenderPresent(renderer); // Prezentace kreslítka
-    }
-
-    clear_ui();
-    clear_Players();
-    scm_destroy_textures();
-    IMG_Quit();
-    TTF_Quit();
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+    eng_quit();
 
     return 0;
 }

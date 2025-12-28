@@ -202,12 +202,5 @@ void on_start_game()
 
 void on_quit()
 {
-    clear_ui();
-    clear_Players();
-    scm_destroy_textures();
-    IMG_Quit();
-    TTF_Quit();
-    SDL_DestroyRenderer(eng_get()->renderer);
-    SDL_DestroyWindow(eng_get()->window);
-    SDL_Quit();
+    eng_quit();
 }
