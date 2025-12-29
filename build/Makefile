@@ -129,6 +129,30 @@ Bulanci/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/build
 .PHONY : Bulanci/fast
 
+collisionMap.o: collisionMap.c.o
+.PHONY : collisionMap.o
+
+# target to build an object file
+collisionMap.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/collisionMap.c.o
+.PHONY : collisionMap.c.o
+
+collisionMap.i: collisionMap.c.i
+.PHONY : collisionMap.i
+
+# target to preprocess a source file
+collisionMap.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/collisionMap.c.i
+.PHONY : collisionMap.c.i
+
+collisionMap.s: collisionMap.c.s
+.PHONY : collisionMap.s
+
+# target to generate assembly for a file
+collisionMap.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/collisionMap.c.s
+.PHONY : collisionMap.c.s
+
 engine.o: engine.c.o
 .PHONY : engine.o
 
@@ -282,6 +306,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Bulanci"
+	@echo "... collisionMap.o"
+	@echo "... collisionMap.i"
+	@echo "... collisionMap.s"
 	@echo "... engine.o"
 	@echo "... engine.i"
 	@echo "... engine.s"

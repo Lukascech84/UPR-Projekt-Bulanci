@@ -40,6 +40,9 @@ scene create_menu_scene()
         .text_color = {255, 255, 255, 255},
         .onClick = on_quit,
         .state = BUTTON_NORMAL};
+    s.colMap.width = 0;
+    s.colMap.height = 0;
+    s.colMap.tiles = NULL;
 
     return s;
 }
@@ -53,6 +56,19 @@ scene create_map1_scene()
     s.have_players = 1;
     s.respawn_timer = 5.0f;
     s.bg_texture_address = "./assets/maps/01_Grass/map1_scaled.png";
+    s.colMap.width = 16;
+    s.colMap.height = 9;
+    static int map1[] = {
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    s.colMap.tiles = map1;
 
     return s;
 }
@@ -112,5 +128,29 @@ void scm_destroy_textures()
     for (size_t i = 0; i < MAX_SCENES; i++)
     {
         SDL_DestroyTexture(scenes[i].bg_texture);
+    }
+}
+
+void scm_render_collisionMap()
+{
+    collisionMap *colMap = &scm.current_Scene->colMap;
+
+    SDL_Renderer *renderer = eng_get()->renderer;
+
+    SDL_SetRenderDrawColor(renderer, 255, 0, 128, 255);
+
+    for (size_t y = 0; y < colMap->height; y++)
+    {
+        for (size_t x = 0; x < colMap->width; x++)
+        {
+            if (colMap->tiles[y * colMap->width + x] == 0)
+            {
+                continue;
+            }
+
+            SDL_Rect colBox = {.h = TILE_SIZE, .w = TILE_SIZE, .x = x * TILE_SIZE, .y = y * TILE_SIZE};
+
+            SDL_RenderFillRect(renderer, &colBox);
+        }
     }
 }

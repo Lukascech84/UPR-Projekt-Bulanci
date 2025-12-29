@@ -79,6 +79,11 @@ void update_bullet()
         fired_bullets[i].hitbox.x += (fired_bullets[i].directionX * fired_bullets[i].bullet_velocity);
         fired_bullets[i].hitbox.y += (fired_bullets[i].directionY * fired_bullets[i].bullet_velocity);
 
+        if (map_collides_rect(&fired_bullets[i].hitbox))
+        {
+            destroy_bullet(i);
+        }
+
         for (size_t j = 0; j < get_Num_Of_Players(); j++)
         {
             if (fired_bullets[i].playerID == j || !get_Players()[j].isAlive)

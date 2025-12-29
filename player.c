@@ -23,9 +23,9 @@ void *init_Players()
         players[i].player_speed = 200;
         players[i].directionX = 0;
         players[i].directionY = 0;
-        players[i].hitbox.h = 50;
-        players[i].hitbox.w = 50;
-        players[i].hitbox.x = (1.5f * i) * 100;
+        players[i].hitbox.h = 48;
+        players[i].hitbox.w = 48;
+        players[i].hitbox.x = i * 100 + 200;
         players[i].hitbox.y = 100;
         players[i].current_weapon = get_weapon(0);
         players[i].keybinds = keysets[i];
@@ -50,32 +50,45 @@ player *get_Players()
 
 void move_Players()
 {
+    double deltaTime = eng_get()->deltaTime;
+
     for (size_t i = 0; i < num_of_players; i++)
     {
-        double deltaTime = eng_get()->deltaTime;
-        SDL_Rect predict = players[i].hitbox;
-        predict.x += players[i].directionX * players[i].player_speed * deltaTime;
-        predict.y += players[i].directionY * players[i].player_speed * deltaTime;
+        if (!players[i].isAlive)
+            continue;
 
-        int collision = 0;
+        double dx = players[i].directionX;
+        double dy = players[i].directionY;
 
-        for (size_t j = 0; j < num_of_players; j++)
+        // NORMALIZACE
+        double len = sqrt(dx * dx + dy * dy);
+        if (len > 0)
         {
-            if (i == j || !players[j].isAlive)
-            {
-                continue;
-            }
-
-            if (SDL_HasIntersection(&predict, &players[j].hitbox))
-            {
-                collision = 1;
-                break;
-            }
+            dx /= len;
+            dy /= len;
         }
 
-        if (!collision)
+        double stepX = dx * players[i].player_speed * deltaTime;
+        double stepY = dy * players[i].player_speed * deltaTime;
+
+        SDL_Rect predict;
+
+        // X osa
+        predict = players[i].hitbox;
+        predict.x += (int)stepX;
+
+        if (!map_collides_rect(&predict))
         {
-            players[i].hitbox = predict;
+            players[i].hitbox.x = predict.x;
+        }
+
+        // Y osa
+        predict = players[i].hitbox;
+        predict.y += (int)stepY;
+
+        if (!map_collides_rect(&predict))
+        {
+            players[i].hitbox.y = predict.y;
         }
     }
 }

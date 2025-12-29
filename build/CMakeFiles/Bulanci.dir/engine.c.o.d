@@ -192,4 +192,5 @@ CMakeFiles/Bulanci.dir/engine.c.o: \
  /home/lukas/UPR/Projekt_Bulanci/ui.h \
  /home/lukas/UPR/Projekt_Bulanci/player.h \
  /home/lukas/UPR/Projekt_Bulanci/weapon.h \
- /home/lukas/UPR/Projekt_Bulanci/sceneManager.h
+ /home/lukas/UPR/Projekt_Bulanci/sceneManager.h \
+ /home/lukas/UPR/Projekt_Bulanci/collisionMap.h

@@ -18,6 +18,7 @@ add_executable(Bulanci
     sceneManager.c
     weapon.c
     ui.c
+    collisionMap.c
 )
 
 target_include_directories(Bulanci PRIVATE

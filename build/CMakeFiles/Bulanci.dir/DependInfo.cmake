@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/lukas/UPR/Projekt_Bulanci/collisionMap.c" "CMakeFiles/Bulanci.dir/collisionMap.c.o" "gcc" "CMakeFiles/Bulanci.dir/collisionMap.c.o.d"
   "/home/lukas/UPR/Projekt_Bulanci/engine.c" "CMakeFiles/Bulanci.dir/engine.c.o" "gcc" "CMakeFiles/Bulanci.dir/engine.c.o.d"
   "/home/lukas/UPR/Projekt_Bulanci/main.c" "CMakeFiles/Bulanci.dir/main.c.o" "gcc" "CMakeFiles/Bulanci.dir/main.c.o.d"
   "/home/lukas/UPR/Projekt_Bulanci/player.c" "CMakeFiles/Bulanci.dir/player.c.o" "gcc" "CMakeFiles/Bulanci.dir/player.c.o.d"

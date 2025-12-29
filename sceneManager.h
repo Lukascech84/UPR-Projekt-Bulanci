@@ -3,6 +3,7 @@
 #include <SDL2/SDL_image.h>
 #include "engine.h"
 #include "ui.h"
+#include "collisionMap.h"
 
 #define MAX_BUTTONS_PER_SCENE 10
 
@@ -17,6 +18,7 @@ typedef struct
     char *bg_texture_address;
     SDL_Texture *bg_texture;
     button buttons[MAX_BUTTONS_PER_SCENE];
+    collisionMap colMap;
 
 } scene;
 
@@ -42,3 +44,5 @@ void scm_load_scene(int);
 int scm_load_textures();
 
 void scm_destroy_textures();
+
+void scm_render_collisionMap();

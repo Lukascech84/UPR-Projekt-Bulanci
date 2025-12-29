@@ -130,6 +130,8 @@ void eng_run()
             render_Players();
             render_bullet();
             input_Players();
+
+            scm_render_collisionMap();
         }
 
         // Debug

@@ -3,6 +3,7 @@
 #include "engine.h"
 #include "weapon.h"
 #include "sceneManager.h"
+#include "collisionMap.h"
 
 typedef struct
 {
