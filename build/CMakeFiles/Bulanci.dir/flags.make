@@ -6,5 +6,5 @@ C_DEFINES =
 
 C_INCLUDES = -I/usr/include/SDL2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/webp
 
-C_FLAGS =  -fsanitize=address -std=gnu11
+C_FLAGS =  -fsanitize=address -g
 

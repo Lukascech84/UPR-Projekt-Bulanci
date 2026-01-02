@@ -10,7 +10,7 @@ typedef struct
 {
     int playerID;
     SDL_Rect hitbox;
-    int bullet_velocity;
+    float bullet_velocity;
     int directionX;
     int directionY;
     int lastDirectionX;
@@ -22,16 +22,22 @@ typedef struct
 
 typedef struct
 {
+    int weaponID;
     char weapon_name[50];
     int num_of_bullets;
     // int bullet_spread;
-    int bullet_velocity;
+    float bullet_velocity;
+    float fire_rate;
+    float fire_timer;
+    int max_ammo;
 
     SDL_Texture *bullet_texture;
     SDL_Texture *weapon_texture;
 } weapon;
 
 weapon *get_weapon(int);
+
+void change_weapon(player *, int);
 
 void init_bullet();
 

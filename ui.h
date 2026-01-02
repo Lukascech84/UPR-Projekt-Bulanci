@@ -32,6 +32,24 @@ typedef struct
     ButtonCallback onClick;
 } button;
 
+typedef struct
+{
+    char *playerName;
+    int playerID;
+    SDL_Rect bg_pos;
+    SDL_Rect score_text_pos;
+    int score;
+    SDL_Rect weapon_text_pos;
+    int weapon;
+    SDL_Rect ammo_text_pos;
+    int ammo;
+
+    SDL_Texture *score_text_texture;
+    SDL_Texture *weapon_text_texture;
+    SDL_Texture *ammo_text_texture;
+    SDL_Color text_color;
+} scoreCounter;
+
 void init_ui();
 
 void load_ui();
@@ -51,6 +69,20 @@ void create_button_text_texture(button *);
 int is_mouse_over_button(button *, int, int);
 
 void update_buttons(SDL_Event *);
+
+void init_scoreCounter();
+
+void render_scoreCounter();
+
+void update_scoreCounter();
+
+void clear_scoreCounter();
+
+void create_scoreCounter_score_text_texture(scoreCounter *);
+
+void create_scoreCounter_weapon_text_texture(scoreCounter *);
+
+void create_scoreCounter_ammo_text_texture(scoreCounter *);
 
 void on_start_game();
 

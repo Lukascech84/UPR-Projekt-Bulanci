@@ -111,6 +111,7 @@ void eng_run()
             init_Players();
             init_bullet();
             scm_get_scm()->players_spawned = 1;
+            init_scoreCounter();
         }
         else if (!scm_get_scm()->current_Scene->have_players && scm_get_scm()->players_spawned)
         {
@@ -127,11 +128,12 @@ void eng_run()
             move_Players();
             update_bullet();
             update_Players_Respawn();
+            update_scoreCounter();
             render_Players();
             render_bullet();
             input_Players();
 
-            scm_render_collisionMap();
+            // scm_render_collisionMap();
         }
 
         // Debug

@@ -4,8 +4,8 @@
 static bullet fired_bullets[MAX_BULLETS];
 
 static int num_of_weapons = 2;
-static weapon weapons[2] = {{.weapon_name = "Pistol", .num_of_bullets = 1, .bullet_velocity = 5, .weapon_texture = NULL},
-                            {.weapon_name = "AK-47", .num_of_bullets = 1, .bullet_velocity = 10, .weapon_texture = NULL}};
+static weapon weapons[2] = {{.weaponID = 0, .weapon_name = "Pistol", .num_of_bullets = 1, .bullet_velocity = 5.0f, .fire_rate = 1.0f, .fire_timer = 0.0f, .max_ammo = -1, .weapon_texture = NULL},
+                            {.weaponID = 1, .weapon_name = "AK-47", .num_of_bullets = 1, .bullet_velocity = 6.5f, .fire_rate = 0.2f, .fire_timer = 0.0f, .max_ammo = 15, .weapon_texture = NULL}};
 
 weapon *get_weapon(int index)
 {
@@ -17,6 +17,12 @@ weapon *get_weapon(int index)
     {
         return &weapons[index];
     }
+}
+
+void change_weapon(player *p, int w)
+{
+    p->current_weapon = &weapons[w];
+    p->current_ammo_in_weapon = weapons[w].max_ammo;
 }
 
 void init_bullet()
@@ -37,10 +43,8 @@ void spawn_bullet(player *p)
         {
             fired_bullets[i].playerID = p->playerID;
             fired_bullets[i].active = 1;
-            fired_bullets[i].lastDirectionX = p->directionX;
-            fired_bullets[i].lastDirectionY = p->directionY;
-            fired_bullets[i].directionX = p->directionX;
-            fired_bullets[i].directionY = p->directionY;
+            fired_bullets[i].directionX = p->aimX;
+            fired_bullets[i].directionY = p->aimY;
             // fired_bullets[i].bullet_spread = 0;
             fired_bullets[i].bullet_texture = p->current_weapon->bullet_texture;
             fired_bullets[i].bullet_velocity = p->current_weapon->bullet_velocity;
@@ -93,9 +97,10 @@ void update_bullet()
 
             if (SDL_HasIntersection(&fired_bullets[i].hitbox, &get_Players()[j].hitbox))
             {
-                printf("Player %ld got killed by player %d\n", j, fired_bullets[i].playerID);
+                get_Players()[fired_bullets[i].playerID].score++;
                 kill_Player(j);
                 destroy_bullet(i);
+                printf("Player %ld got killed by player %d with score %d\n", j, fired_bullets[i].playerID, get_Players()[fired_bullets[i].playerID].score);
                 break;
             }
         }

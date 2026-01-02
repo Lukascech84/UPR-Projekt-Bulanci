@@ -5,6 +5,8 @@
 #include "sceneManager.h"
 #include "collisionMap.h"
 
+#define MAX_NUMBER_OF_PLAYERS 4
+
 typedef struct
 {
     SDL_Scancode up;
@@ -17,12 +19,17 @@ typedef struct
 typedef struct player
 {
     int playerID;
+    char *playerName;
     int player_speed;
     int directionX;
     int directionY;
+    int aimX;
+    int aimY;
     int isAlive;
     float respawn_timer;
     float respawn_timer_elapsed;
+    int current_ammo_in_weapon;
+    int score;
     SDL_Rect hitbox;
     weapon *current_weapon;
     player_keybinds keybinds;

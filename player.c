@@ -20,15 +20,19 @@ void *init_Players()
     for (size_t i = 0; i < num_of_players; i++)
     {
         players[i].playerID = i;
+        players[i].playerName = i;
         players[i].player_speed = 200;
-        players[i].directionX = 0;
+        players[i].directionX = 1;
         players[i].directionY = 0;
+        players[i].aimX = 1;
+        players[i].aimY = 0;
         players[i].hitbox.h = 48;
         players[i].hitbox.w = 48;
         players[i].hitbox.x = i * 100 + 200;
-        players[i].hitbox.y = 100;
-        players[i].current_weapon = get_weapon(0);
+        players[i].hitbox.y = 350;
+        change_weapon(&players[i], 1);
         players[i].keybinds = keysets[i];
+        players[i].score = 0;
     }
 }
 
@@ -60,6 +64,9 @@ void move_Players()
         double dx = players[i].directionX;
         double dy = players[i].directionY;
 
+        int w, h = 0;
+        SDL_GetWindowSize(eng_get()->window, &w, &h);
+
         // NORMALIZACE
         double len = sqrt(dx * dx + dy * dy);
         if (len > 0)
@@ -68,28 +75,66 @@ void move_Players()
             dy /= len;
         }
 
-        double stepX = dx * players[i].player_speed * deltaTime;
-        double stepY = dy * players[i].player_speed * deltaTime;
+        int stepX = (int)(dx * players[i].player_speed * deltaTime);
+        int stepY = (int)(dy * players[i].player_speed * deltaTime);
 
         SDL_Rect predict;
 
         // X osa
         predict = players[i].hitbox;
-        predict.x += (int)stepX;
+        predict.x += stepX;
 
-        if (!map_collides_rect(&predict))
+        int collision = map_collides_rect(&predict);
+
+        if (predict.x < 0 || predict.x > w)
         {
-            players[i].hitbox.x = predict.x;
+            collision = 1;
         }
+
+        for (size_t j = 0; j < num_of_players && !collision; j++)
+        {
+            if (i == j || !players[j].isAlive)
+                continue;
+
+            if (SDL_HasIntersection(&predict, &players[j].hitbox))
+                collision = 1;
+        }
+
+        if (!collision)
+            players[i].hitbox.x = predict.x;
 
         // Y osa
         predict = players[i].hitbox;
-        predict.y += (int)stepY;
+        predict.y += stepY;
 
-        if (!map_collides_rect(&predict))
+        collision = map_collides_rect(&predict);
+
+        if (predict.y < 0 || predict.x > h)
+        {
+            collision = 1;
+        }
+
+        for (size_t j = 0; j < num_of_players && !collision; j++)
+        {
+            if (i == j || !players[j].isAlive)
+                continue;
+
+            if (SDL_HasIntersection(&predict, &players[j].hitbox))
+                collision = 1;
+        }
+
+        if (!collision)
         {
             players[i].hitbox.y = predict.y;
         }
+
+        if (players[i].directionX != 0 || players[i].directionY != 0)
+        {
+            players[i].aimX = players[i].directionX;
+            players[i].aimY = players[i].directionY;
+        }
+
+        players[i].current_weapon->fire_timer += deltaTime;
     }
 }
 
@@ -158,8 +203,20 @@ void resize_Players(int new_h, int new_w)
 
 void shoot_Player(player *p)
 {
-    printf("Player %d shot from %s.\n", p->playerID, p->current_weapon->weapon_name);
-    spawn_bullet(p);
+    if (p->current_weapon->fire_timer >= p->current_weapon->fire_rate)
+    {
+        spawn_bullet(p);
+        p->current_weapon->fire_timer = 0.0f;
+        if (p->current_ammo_in_weapon > 0)
+        {
+            p->current_ammo_in_weapon--;
+        }
+        printf("Player %d shot from %s:%d\n", p->playerID, p->current_weapon->weapon_name, p->current_ammo_in_weapon);
+        if (p->current_ammo_in_weapon == 0)
+        {
+            change_weapon(p, 0);
+        }
+    }
 }
 
 void kill_Player(int i)
@@ -192,6 +249,6 @@ void respawn_Player(size_t i)
     players[i].isAlive = 1;
     players[i].respawn_timer_elapsed = 0.0f;
 
-    players[i].hitbox.x = (1.5f * i) * 100;
-    players[i].hitbox.y = 100;
+    players[i].hitbox.x = i * 100 + 200;
+    players[i].hitbox.y = 300;
 }
