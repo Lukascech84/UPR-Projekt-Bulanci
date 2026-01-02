@@ -1,4 +1,7 @@
 #include <SDL2/SDL.h>
+#include <math.h>
+#include "engine.h"
+#include "weapon.h"
 #include "player.h"
 
 static int num_of_players = 4;
