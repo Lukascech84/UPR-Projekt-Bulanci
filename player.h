@@ -35,7 +35,7 @@ typedef struct player
     player_keybinds keybinds;
 } player;
 
-void *init_Players();
+void init_Players();
 
 void clear_Players();
 
@@ -58,3 +58,5 @@ void kill_Player(int);
 void update_Players_Respawn();
 
 void respawn_Player(size_t);
+
+SDL_Rect get_random_spawn(int, int);

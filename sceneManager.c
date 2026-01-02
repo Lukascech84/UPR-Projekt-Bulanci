@@ -6,7 +6,7 @@
 #include "engine.h"
 #include "ui.h"
 
-#define MAX_SCENES 2
+#define MAX_SCENES 3
 #define MAX_BUTTONS_PER_SCENE 10
 
 static scene scenes[MAX_SCENES];
@@ -76,10 +76,37 @@ scene create_map1_scene()
     return s;
 }
 
+scene create_map2_scene()
+{
+    scene s = {0};
+
+    s.scene_index = 1;
+    s.scene_name = "Na dobrou noc";
+    s.have_players = 1;
+    s.respawn_timer = 5.0f;
+    s.bg_texture_address = "./assets/maps/02_Na_Dobrou_Noc/na-dobrou-noc.jpg";
+    s.colMap.width = 16;
+    s.colMap.height = 9;
+    static int map2[] = {
+        1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
+        0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0,
+        0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+        0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+        0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+        0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0,
+        0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0};
+    s.colMap.tiles = map2;
+
+    return s;
+}
+
 void init_scenes()
 {
     scenes[0] = create_menu_scene();
     scenes[1] = create_map1_scene();
+    scenes[2] = create_map2_scene();
 
     scm.current_Scene = &scenes[0];
 }

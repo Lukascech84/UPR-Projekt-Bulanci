@@ -1,5 +1,7 @@
 #include <SDL2/SDL.h>
 #include <math.h>
+#include <stdlib.h>
+#include <time.h>
 #include "engine.h"
 #include "weapon.h"
 #include "player.h"
@@ -8,17 +10,13 @@ static int num_of_players = 4;
 
 static player *players = NULL;
 
-void *init_Players()
+void init_Players()
 {
     player_keybinds keysets[4] = {{.up = SDL_SCANCODE_W, .down = SDL_SCANCODE_S, .left = SDL_SCANCODE_A, .right = SDL_SCANCODE_D, .shoot = SDL_SCANCODE_E},
                                   {.up = SDL_SCANCODE_UP, .down = SDL_SCANCODE_DOWN, .left = SDL_SCANCODE_LEFT, .right = SDL_SCANCODE_RIGHT, .shoot = SDL_SCANCODE_RSHIFT},
                                   {.up = SDL_SCANCODE_I, .down = SDL_SCANCODE_K, .left = SDL_SCANCODE_J, .right = SDL_SCANCODE_L, .shoot = SDL_SCANCODE_O},
                                   {.up = SDL_SCANCODE_T, .down = SDL_SCANCODE_G, .left = SDL_SCANCODE_F, .right = SDL_SCANCODE_H, .shoot = SDL_SCANCODE_SPACE}};
     players = realloc(players, num_of_players * sizeof(player));
-    if (!players)
-    {
-        return NULL;
-    }
 
     for (size_t i = 0; i < num_of_players; i++)
     {
@@ -31,8 +29,9 @@ void *init_Players()
         players[i].aimY = 0;
         players[i].hitbox.h = 48;
         players[i].hitbox.w = 48;
-        players[i].hitbox.x = i * 100 + 200;
-        players[i].hitbox.y = 350;
+        SDL_Rect spawn = get_random_spawn(players[i].hitbox.w, players[i].hitbox.h);
+        players[i].hitbox.x = spawn.x;
+        players[i].hitbox.y = spawn.y;
         change_weapon(&players[i], 1);
         players[i].keybinds = keysets[i];
         players[i].score = 0;
@@ -89,7 +88,7 @@ void move_Players()
 
         int collision = map_collides_rect(&predict);
 
-        if (predict.x < 0 || predict.x > w)
+        if (predict.x < 0 || (predict.x + predict.w) > w)
         {
             collision = 1;
         }
@@ -112,7 +111,7 @@ void move_Players()
 
         collision = map_collides_rect(&predict);
 
-        if (predict.y < 0 || predict.x > h)
+        if (predict.y < 0 || (predict.y + predict.h) > h)
         {
             collision = 1;
         }
@@ -249,9 +248,41 @@ void update_Players_Respawn()
 
 void respawn_Player(size_t i)
 {
+    SDL_Rect spawn = get_random_spawn(players[i].hitbox.w, players[i].hitbox.h);
+
     players[i].isAlive = 1;
     players[i].respawn_timer_elapsed = 0.0f;
 
-    players[i].hitbox.x = i * 100 + 200;
-    players[i].hitbox.y = 300;
+    players[i].hitbox.x = spawn.x;
+    players[i].hitbox.y = spawn.y;
+}
+
+SDL_Rect get_random_spawn(int player_w, int player_h)
+{
+    int w = 0, h = 0;
+    SDL_GetWindowSize(eng_get()->window, &w, &h);
+
+    SDL_Rect spawn;
+
+    int i = 0;
+
+    do
+    {
+        spawn.w = player_w;
+        spawn.h = player_h;
+        spawn.x = rand() % (w - player_w);
+        spawn.y = rand() % (h - player_h);
+
+        i++;
+        if (i > 1000)
+        {
+            spawn.x = 50;
+            spawn.y = 50;
+            break;
+        }
+    } while (map_collides_rect(&spawn));
+
+    // printf("Spawn: x=%d y=%d w=%d h=%d\n", spawn.x, spawn.y, spawn.w, spawn.h);
+
+    return spawn;
 }

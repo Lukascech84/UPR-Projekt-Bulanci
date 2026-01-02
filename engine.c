@@ -1,6 +1,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
+#include <stdlib.h>
+#include <time.h>
 #include "engine.h"
 #include "ui.h"
 #include "player.h"
@@ -62,6 +64,8 @@ int eng_init(char *title, int w, int h)
     scm_load_textures(eng.renderer);
     init_ui();
     load_ui(eng.renderer);
+
+    srand(time(NULL));
 
     eng.running = 1;
 
@@ -133,14 +137,15 @@ void eng_run()
             render_bullet();
             input_Players();
 
-            // scm_render_collisionMap();
+            // Debug render kolizí
+            scm_render_collisionMap();
         }
 
         // Debug
 
         // printf("Current scene: %s\n", sceneManager.current_Scene.scene_name);
         // printf("%dx%d\n", SDL_GetWindowSurface(window)->w, SDL_GetWindowSurface(window)->h);
-        // printf("x1: %d, y1: %d, x2: %d, y2: %d\n", players[0].hitbox.x, players[0].hitbox.y, players[1].hitbox.x, players[1].hitbox.y);
+        // printf("FPS: %.2f\r", 1.0 / eng.deltaTime);
 
         eng.lastTicks = now;
         SDL_SetRenderDrawColor(eng.renderer, 0, 0, 0, 255);

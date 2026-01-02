@@ -303,6 +303,7 @@ CMakeFiles/Bulanci.dir/engine.c.o: /home/lukas/UPR/Projekt_Bulanci/engine.c \
   /usr/include/stdlib.h \
   /usr/include/string.h \
   /usr/include/strings.h \
+  /usr/include/time.h \
   /usr/include/wchar.h \
   /usr/include/x86_64-linux-gnu/SDL2/_real_SDL_config.h \
   /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
@@ -331,6 +332,7 @@ CMakeFiles/Bulanci.dir/engine.c.o: /home/lukas/UPR/Projekt_Bulanci/engine.c \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
+  /usr/include/x86_64-linux-gnu/bits/time.h \
   /usr/include/x86_64-linux-gnu/bits/time64.h \
   /usr/include/x86_64-linux-gnu/bits/timesize.h \
   /usr/include/x86_64-linux-gnu/bits/types.h \
@@ -348,8 +350,10 @@ CMakeFiles/Bulanci.dir/engine.c.o: /home/lukas/UPR/Projekt_Bulanci/engine.c \
   /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
   /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
@@ -760,6 +764,7 @@ CMakeFiles/Bulanci.dir/player.c.o: /home/lukas/UPR/Projekt_Bulanci/player.c \
   /usr/include/stdlib.h \
   /usr/include/string.h \
   /usr/include/strings.h \
+  /usr/include/time.h \
   /usr/include/wchar.h \
   /usr/include/x86_64-linux-gnu/SDL2/_real_SDL_config.h \
   /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
@@ -788,6 +793,7 @@ CMakeFiles/Bulanci.dir/player.c.o: /home/lukas/UPR/Projekt_Bulanci/player.c \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
+  /usr/include/x86_64-linux-gnu/bits/time.h \
   /usr/include/x86_64-linux-gnu/bits/time64.h \
   /usr/include/x86_64-linux-gnu/bits/timesize.h \
   /usr/include/x86_64-linux-gnu/bits/types.h \
@@ -805,8 +811,10 @@ CMakeFiles/Bulanci.dir/player.c.o: /home/lukas/UPR/Projekt_Bulanci/player.c \
   /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
   /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
@@ -1619,6 +1627,10 @@ CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c \
 
 /home/lukas/UPR/Projekt_Bulanci/ui.c:
 
+/usr/include/x86_64-linux-gnu/bits/time.h:
+
+/usr/include/time.h:
+
 /home/lukas/UPR/Projekt_Bulanci/player.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/xsavesintrin.h:
@@ -1690,6 +1702,8 @@ CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c \
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avx512vpopcntdqvlintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avx512vp2intersectvlintrin.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/avx512vlintrin.h:
 
@@ -1892,6 +1906,8 @@ CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c \
 /usr/include/SDL2/SDL_guid.h:
 
 /usr/include/SDL2/SDL_power.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
 
 /usr/include/SDL2/SDL_video.h:
 
