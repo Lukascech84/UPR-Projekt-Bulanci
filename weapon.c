@@ -7,8 +7,8 @@
 static bullet fired_bullets[MAX_BULLETS];
 
 static int num_of_weapons = 2;
-static weapon weapons[2] = {{.weaponID = 0, .weapon_name = "Pistol", .num_of_bullets = 1, .bullet_velocity = 250.0f, .fire_rate = 1.0f, .fire_timer = 0.0f, .max_ammo = -1, .weapon_texture = NULL},
-                            {.weaponID = 1, .weapon_name = "AK-47", .num_of_bullets = 1, .bullet_velocity = 350.0f, .fire_rate = 0.4f, .fire_timer = 0.0f, .max_ammo = 15, .weapon_texture = NULL}};
+static weapon weapons[2] = {{.weaponID = 0, .weapon_name = "Pistol", .num_of_bullets = 1, .bullet_velocity = 250.0f, .fire_rate = 2.0f, .fire_timer = 0.0f, .max_ammo = -1, .weapon_texture = NULL},
+                            {.weaponID = 1, .weapon_name = "AK-47", .num_of_bullets = 1, .bullet_velocity = 350.0f, .fire_rate = 0.2f, .fire_timer = 0.0f, .max_ammo = 15, .weapon_texture = NULL}};
 
 weapon *get_weapon(int index)
 {

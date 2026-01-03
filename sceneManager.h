@@ -7,6 +7,7 @@
 #include "weaponPickup.h"
 
 #define MAX_BUTTONS_PER_SCENE 10
+#define MAX_TEXTFIELDS_PER_SCENE 10
 
 typedef struct
 {
@@ -19,6 +20,7 @@ typedef struct
     char *bg_texture_address;
     SDL_Texture *bg_texture;
     button buttons[MAX_BUTTONS_PER_SCENE];
+    textField textFields[MAX_TEXTFIELDS_PER_SCENE];
     collisionMap colMap;
 
 } scene;
@@ -26,6 +28,8 @@ typedef struct
 typedef struct
 {
     scene *current_Scene;
+    int last_scene_index;
+
     int players_spawned;
 
     weaponPickup weapon_pickup;
@@ -34,7 +38,15 @@ typedef struct
 
 scene create_menu_scene();
 
+scene create_start_screen_scene();
+
+scene create_settings_scene();
+
+scene create_leaderboard_scene();
+
 scene create_map1_scene();
+
+scene create_map2_scene();
 
 void init_scenes();
 

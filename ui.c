@@ -14,6 +14,8 @@ scoreCounter scoreCounters[MAX_NUMBER_OF_PLAYERS];
 
 button loaded_buttons_in_scene[MAX_BUTTONS_PER_SCENE];
 
+textField loaded_textfields_in_scene[MAX_TEXTFIELDS_PER_SCENE];
+
 TTF_Font *font = NULL;
 TTF_Font *font_smaller = NULL;
 
@@ -30,12 +32,14 @@ void init_ui()
 
 void load_ui()
 {
+    load_textfields();
     load_buttons();
 }
 
 void render_ui()
 {
     render_buttons();
+    render_textfields();
     if (get_Players() != NULL)
     {
         render_scoreCounter();
@@ -46,6 +50,7 @@ void clear_ui()
 {
     clear_buttons();
     clear_scoreCounter();
+    clear_textfields();
 }
 
 void load_buttons()
@@ -56,7 +61,7 @@ void load_buttons()
         {
             loaded_buttons_in_scene[i] = scm_get_scm()->current_Scene->buttons[i];
 
-            create_button_text_texture(&loaded_buttons_in_scene[i]);
+            create_textfield_texture(&loaded_buttons_in_scene[i].textField);
         }
     }
 }
@@ -88,9 +93,9 @@ void render_buttons()
         SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
         SDL_RenderFillRect(renderer, &btn->button);
 
-        if (btn->text_texture)
+        if (btn->textField.text_texture)
         {
-            SDL_RenderCopy(renderer, btn->text_texture, NULL, &btn->text_size);
+            SDL_RenderCopy(renderer, btn->textField.text_texture, NULL, &btn->textField.text_pos);
         }
     }
 }
@@ -99,53 +104,103 @@ void clear_buttons()
 {
     for (size_t i = 0; i < MAX_BUTTONS_PER_SCENE; i++)
     {
-        if (loaded_buttons_in_scene[i].text_texture)
+        if (loaded_buttons_in_scene[i].textField.text_texture)
         {
-            SDL_DestroyTexture(loaded_buttons_in_scene[i].text_texture);
-            loaded_buttons_in_scene[i].text_texture = NULL;
+            SDL_DestroyTexture(loaded_buttons_in_scene[i].textField.text_texture);
+            loaded_buttons_in_scene[i].textField.text_texture = NULL;
         }
 
         memset(&loaded_buttons_in_scene[i], 0, sizeof(button));
     }
 }
 
-void create_button_text_texture(button *btn)
+void load_textfields()
+{
+    for (size_t i = 0; i < MAX_TEXTFIELDS_PER_SCENE; i++)
+    {
+        if (scm_get_scm()->current_Scene->textFields[i].isActive == 1)
+        {
+            loaded_textfields_in_scene[i] = scm_get_scm()->current_Scene->textFields[i];
+
+            create_textfield_texture(&loaded_textfields_in_scene[i]);
+        }
+    }
+}
+
+void render_textfields()
 {
     SDL_Renderer *renderer = eng_get()->renderer;
 
-    if (btn->text_texture)
+    for (size_t i = 0; i < MAX_TEXTFIELDS_PER_SCENE; i++)
     {
-        SDL_DestroyTexture(btn->text_texture);
-        btn->text_texture = NULL;
+        textField *tf = &loaded_textfields_in_scene[i];
+
+        if (!tf->isActive)
+        {
+            continue;
+        }
+
+        SDL_SetRenderDrawColor(renderer, tf->text_box_color.r, tf->text_box_color.g, tf->text_box_color.b, tf->text_box_color.a);
+        SDL_RenderFillRect(renderer, &tf->text_box);
+
+        if (tf->text_texture)
+        {
+            SDL_RenderCopy(renderer, tf->text_texture, NULL, &tf->text_pos);
+        }
+    }
+}
+
+void clear_textfields()
+{
+    for (size_t i = 0; i < MAX_TEXTFIELDS_PER_SCENE; i++)
+    {
+        if (loaded_textfields_in_scene[i].text_texture)
+        {
+            SDL_DestroyTexture(loaded_textfields_in_scene[i].text_texture);
+            loaded_textfields_in_scene[i].text_texture = NULL;
+        }
+
+        memset(&loaded_textfields_in_scene[i], 0, sizeof(textField));
+    }
+}
+
+void create_textfield_texture(textField *tf)
+{
+    SDL_Renderer *renderer = eng_get()->renderer;
+
+    if (tf->text_texture)
+    {
+        SDL_DestroyTexture(tf->text_texture);
+        tf->text_texture = NULL;
     }
 
-    if (btn->text[0] == '\0')
+    if (tf->text[0] == '\0')
     {
         return;
     }
 
-    SDL_Surface *surface = TTF_RenderUTF8_Blended(font, btn->text, btn->text_color);
+    SDL_Surface *surface = TTF_RenderUTF8_Blended(font, tf->text, tf->text_color);
     if (!surface)
     {
         printf("Error creating surface for text");
         return;
     }
 
-    btn->text_texture = SDL_CreateTextureFromSurface(renderer, surface);
+    tf->text_texture = SDL_CreateTextureFromSurface(renderer, surface);
 
-    btn->text_size.w = surface->w;
-    btn->text_size.h = surface->h;
+    tf->text_pos.w = surface->w;
+    tf->text_pos.h = surface->h;
 
     SDL_FreeSurface(surface);
 
-    if (!btn->text_texture)
+    if (!tf->text_texture)
     {
         printf("Error creating texture for text");
         return;
     }
 
-    btn->text_size.x = btn->button.x + (btn->button.w - btn->text_size.w) / 2;
-    btn->text_size.y = btn->button.y + (btn->button.h - btn->text_size.h) / 2;
+    tf->text_pos.x = tf->text_box.x + (tf->text_box.w - tf->text_pos.w) / 2;
+    tf->text_pos.y = tf->text_box.y + (tf->text_box.h - tf->text_pos.h) / 2;
 }
 
 int is_mouse_over_button(button *btn, int mx, int my)
@@ -199,7 +254,7 @@ void update_buttons(SDL_Event *event)
         {
             if (btn->state != BUTTON_PRESSED)
             {
-                btn->state = BUTTON_NORMAL;
+                btn->state = BUTTON_HOVER;
             }
         }
     }
@@ -368,12 +423,32 @@ void create_scoreCounter_ammo_text_texture(scoreCounter *sc)
     SDL_FreeSurface(surface);
 }
 
-void on_start_game()
+void on_start()
 {
-    start_game();
+    scm_load_scene(1);
+}
+
+void on_settings()
+{
+    scm_load_scene(2);
+}
+
+void on_leaderboard()
+{
+    scm_load_scene(3);
 }
 
 void on_quit()
 {
     eng_quit();
+}
+
+void on_start_game()
+{
+    start_game();
+}
+
+void on_back()
+{
+    scm_load_scene(scm_get_scm()->last_scene_index);
 }

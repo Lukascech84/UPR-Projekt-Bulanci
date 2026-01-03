@@ -40,7 +40,10 @@ void init_Players()
         players[i].posY = spawn.y;
         players[i].hitbox.x = (int)players[i].posX;
         players[i].hitbox.y = (int)players[i].posY;
-        change_weapon(&players[i], 1);
+
+        change_weapon(&players[i], 0);
+        players[i].current_ammo_in_weapon = players[i].current_weapon->max_ammo;
+
         players[i].keybinds = keysets[i];
         players[i].score = 0;
         players[i].player_color = &player_colors[i];
@@ -273,6 +276,8 @@ void respawn_Player(size_t i)
 
     players[i].isAlive = 1;
     players[i].respawn_timer_elapsed = 0.0f;
+    change_weapon(&players[i], 0);
+    players[i].current_ammo_in_weapon = players[i].current_weapon->max_ammo;
 
     players[i].posX = spawn.x;
     players[i].posY = spawn.y;

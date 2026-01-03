@@ -16,17 +16,27 @@ typedef struct
 {
     int isActive;
 
+    SDL_Rect text_box;
+    SDL_Rect text_pos;
+    SDL_Color text_box_color;
+    SDL_Color text_color;
+
+    char text[128];
+
+    SDL_Texture *text_texture;
+} textField;
+
+typedef struct
+{
+    int isActive;
+
     SDL_Rect button;
 
     SDL_Color button_color;
     SDL_Color hover_color;
     SDL_Color pressed_color;
 
-    char text[64];
-    SDL_Color text_color;
-
-    SDL_Texture *text_texture;
-    SDL_Rect text_size;
+    textField textField;
 
     ButtonState state;
     ButtonCallback onClick;
@@ -64,7 +74,13 @@ void render_buttons();
 
 void clear_buttons();
 
-void create_button_text_texture(button *);
+void load_textfields();
+
+void render_textfields();
+
+void clear_textfields();
+
+void create_textfield_texture(textField *);
 
 int is_mouse_over_button(button *, int, int);
 
@@ -84,6 +100,16 @@ void create_scoreCounter_weapon_text_texture(scoreCounter *);
 
 void create_scoreCounter_ammo_text_texture(scoreCounter *);
 
-void on_start_game();
+// MENU SCENE CALLBACKS
+void on_start();
+
+void on_settings();
+
+void on_leaderboard();
 
 void on_quit();
+
+// START SCENE CALLBACKS
+void on_start_game();
+
+void on_back();

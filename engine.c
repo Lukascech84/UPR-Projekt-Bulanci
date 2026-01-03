@@ -93,7 +93,7 @@ void start_game()
     sceneManager *scm = scm_get_scm();
 
     printf("Game started\n");
-    scm_load_scene(2);
+    scm_load_scene(5);
     scm->weapon_pickup.isActive = 0;
     scm->weapon_pickup.weaponID = -1;
     scm->weapon_pickup.respawn_timer_elapsed = 0.0f;
