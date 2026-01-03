@@ -63,97 +63,106 @@ player *get_Players()
     return players;
 }
 
-void move_Players()
+void update_Players()
+{
+    for (size_t i = 0; i < num_of_players; i++)
+    {
+        players[i].current_weapon->fire_timer += eng_get()->deltaTime;
+
+        update_Player_Respawn(&players[i]);
+        move_Player(&players[i]);
+        check_player_weapon_pickup_collision(&players[i]);
+    }
+}
+
+void move_Player(player *p)
 {
     double deltaTime = eng_get()->deltaTime;
 
-    for (size_t i = 0; i < num_of_players; i++)
+    if (!p->isAlive)
     {
-        if (!players[i].isAlive)
+        return;
+    }
+
+    double dx = p->directionX;
+    double dy = p->directionY;
+
+    int w, h = 0;
+    SDL_GetWindowSize(eng_get()->window, &w, &h);
+
+    // NORMALIZACE
+    double len = sqrt(dx * dx + dy * dy);
+    if (len > 0)
+    {
+        dx /= len;
+        dy /= len;
+    }
+
+    float stepX = (dx * p->player_speed * deltaTime);
+    float stepY = (dy * p->player_speed * deltaTime);
+
+    SDL_Rect predict;
+
+    // X osa
+    float newX = p->posX + stepX;
+
+    predict = p->hitbox;
+    predict.x = (int)newX;
+
+    int collision = map_collides_rect(&predict) != 0 ? 1 : 0;
+
+    if (predict.x < 0 || (predict.x + predict.w) > w)
+    {
+        collision = 1;
+    }
+
+    for (size_t j = 0; j < num_of_players && !collision; j++)
+    {
+        if (p->playerID == j || !players[j].isAlive)
             continue;
 
-        double dx = players[i].directionX;
-        double dy = players[i].directionY;
-
-        int w, h = 0;
-        SDL_GetWindowSize(eng_get()->window, &w, &h);
-
-        // NORMALIZACE
-        double len = sqrt(dx * dx + dy * dy);
-        if (len > 0)
-        {
-            dx /= len;
-            dy /= len;
-        }
-
-        float stepX = (dx * players[i].player_speed * deltaTime);
-        float stepY = (dy * players[i].player_speed * deltaTime);
-
-        SDL_Rect predict;
-
-        // X osa
-        float newX = players[i].posX + stepX;
-
-        predict = players[i].hitbox;
-        predict.x = (int)newX;
-
-        int collision = map_collides_rect(&predict) != 0 ? 1 : 0;
-
-        if (predict.x < 0 || (predict.x + predict.w) > w)
-        {
+        if (SDL_HasIntersection(&predict, &players[j].hitbox))
             collision = 1;
-        }
+    }
 
-        for (size_t j = 0; j < num_of_players && !collision; j++)
-        {
-            if (i == j || !players[j].isAlive)
-                continue;
+    if (!collision)
+    {
+        p->posX = newX;
+        p->hitbox.x = (int)p->posX;
+    }
 
-            if (SDL_HasIntersection(&predict, &players[j].hitbox))
-                collision = 1;
-        }
+    // Y osa
+    float newY = p->posY + stepY;
 
-        if (!collision)
-        {
-            players[i].posX = newX;
-            players[i].hitbox.x = (int)players[i].posX;
-        }
+    predict = p->hitbox;
+    predict.y = (int)newY;
 
-        // Y osa
-        float newY = players[i].posY + stepY;
+    collision = map_collides_rect(&predict) != 0 ? 1 : 0;
 
-        predict = players[i].hitbox;
-        predict.y = (int)newY;
+    if (predict.y < 0 || (predict.y + predict.h) > h)
+    {
+        collision = 1;
+    }
 
-        collision = map_collides_rect(&predict) != 0 ? 1 : 0;
+    for (size_t j = 0; j < num_of_players && !collision; j++)
+    {
+        if (p->playerID == j || !players[j].isAlive)
+            continue;
 
-        if (predict.y < 0 || (predict.y + predict.h) > h)
-        {
+        if (SDL_HasIntersection(&predict, &players[j].hitbox))
             collision = 1;
-        }
+    }
 
-        for (size_t j = 0; j < num_of_players && !collision; j++)
-        {
-            if (i == j || !players[j].isAlive)
-                continue;
+    if (!collision)
+    {
+        p->posY = newY;
+        p->hitbox.y = (int)p->posY;
+    }
 
-            if (SDL_HasIntersection(&predict, &players[j].hitbox))
-                collision = 1;
-        }
-
-        if (!collision)
-        {
-            players[i].posY = newY;
-            players[i].hitbox.y = (int)players[i].posY;
-        }
-
-        if (players[i].directionX != 0 || players[i].directionY != 0)
-        {
-            players[i].aimX = players[i].directionX;
-            players[i].aimY = players[i].directionY;
-        }
-
-        players[i].current_weapon->fire_timer += deltaTime;
+    if (p->directionX != 0 || p->directionY != 0)
+    {
+        p->aimX = p->directionX;
+        p->aimY = p->directionY;
     }
 }
 
@@ -243,21 +252,18 @@ void kill_Player(int i)
     players[i].respawn_timer = scm_get_scm()->current_Scene->respawn_timer;
 }
 
-void update_Players_Respawn()
+void update_Player_Respawn(player *p)
 {
-    for (size_t i = 0; i < num_of_players; i++)
+    if (p->isAlive)
     {
-        if (players[i].isAlive)
-        {
-            continue;
-        }
+        return;
+    }
 
-        players[i].respawn_timer_elapsed += eng_get()->deltaTime;
+    p->respawn_timer_elapsed += eng_get()->deltaTime;
 
-        if (players[i].respawn_timer_elapsed >= players[i].respawn_timer)
-        {
-            respawn_Player(i);
-        }
+    if (p->respawn_timer_elapsed >= p->respawn_timer)
+    {
+        respawn_Player(p->playerID);
     }
 }
 
@@ -320,4 +326,17 @@ int interects_with_any_player(SDL_Rect *rect)
     }
 
     return 0;
+}
+
+void check_player_weapon_pickup_collision(player *p)
+{
+    sceneManager *scm = scm_get_scm();
+    if (SDL_HasIntersection(&p->hitbox, &scm->weapon_pickup.rect) && scm->weapon_pickup.isActive)
+    {
+        change_weapon(p, scm->weapon_pickup.weaponID);
+        p->current_ammo_in_weapon = p->current_weapon->max_ammo;
+        clear_weapon_pickup();
+
+        printf("Player %d picked up weapon %s\n", p->playerID, p->current_weapon->weapon_name);
+    }
 }

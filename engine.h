@@ -18,6 +18,10 @@ engine *eng_get();
 
 int eng_init(char *title, int w, int h);
 
+void update();
+
+void start_game();
+
 void eng_run();
 
 void eng_quit();

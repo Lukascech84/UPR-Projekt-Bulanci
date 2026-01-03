@@ -46,7 +46,9 @@ int get_Num_Of_Players();
 
 player *get_Players();
 
-void move_Players();
+void update_Players();
+
+void move_Player(player *);
 
 void render_Players();
 
@@ -54,14 +56,16 @@ void input_Players();
 
 void resize_Players(int new_h, int new_w);
 
-void shoot_Player(player *p);
+void shoot_Player(player *);
 
 void kill_Player(int);
 
-void update_Players_Respawn();
+void update_Player_Respawn(player *);
 
 void respawn_Player(size_t);
 
 SDL_Rect get_random_spawn(int, int);
 
 int interects_with_any_player(SDL_Rect *);
+
+void check_player_weapon_pickup_collision(player *);

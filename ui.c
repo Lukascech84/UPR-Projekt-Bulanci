@@ -370,8 +370,7 @@ void create_scoreCounter_ammo_text_texture(scoreCounter *sc)
 
 void on_start_game()
 {
-    printf("Game started\n");
-    scm_load_scene(2);
+    start_game();
 }
 
 void on_quit()

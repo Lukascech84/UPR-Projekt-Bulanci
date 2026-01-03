@@ -4,6 +4,7 @@
 #include "engine.h"
 #include "ui.h"
 #include "collisionMap.h"
+#include "weaponPickup.h"
 
 #define MAX_BUTTONS_PER_SCENE 10
 
@@ -26,6 +27,8 @@ typedef struct
 {
     scene *current_Scene;
     int players_spawned;
+
+    weaponPickup weapon_pickup;
 
 } sceneManager;
 

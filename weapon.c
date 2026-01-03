@@ -22,6 +22,11 @@ weapon *get_weapon(int index)
     }
 }
 
+int get_num_of_weapons()
+{
+    return num_of_weapons;
+}
+
 void change_weapon(player *p, int w)
 {
     p->current_weapon = &weapons[w];

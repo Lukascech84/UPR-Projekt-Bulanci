@@ -7,6 +7,8 @@
 #include "ui.h"
 #include "player.h"
 #include "sceneManager.h"
+#include "weaponPickup.h"
+#include "weapon.h"
 
 static engine eng;
 
@@ -74,6 +76,30 @@ int eng_init(char *title, int w, int h)
     return 0;
 }
 
+void update()
+{
+    update_Players();
+    update_bullet();
+    update_weapon_pickup_respawn_timer();
+    update_scoreCounter();
+    render_Players();
+    render_bullet();
+    render_weapon_pickup();
+    input_Players();
+}
+
+void start_game()
+{
+    sceneManager *scm = scm_get_scm();
+
+    printf("Game started\n");
+    scm_load_scene(2);
+    scm->weapon_pickup.isActive = 0;
+    scm->weapon_pickup.weaponID = -1;
+    scm->weapon_pickup.respawn_timer_elapsed = 0.0f;
+    scm->weapon_pickup.respawn_timer = WEAPON_PICKUP_RESPAWN_TIME;
+}
+
 void eng_run()
 {
     // Resize okna
@@ -130,16 +156,11 @@ void eng_run()
                 resize_Players(new_h / 10, new_w / 10);
                 resized = 0;
             }
-            move_Players();
-            update_bullet();
-            update_Players_Respawn();
-            update_scoreCounter();
-            render_Players();
-            render_bullet();
-            input_Players();
+
+            update();
         }
 
-        scm_render_collisionMap(); // Debug render kolizí
+        // scm_render_collisionMap(); // Debug render kolizí
         render_ui(eng.renderer);
 
         // Debug

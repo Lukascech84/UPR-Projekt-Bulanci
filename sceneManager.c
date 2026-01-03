@@ -5,6 +5,8 @@
 #include "sceneManager.h"
 #include "engine.h"
 #include "ui.h"
+#include "weapon.h"
+#include "player.h"
 
 #define MAX_SCENES 3
 #define MAX_BUTTONS_PER_SCENE 10

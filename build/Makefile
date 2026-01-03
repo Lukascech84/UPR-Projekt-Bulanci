@@ -297,6 +297,30 @@ weapon.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/weapon.c.s
 .PHONY : weapon.c.s
 
+weaponPickup.o: weaponPickup.c.o
+.PHONY : weaponPickup.o
+
+# target to build an object file
+weaponPickup.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/weaponPickup.c.o
+.PHONY : weaponPickup.c.o
+
+weaponPickup.i: weaponPickup.c.i
+.PHONY : weaponPickup.i
+
+# target to preprocess a source file
+weaponPickup.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/weaponPickup.c.i
+.PHONY : weaponPickup.c.i
+
+weaponPickup.s: weaponPickup.c.s
+.PHONY : weaponPickup.s
+
+# target to generate assembly for a file
+weaponPickup.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bulanci.dir/build.make CMakeFiles/Bulanci.dir/weaponPickup.c.s
+.PHONY : weaponPickup.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -327,6 +351,9 @@ help:
 	@echo "... weapon.o"
 	@echo "... weapon.i"
 	@echo "... weapon.s"
+	@echo "... weaponPickup.o"
+	@echo "... weaponPickup.i"
+	@echo "... weaponPickup.s"
 .PHONY : help
 
 

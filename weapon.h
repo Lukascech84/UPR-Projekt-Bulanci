@@ -39,6 +39,8 @@ typedef struct
 
 weapon *get_weapon(int);
 
+int get_num_of_weapons();
+
 void change_weapon(player *, int);
 
 void init_bullet();

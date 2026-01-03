@@ -15,6 +15,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Bulanci.dir/ui.c.o.d"
   "CMakeFiles/Bulanci.dir/weapon.c.o"
   "CMakeFiles/Bulanci.dir/weapon.c.o.d"
+  "CMakeFiles/Bulanci.dir/weaponPickup.c.o"
+  "CMakeFiles/Bulanci.dir/weaponPickup.c.o.d"
 )
 
 # Per-language clean rules from dependency scanning.

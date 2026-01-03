@@ -15,6 +15,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/lukas/UPR/Projekt_Bulanci/sceneManager.c" "CMakeFiles/Bulanci.dir/sceneManager.c.o" "gcc" "CMakeFiles/Bulanci.dir/sceneManager.c.o.d"
   "/home/lukas/UPR/Projekt_Bulanci/ui.c" "CMakeFiles/Bulanci.dir/ui.c.o" "gcc" "CMakeFiles/Bulanci.dir/ui.c.o.d"
   "/home/lukas/UPR/Projekt_Bulanci/weapon.c" "CMakeFiles/Bulanci.dir/weapon.c.o" "gcc" "CMakeFiles/Bulanci.dir/weapon.c.o.d"
+  "/home/lukas/UPR/Projekt_Bulanci/weaponPickup.c" "CMakeFiles/Bulanci.dir/weaponPickup.c.o" "gcc" "CMakeFiles/Bulanci.dir/weaponPickup.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

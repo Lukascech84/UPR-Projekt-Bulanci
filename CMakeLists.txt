@@ -19,6 +19,7 @@ add_executable(Bulanci
     weapon.c
     ui.c
     collisionMap.c
+    weaponPickup.c
 )
 
 target_include_directories(Bulanci PRIVATE
