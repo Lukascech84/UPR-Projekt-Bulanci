@@ -17,6 +17,8 @@ engine *eng_get(void)
 
 int eng_init(char *title, int w, int h)
 {
+    eng.vsync_enabled = 1;
+
     if (SDL_Init(SDL_INIT_VIDEO))
     {
         fprintf(stderr, "SDL_Init Error: %s\n", SDL_GetError());
@@ -31,7 +33,7 @@ int eng_init(char *title, int w, int h)
         return 1;
     }
 
-    eng.renderer = SDL_CreateRenderer(eng.window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    eng.renderer = SDL_CreateRenderer(eng.window, -1, SDL_RENDERER_ACCELERATED | (eng.vsync_enabled ? SDL_RENDERER_PRESENTVSYNC : 0));
     if (!eng.renderer)
     {
         SDL_DestroyWindow(eng.window);
@@ -107,7 +109,6 @@ void eng_run()
 
         // Vykreslení pozadí
         SDL_RenderCopy(eng.renderer, scm_get_scm()->current_Scene->bg_texture, NULL, NULL);
-        render_ui(eng.renderer);
 
         // Logika hráče
         if (scm_get_scm()->current_Scene->have_players && !scm_get_scm()->players_spawned)
@@ -136,19 +137,19 @@ void eng_run()
             render_Players();
             render_bullet();
             input_Players();
-
-            // Debug render kolizí
-            scm_render_collisionMap();
         }
+
+        scm_render_collisionMap(); // Debug render kolizí
+        render_ui(eng.renderer);
 
         // Debug
 
         // printf("Current scene: %s\n", sceneManager.current_Scene.scene_name);
         // printf("%dx%d\n", SDL_GetWindowSurface(window)->w, SDL_GetWindowSurface(window)->h);
-        // printf("FPS: %.2f\r", 1.0 / eng.deltaTime);
+        printf("FPS: %.2f\r", 1.0 / eng.deltaTime);
 
         eng.lastTicks = now;
-        SDL_SetRenderDrawColor(eng.renderer, 0, 0, 0, 255);
+        // SDL_SetRenderDrawColor(eng.renderer, 0, 0, 0, 255);
         SDL_RenderPresent(eng.renderer); // Prezentace kreslítka
     }
 }

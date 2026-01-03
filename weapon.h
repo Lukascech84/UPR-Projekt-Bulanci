@@ -10,6 +10,8 @@ typedef struct
 {
     int playerID;
     SDL_Rect hitbox;
+    float posX;
+    float posY;
     float bullet_velocity;
     int directionX;
     int directionY;

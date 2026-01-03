@@ -10,6 +10,8 @@ typedef struct
     int window_h;
     double deltaTime;
     Uint64 lastTicks;
+
+    int vsync_enabled;
 } engine;
 
 engine *eng_get();

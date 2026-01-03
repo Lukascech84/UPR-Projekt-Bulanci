@@ -36,7 +36,10 @@ void load_ui()
 void render_ui()
 {
     render_buttons();
-    render_scoreCounter();
+    if (get_Players() != NULL)
+    {
+        render_scoreCounter();
+    }
 }
 
 void clear_ui()
@@ -228,10 +231,11 @@ void init_scoreCounter()
 
 void render_scoreCounter()
 {
+    player *players = get_Players();
     SDL_Renderer *renderer = eng_get()->renderer;
     for (size_t i = 0; i < get_Num_Of_Players(); i++)
     {
-        SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
+        SDL_SetRenderDrawColor(renderer, players[i].player_color->r, players[i].player_color->g, players[i].player_color->b, players[i].player_color->a);
         SDL_RenderFillRect(renderer, &scoreCounters[i].bg_pos);
         if (scoreCounters[i].score_text_texture)
         {

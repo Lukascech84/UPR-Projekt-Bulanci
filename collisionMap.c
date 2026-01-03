@@ -22,7 +22,7 @@ int map_collides_rect(SDL_Rect *r)
         {
             if (colMap->tiles[y * colMap->width + x] != 0)
             {
-                return 1;
+                return colMap->tiles[y * colMap->width + x];
             }
         }
     }

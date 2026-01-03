@@ -21,6 +21,8 @@ typedef struct player
     int playerID;
     char *playerName;
     int player_speed;
+    float posX;
+    float posY;
     int directionX;
     int directionY;
     int aimX;
@@ -30,6 +32,7 @@ typedef struct player
     float respawn_timer_elapsed;
     int current_ammo_in_weapon;
     int score;
+    SDL_Color *player_color;
     SDL_Rect hitbox;
     weapon *current_weapon;
     player_keybinds keybinds;
@@ -60,3 +63,5 @@ void update_Players_Respawn();
 void respawn_Player(size_t);
 
 SDL_Rect get_random_spawn(int, int);
+
+int interects_with_any_player(SDL_Rect *);
