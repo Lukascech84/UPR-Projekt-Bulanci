@@ -14,10 +14,10 @@ pkg_check_modules(SDL2_IMAGE REQUIRED SDL2_image)
 add_executable(Bulanci
     main.c
     engine.c
+    ui.c
     player.c
     sceneManager.c
     weapon.c
-    ui.c
     collisionMap.c
     weaponPickup.c
 )

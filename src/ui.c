@@ -8,7 +8,7 @@
 #include "sceneManager.h"
 #include "player.h"
 
-#define FONT_ADDRESS "./assets/fonts/Jersey_Pixelated/Jersey10-Regular.ttf"
+#define FONT_ADDRESS "../assets/fonts/Jersey_Pixelated/Jersey10-Regular.ttf"
 
 static scoreCounter scoreCounters[MAX_NUMBER_OF_PLAYERS];
 

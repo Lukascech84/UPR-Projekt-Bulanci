@@ -1,7 +1,3 @@
-// ./build
-// make
-// A PAK ./Bulanci
-
 #include "engine.h"
 
 int main(int argc, char *argv[])

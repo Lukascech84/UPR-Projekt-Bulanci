@@ -1,7 +1,8 @@
-CMakeFiles/Bulanci.dir/main.c.o: /home/lukas/UPR/Projekt_Bulanci/main.c \
- /usr/include/stdc-predef.h /home/lukas/UPR/Projekt_Bulanci/engine.h \
- /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_main.h \
- /usr/include/SDL2/SDL_stdinc.h /usr/include/SDL2/SDL_config.h \
+CMakeFiles/Bulanci.dir/main.c.o: \
+ /home/lukas/UPR/Projekt_Bulanci/src/main.c /usr/include/stdc-predef.h \
+ /home/lukas/UPR/Projekt_Bulanci/src/engine.h /usr/include/SDL2/SDL.h \
+ /usr/include/SDL2/SDL_main.h /usr/include/SDL2/SDL_stdinc.h \
+ /usr/include/SDL2/SDL_config.h \
  /usr/include/x86_64-linux-gnu/SDL2/_real_SDL_config.h \
  /usr/include/SDL2/SDL_platform.h /usr/include/SDL2/begin_code.h \
  /usr/include/SDL2/close_code.h /usr/include/x86_64-linux-gnu/sys/types.h \

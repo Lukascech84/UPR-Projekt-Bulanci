@@ -53,7 +53,7 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/lukas/UPR/Projekt_Bulanci
+CMAKE_SOURCE_DIR = /home/lukas/UPR/Projekt_Bulanci/src
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /home/lukas/UPR/Projekt_Bulanci/build
@@ -70,125 +70,125 @@ include CMakeFiles/Bulanci.dir/progress.make
 include CMakeFiles/Bulanci.dir/flags.make
 
 CMakeFiles/Bulanci.dir/main.c.o: CMakeFiles/Bulanci.dir/flags.make
-CMakeFiles/Bulanci.dir/main.c.o: /home/lukas/UPR/Projekt_Bulanci/main.c
+CMakeFiles/Bulanci.dir/main.c.o: /home/lukas/UPR/Projekt_Bulanci/src/main.c
 CMakeFiles/Bulanci.dir/main.c.o: CMakeFiles/Bulanci.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/Bulanci.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/main.c.o -MF CMakeFiles/Bulanci.dir/main.c.o.d -o CMakeFiles/Bulanci.dir/main.c.o -c /home/lukas/UPR/Projekt_Bulanci/main.c
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/main.c.o -MF CMakeFiles/Bulanci.dir/main.c.o.d -o CMakeFiles/Bulanci.dir/main.c.o -c /home/lukas/UPR/Projekt_Bulanci/src/main.c
 
 CMakeFiles/Bulanci.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Bulanci.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/main.c > CMakeFiles/Bulanci.dir/main.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/src/main.c > CMakeFiles/Bulanci.dir/main.c.i
 
 CMakeFiles/Bulanci.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Bulanci.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/main.c -o CMakeFiles/Bulanci.dir/main.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/src/main.c -o CMakeFiles/Bulanci.dir/main.c.s
 
 CMakeFiles/Bulanci.dir/engine.c.o: CMakeFiles/Bulanci.dir/flags.make
-CMakeFiles/Bulanci.dir/engine.c.o: /home/lukas/UPR/Projekt_Bulanci/engine.c
+CMakeFiles/Bulanci.dir/engine.c.o: /home/lukas/UPR/Projekt_Bulanci/src/engine.c
 CMakeFiles/Bulanci.dir/engine.c.o: CMakeFiles/Bulanci.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Bulanci.dir/engine.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/engine.c.o -MF CMakeFiles/Bulanci.dir/engine.c.o.d -o CMakeFiles/Bulanci.dir/engine.c.o -c /home/lukas/UPR/Projekt_Bulanci/engine.c
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/engine.c.o -MF CMakeFiles/Bulanci.dir/engine.c.o.d -o CMakeFiles/Bulanci.dir/engine.c.o -c /home/lukas/UPR/Projekt_Bulanci/src/engine.c
 
 CMakeFiles/Bulanci.dir/engine.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Bulanci.dir/engine.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/engine.c > CMakeFiles/Bulanci.dir/engine.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/src/engine.c > CMakeFiles/Bulanci.dir/engine.c.i
 
 CMakeFiles/Bulanci.dir/engine.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Bulanci.dir/engine.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/engine.c -o CMakeFiles/Bulanci.dir/engine.c.s
-
-CMakeFiles/Bulanci.dir/player.c.o: CMakeFiles/Bulanci.dir/flags.make
-CMakeFiles/Bulanci.dir/player.c.o: /home/lukas/UPR/Projekt_Bulanci/player.c
-CMakeFiles/Bulanci.dir/player.c.o: CMakeFiles/Bulanci.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/Bulanci.dir/player.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/player.c.o -MF CMakeFiles/Bulanci.dir/player.c.o.d -o CMakeFiles/Bulanci.dir/player.c.o -c /home/lukas/UPR/Projekt_Bulanci/player.c
-
-CMakeFiles/Bulanci.dir/player.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Bulanci.dir/player.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/player.c > CMakeFiles/Bulanci.dir/player.c.i
-
-CMakeFiles/Bulanci.dir/player.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Bulanci.dir/player.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/player.c -o CMakeFiles/Bulanci.dir/player.c.s
-
-CMakeFiles/Bulanci.dir/sceneManager.c.o: CMakeFiles/Bulanci.dir/flags.make
-CMakeFiles/Bulanci.dir/sceneManager.c.o: /home/lukas/UPR/Projekt_Bulanci/sceneManager.c
-CMakeFiles/Bulanci.dir/sceneManager.c.o: CMakeFiles/Bulanci.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/Bulanci.dir/sceneManager.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/sceneManager.c.o -MF CMakeFiles/Bulanci.dir/sceneManager.c.o.d -o CMakeFiles/Bulanci.dir/sceneManager.c.o -c /home/lukas/UPR/Projekt_Bulanci/sceneManager.c
-
-CMakeFiles/Bulanci.dir/sceneManager.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Bulanci.dir/sceneManager.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/sceneManager.c > CMakeFiles/Bulanci.dir/sceneManager.c.i
-
-CMakeFiles/Bulanci.dir/sceneManager.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Bulanci.dir/sceneManager.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/sceneManager.c -o CMakeFiles/Bulanci.dir/sceneManager.c.s
-
-CMakeFiles/Bulanci.dir/weapon.c.o: CMakeFiles/Bulanci.dir/flags.make
-CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/weapon.c
-CMakeFiles/Bulanci.dir/weapon.c.o: CMakeFiles/Bulanci.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/Bulanci.dir/weapon.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/weapon.c.o -MF CMakeFiles/Bulanci.dir/weapon.c.o.d -o CMakeFiles/Bulanci.dir/weapon.c.o -c /home/lukas/UPR/Projekt_Bulanci/weapon.c
-
-CMakeFiles/Bulanci.dir/weapon.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Bulanci.dir/weapon.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/weapon.c > CMakeFiles/Bulanci.dir/weapon.c.i
-
-CMakeFiles/Bulanci.dir/weapon.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Bulanci.dir/weapon.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/weapon.c -o CMakeFiles/Bulanci.dir/weapon.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/src/engine.c -o CMakeFiles/Bulanci.dir/engine.c.s
 
 CMakeFiles/Bulanci.dir/ui.c.o: CMakeFiles/Bulanci.dir/flags.make
-CMakeFiles/Bulanci.dir/ui.c.o: /home/lukas/UPR/Projekt_Bulanci/ui.c
+CMakeFiles/Bulanci.dir/ui.c.o: /home/lukas/UPR/Projekt_Bulanci/src/ui.c
 CMakeFiles/Bulanci.dir/ui.c.o: CMakeFiles/Bulanci.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/Bulanci.dir/ui.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/ui.c.o -MF CMakeFiles/Bulanci.dir/ui.c.o.d -o CMakeFiles/Bulanci.dir/ui.c.o -c /home/lukas/UPR/Projekt_Bulanci/ui.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/Bulanci.dir/ui.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/ui.c.o -MF CMakeFiles/Bulanci.dir/ui.c.o.d -o CMakeFiles/Bulanci.dir/ui.c.o -c /home/lukas/UPR/Projekt_Bulanci/src/ui.c
 
 CMakeFiles/Bulanci.dir/ui.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Bulanci.dir/ui.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/ui.c > CMakeFiles/Bulanci.dir/ui.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/src/ui.c > CMakeFiles/Bulanci.dir/ui.c.i
 
 CMakeFiles/Bulanci.dir/ui.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Bulanci.dir/ui.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/ui.c -o CMakeFiles/Bulanci.dir/ui.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/src/ui.c -o CMakeFiles/Bulanci.dir/ui.c.s
+
+CMakeFiles/Bulanci.dir/player.c.o: CMakeFiles/Bulanci.dir/flags.make
+CMakeFiles/Bulanci.dir/player.c.o: /home/lukas/UPR/Projekt_Bulanci/src/player.c
+CMakeFiles/Bulanci.dir/player.c.o: CMakeFiles/Bulanci.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/Bulanci.dir/player.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/player.c.o -MF CMakeFiles/Bulanci.dir/player.c.o.d -o CMakeFiles/Bulanci.dir/player.c.o -c /home/lukas/UPR/Projekt_Bulanci/src/player.c
+
+CMakeFiles/Bulanci.dir/player.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Bulanci.dir/player.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/src/player.c > CMakeFiles/Bulanci.dir/player.c.i
+
+CMakeFiles/Bulanci.dir/player.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Bulanci.dir/player.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/src/player.c -o CMakeFiles/Bulanci.dir/player.c.s
+
+CMakeFiles/Bulanci.dir/sceneManager.c.o: CMakeFiles/Bulanci.dir/flags.make
+CMakeFiles/Bulanci.dir/sceneManager.c.o: /home/lukas/UPR/Projekt_Bulanci/src/sceneManager.c
+CMakeFiles/Bulanci.dir/sceneManager.c.o: CMakeFiles/Bulanci.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/Bulanci.dir/sceneManager.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/sceneManager.c.o -MF CMakeFiles/Bulanci.dir/sceneManager.c.o.d -o CMakeFiles/Bulanci.dir/sceneManager.c.o -c /home/lukas/UPR/Projekt_Bulanci/src/sceneManager.c
+
+CMakeFiles/Bulanci.dir/sceneManager.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Bulanci.dir/sceneManager.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/src/sceneManager.c > CMakeFiles/Bulanci.dir/sceneManager.c.i
+
+CMakeFiles/Bulanci.dir/sceneManager.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Bulanci.dir/sceneManager.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/src/sceneManager.c -o CMakeFiles/Bulanci.dir/sceneManager.c.s
+
+CMakeFiles/Bulanci.dir/weapon.c.o: CMakeFiles/Bulanci.dir/flags.make
+CMakeFiles/Bulanci.dir/weapon.c.o: /home/lukas/UPR/Projekt_Bulanci/src/weapon.c
+CMakeFiles/Bulanci.dir/weapon.c.o: CMakeFiles/Bulanci.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/Bulanci.dir/weapon.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/weapon.c.o -MF CMakeFiles/Bulanci.dir/weapon.c.o.d -o CMakeFiles/Bulanci.dir/weapon.c.o -c /home/lukas/UPR/Projekt_Bulanci/src/weapon.c
+
+CMakeFiles/Bulanci.dir/weapon.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Bulanci.dir/weapon.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/src/weapon.c > CMakeFiles/Bulanci.dir/weapon.c.i
+
+CMakeFiles/Bulanci.dir/weapon.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Bulanci.dir/weapon.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/src/weapon.c -o CMakeFiles/Bulanci.dir/weapon.c.s
 
 CMakeFiles/Bulanci.dir/collisionMap.c.o: CMakeFiles/Bulanci.dir/flags.make
-CMakeFiles/Bulanci.dir/collisionMap.c.o: /home/lukas/UPR/Projekt_Bulanci/collisionMap.c
+CMakeFiles/Bulanci.dir/collisionMap.c.o: /home/lukas/UPR/Projekt_Bulanci/src/collisionMap.c
 CMakeFiles/Bulanci.dir/collisionMap.c.o: CMakeFiles/Bulanci.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/Bulanci.dir/collisionMap.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/collisionMap.c.o -MF CMakeFiles/Bulanci.dir/collisionMap.c.o.d -o CMakeFiles/Bulanci.dir/collisionMap.c.o -c /home/lukas/UPR/Projekt_Bulanci/collisionMap.c
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/collisionMap.c.o -MF CMakeFiles/Bulanci.dir/collisionMap.c.o.d -o CMakeFiles/Bulanci.dir/collisionMap.c.o -c /home/lukas/UPR/Projekt_Bulanci/src/collisionMap.c
 
 CMakeFiles/Bulanci.dir/collisionMap.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Bulanci.dir/collisionMap.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/collisionMap.c > CMakeFiles/Bulanci.dir/collisionMap.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/src/collisionMap.c > CMakeFiles/Bulanci.dir/collisionMap.c.i
 
 CMakeFiles/Bulanci.dir/collisionMap.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Bulanci.dir/collisionMap.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/collisionMap.c -o CMakeFiles/Bulanci.dir/collisionMap.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/src/collisionMap.c -o CMakeFiles/Bulanci.dir/collisionMap.c.s
 
 CMakeFiles/Bulanci.dir/weaponPickup.c.o: CMakeFiles/Bulanci.dir/flags.make
-CMakeFiles/Bulanci.dir/weaponPickup.c.o: /home/lukas/UPR/Projekt_Bulanci/weaponPickup.c
+CMakeFiles/Bulanci.dir/weaponPickup.c.o: /home/lukas/UPR/Projekt_Bulanci/src/weaponPickup.c
 CMakeFiles/Bulanci.dir/weaponPickup.c.o: CMakeFiles/Bulanci.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/Bulanci.dir/weaponPickup.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/weaponPickup.c.o -MF CMakeFiles/Bulanci.dir/weaponPickup.c.o.d -o CMakeFiles/Bulanci.dir/weaponPickup.c.o -c /home/lukas/UPR/Projekt_Bulanci/weaponPickup.c
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Bulanci.dir/weaponPickup.c.o -MF CMakeFiles/Bulanci.dir/weaponPickup.c.o.d -o CMakeFiles/Bulanci.dir/weaponPickup.c.o -c /home/lukas/UPR/Projekt_Bulanci/src/weaponPickup.c
 
 CMakeFiles/Bulanci.dir/weaponPickup.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Bulanci.dir/weaponPickup.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/weaponPickup.c > CMakeFiles/Bulanci.dir/weaponPickup.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lukas/UPR/Projekt_Bulanci/src/weaponPickup.c > CMakeFiles/Bulanci.dir/weaponPickup.c.i
 
 CMakeFiles/Bulanci.dir/weaponPickup.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Bulanci.dir/weaponPickup.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/weaponPickup.c -o CMakeFiles/Bulanci.dir/weaponPickup.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lukas/UPR/Projekt_Bulanci/src/weaponPickup.c -o CMakeFiles/Bulanci.dir/weaponPickup.c.s
 
 # Object files for target Bulanci
 Bulanci_OBJECTS = \
 "CMakeFiles/Bulanci.dir/main.c.o" \
 "CMakeFiles/Bulanci.dir/engine.c.o" \
+"CMakeFiles/Bulanci.dir/ui.c.o" \
 "CMakeFiles/Bulanci.dir/player.c.o" \
 "CMakeFiles/Bulanci.dir/sceneManager.c.o" \
 "CMakeFiles/Bulanci.dir/weapon.c.o" \
-"CMakeFiles/Bulanci.dir/ui.c.o" \
 "CMakeFiles/Bulanci.dir/collisionMap.c.o" \
 "CMakeFiles/Bulanci.dir/weaponPickup.c.o"
 
@@ -197,10 +197,10 @@ Bulanci_EXTERNAL_OBJECTS =
 
 Bulanci: CMakeFiles/Bulanci.dir/main.c.o
 Bulanci: CMakeFiles/Bulanci.dir/engine.c.o
+Bulanci: CMakeFiles/Bulanci.dir/ui.c.o
 Bulanci: CMakeFiles/Bulanci.dir/player.c.o
 Bulanci: CMakeFiles/Bulanci.dir/sceneManager.c.o
 Bulanci: CMakeFiles/Bulanci.dir/weapon.c.o
-Bulanci: CMakeFiles/Bulanci.dir/ui.c.o
 Bulanci: CMakeFiles/Bulanci.dir/collisionMap.c.o
 Bulanci: CMakeFiles/Bulanci.dir/weaponPickup.c.o
 Bulanci: CMakeFiles/Bulanci.dir/build.make
@@ -217,6 +217,6 @@ CMakeFiles/Bulanci.dir/clean:
 .PHONY : CMakeFiles/Bulanci.dir/clean
 
 CMakeFiles/Bulanci.dir/depend:
-	cd /home/lukas/UPR/Projekt_Bulanci/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lukas/UPR/Projekt_Bulanci /home/lukas/UPR/Projekt_Bulanci /home/lukas/UPR/Projekt_Bulanci/build /home/lukas/UPR/Projekt_Bulanci/build /home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles/Bulanci.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/lukas/UPR/Projekt_Bulanci/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lukas/UPR/Projekt_Bulanci/src /home/lukas/UPR/Projekt_Bulanci/src /home/lukas/UPR/Projekt_Bulanci/build /home/lukas/UPR/Projekt_Bulanci/build /home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles/Bulanci.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/Bulanci.dir/depend
 

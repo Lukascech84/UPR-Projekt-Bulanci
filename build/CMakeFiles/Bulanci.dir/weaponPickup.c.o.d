@@ -1,5 +1,5 @@
 CMakeFiles/Bulanci.dir/weaponPickup.c.o: \
- /home/lukas/UPR/Projekt_Bulanci/weaponPickup.c \
+ /home/lukas/UPR/Projekt_Bulanci/src/weaponPickup.c \
  /usr/include/stdc-predef.h /usr/include/SDL2/SDL.h \
  /usr/include/SDL2/SDL_main.h /usr/include/SDL2/SDL_stdinc.h \
  /usr/include/SDL2/SDL_config.h \
@@ -188,11 +188,11 @@ CMakeFiles/Bulanci.dir/weaponPickup.c.o: \
  /usr/include/SDL2/SDL_system.h /usr/include/SDL2/SDL_timer.h \
  /usr/include/SDL2/SDL_version.h /usr/include/SDL2/SDL_locale.h \
  /usr/include/SDL2/SDL_misc.h \
- /home/lukas/UPR/Projekt_Bulanci/weaponPickup.h \
+ /home/lukas/UPR/Projekt_Bulanci/src/weaponPickup.h \
  /usr/include/SDL2/SDL_image.h /usr/include/SDL2/SDL.h \
- /home/lukas/UPR/Projekt_Bulanci/engine.h \
- /home/lukas/UPR/Projekt_Bulanci/ui.h /usr/include/SDL2/SDL_ttf.h \
- /home/lukas/UPR/Projekt_Bulanci/collisionMap.h \
- /home/lukas/UPR/Projekt_Bulanci/sceneManager.h \
- /home/lukas/UPR/Projekt_Bulanci/weapon.h \
- /home/lukas/UPR/Projekt_Bulanci/player.h
+ /home/lukas/UPR/Projekt_Bulanci/src/engine.h \
+ /home/lukas/UPR/Projekt_Bulanci/src/ui.h /usr/include/SDL2/SDL_ttf.h \
+ /home/lukas/UPR/Projekt_Bulanci/src/collisionMap.h \
+ /home/lukas/UPR/Projekt_Bulanci/src/sceneManager.h \
+ /home/lukas/UPR/Projekt_Bulanci/src/weapon.h \
+ /home/lukas/UPR/Projekt_Bulanci/src/player.h
