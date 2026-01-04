@@ -19,7 +19,7 @@ scene create_menu_scene()
     s.scene_name = "Menu";
     s.have_players = 0;
     s.respawn_timer = 0.0f;
-    s.bg_texture_address = "../assets/maps/00_Menu/menu.jpg";
+    s.bg_texture_address = "assets/maps/00_Menu/menu.jpg";
     s.buttons[0] = (button){
         .isActive = 1,
         .button = {25, 50, 200, 75},
@@ -94,7 +94,7 @@ scene create_start_screen_scene()
     s.scene_name = "Start screen";
     s.have_players = 0;
     s.respawn_timer = 0.0f;
-    s.bg_texture_address = "../assets/maps/00_Menu/menu.jpg";
+    s.bg_texture_address = "assets/maps/00_Menu/menu.jpg";
 
     s.buttons[0] = (button){
         .isActive = 1,
@@ -214,7 +214,7 @@ scene create_settings_scene()
     s.scene_name = "Settings";
     s.have_players = 0;
     s.respawn_timer = 0.0f;
-    s.bg_texture_address = "../assets/maps/00_Menu/menu.jpg";
+    s.bg_texture_address = "assets/maps/00_Menu/menu.jpg";
 
     s.buttons[0] = (button){
         .isActive = 1,
@@ -260,7 +260,7 @@ scene create_leaderboard_scene()
     s.scene_name = "Leaderboard";
     s.have_players = 0;
     s.respawn_timer = 0.0f;
-    s.bg_texture_address = "../assets/maps/00_Menu/menu.jpg";
+    s.bg_texture_address = "assets/maps/00_Menu/menu.jpg";
 
     s.buttons[0] = (button){
         .isActive = 1,
@@ -296,7 +296,7 @@ scene create_map1_scene()
     s.scene_name = "Grass";
     s.have_players = 1;
     s.respawn_timer = 5.0f;
-    s.bg_texture_address = "../assets/maps/01_Grass/map1_scaled.png";
+    s.bg_texture_address = "assets/maps/01_Grass/map1_scaled.png";
     s.colMap.width = 17;
     s.colMap.height = 10;
     static int map1[] = {
@@ -323,7 +323,7 @@ scene create_map2_scene()
     s.scene_name = "Na dobrou noc";
     s.have_players = 1;
     s.respawn_timer = 5.0f;
-    s.bg_texture_address = "../assets/maps/02_Na_Dobrou_Noc/na-dobrou-noc-upraveny.jpg";
+    s.bg_texture_address = "assets/maps/02_Na_Dobrou_Noc/na-dobrou-noc-upraveny.jpg";
     s.colMap.width = 32;
     s.colMap.height = 18;
     static int map2[] = {

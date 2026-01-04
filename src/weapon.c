@@ -125,7 +125,7 @@ void update_bullet()
                 get_Players()[fired_bullets[i].playerID].score++;
                 kill_Player(j);
                 destroy_bullet(i);
-                printf("Player %d got killed by player %d with score %d\n", j, fired_bullets[i].playerID, get_Players()[fired_bullets[i].playerID].score);
+                printf("Player %ld got killed by player %d with score %d\n", j, fired_bullets[i].playerID, get_Players()[fired_bullets[i].playerID].score);
                 break;
             }
         }

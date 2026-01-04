@@ -1,14 +1,14 @@
-#include <string.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
+#include <string.h>
 #include <stdio.h>
 #include "ui.h"
 #include "engine.h"
 #include "sceneManager.h"
 #include "player.h"
 
-#define FONT_ADDRESS "../assets/fonts/Jersey_Pixelated/Jersey10-Regular.ttf"
+#define FONT_ADDRESS "assets/fonts/Jersey_Pixelated/Jersey10-Regular.ttf"
 
 static scoreCounter scoreCounters[MAX_NUMBER_OF_PLAYERS];
 
