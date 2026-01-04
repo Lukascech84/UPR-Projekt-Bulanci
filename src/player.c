@@ -25,9 +25,9 @@ void init_Players()
                                   {.up = SDL_SCANCODE_T, .down = SDL_SCANCODE_G, .left = SDL_SCANCODE_F, .right = SDL_SCANCODE_H, .shoot = SDL_SCANCODE_Y}};
     players = realloc(players, num_of_players * sizeof(player));
 
-    for (size_t i = 0; i < num_of_players; i++)
+    for (int i = 0; i < num_of_players; i++)
     {
-        players[i].playerID = (int)i;
+        players[i].playerID = i;
         strcpy(players[i].playerName, get_player_names(i));
         players[i].player_speed = 125;
         players[i].directionX = 1;
@@ -92,7 +92,7 @@ player *get_Players()
 
 void update_Players()
 {
-    for (size_t i = 0; i < num_of_players; i++)
+    for (int i = 0; i < num_of_players; i++)
     {
         players[i].current_weapon->fire_timer += eng_get()->deltaTime;
 
@@ -143,7 +143,7 @@ void move_Player(player *p)
         collision = 1;
     }
 
-    for (size_t j = 0; j < num_of_players && !collision; j++)
+    for (int j = 0; j < num_of_players && !collision; j++)
     {
         if (p->playerID == j || !players[j].isAlive)
             continue;
@@ -171,7 +171,7 @@ void move_Player(player *p)
         collision = 1;
     }
 
-    for (size_t j = 0; j < num_of_players && !collision; j++)
+    for (int j = 0; j < num_of_players && !collision; j++)
     {
         if (p->playerID == j || !players[j].isAlive)
             continue;
@@ -197,7 +197,7 @@ void render_Players()
 {
     SDL_Renderer *renderer = eng_get()->renderer;
 
-    for (size_t i = 0; i < num_of_players; i++)
+    for (int i = 0; i < num_of_players; i++)
     {
         if (!players[i].isAlive)
         {
@@ -212,7 +212,7 @@ void input_Players()
 {
     const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-    for (size_t i = 0; i < num_of_players; i++)
+    for (int i = 0; i < num_of_players; i++)
     {
         if (!players[i].isAlive)
         {
@@ -247,7 +247,7 @@ void input_Players()
 
 void resize_Players(int new_h, int new_w)
 {
-    for (size_t i = 0; i < num_of_players; i++)
+    for (int i = 0; i < num_of_players; i++)
     {
         players[i].hitbox.h = new_h;
         players[i].hitbox.w = new_w;
@@ -294,7 +294,7 @@ void update_Player_Respawn(player *p)
     }
 }
 
-void respawn_Player(size_t i)
+void respawn_Player(int i)
 {
     SDL_Rect spawn = get_random_spawn(players[i].hitbox.w, players[i].hitbox.h);
 
@@ -341,7 +341,7 @@ SDL_Rect get_random_spawn(int player_w, int player_h)
 
 int interects_with_any_player(SDL_Rect *rect)
 {
-    for (size_t i = 0; i < num_of_players; i++)
+    for (int i = 0; i < num_of_players; i++)
     {
         if (!players[i].isAlive)
         {

@@ -69,7 +69,7 @@ void clear_ui()
 
 void load_buttons()
 {
-    for (size_t i = 0; i < MAX_BUTTONS_PER_SCENE; i++)
+    for (int i = 0; i < MAX_BUTTONS_PER_SCENE; i++)
     {
         if (scm_get_scm()->current_Scene->buttons[i].isActive == 1)
         {
@@ -84,7 +84,7 @@ void render_buttons()
 {
     SDL_Renderer *renderer = eng_get()->renderer;
 
-    for (size_t i = 0; i < MAX_BUTTONS_PER_SCENE; i++)
+    for (int i = 0; i < MAX_BUTTONS_PER_SCENE; i++)
     {
         button *btn = &loaded_buttons_in_scene[i];
 
@@ -116,7 +116,7 @@ void render_buttons()
 
 void clear_buttons()
 {
-    for (size_t i = 0; i < MAX_BUTTONS_PER_SCENE; i++)
+    for (int i = 0; i < MAX_BUTTONS_PER_SCENE; i++)
     {
         if (loaded_buttons_in_scene[i].textField.text_texture)
         {
@@ -130,7 +130,7 @@ void clear_buttons()
 
 void load_textfields()
 {
-    for (size_t i = 0; i < MAX_TEXTFIELDS_PER_SCENE; i++)
+    for (int i = 0; i < MAX_TEXTFIELDS_PER_SCENE; i++)
     {
         if (scm_get_scm()->current_Scene->textFields[i].isActive == 1)
         {
@@ -145,7 +145,7 @@ void render_textfields()
 {
     SDL_Renderer *renderer = eng_get()->renderer;
 
-    for (size_t i = 0; i < MAX_TEXTFIELDS_PER_SCENE; i++)
+    for (int i = 0; i < MAX_TEXTFIELDS_PER_SCENE; i++)
     {
         textField *tf = &loaded_textfields_in_scene[i];
 
@@ -171,7 +171,7 @@ void render_textfields()
 
 void clear_textfields()
 {
-    for (size_t i = 0; i < MAX_TEXTFIELDS_PER_SCENE; i++)
+    for (int i = 0; i < MAX_TEXTFIELDS_PER_SCENE; i++)
     {
         if (loaded_textfields_in_scene[i].text_texture)
         {
@@ -188,7 +188,7 @@ void update_textfields(SDL_Event *event)
     int mx, my;
     SDL_GetMouseState(&mx, &my);
 
-    for (size_t i = 0; i < MAX_TEXTFIELDS_PER_SCENE; i++)
+    for (int i = 0; i < MAX_TEXTFIELDS_PER_SCENE; i++)
     {
         textField *tf = &loaded_textfields_in_scene[i];
 
@@ -223,7 +223,7 @@ void writable_textfield_input(SDL_Event *event, textField *tf)
 
     if (event->type == SDL_TEXTINPUT)
     {
-        if (strlen(tf->text) + strlen(event->text.text) < tf->max_length)
+        if ((int)(strlen(tf->text) + strlen(event->text.text)) < tf->max_length)
         {
             strcat(tf->text, event->text.text);
             create_textfield_texture(tf);
@@ -288,7 +288,7 @@ void create_textfield_texture(textField *tf)
 
 void init_playerNames()
 {
-    for (size_t i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
+    for (int i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
     {
         snprintf(player_name_buffers[i], sizeof(player_name_buffers[i]), "Player %d", (int)(i + 1));
     }
@@ -311,7 +311,7 @@ void render_players_in_start_screen()
         return;
     }
 
-    for (size_t i = 0; i < get_Num_Of_Players(); i++)
+    for (int i = 0; i < get_Num_Of_Players(); i++)
     {
         SDL_Renderer *renderer = eng_get()->renderer;
         SDL_Color *color = get_player_color_pointer(i);
@@ -330,10 +330,10 @@ void render_players_in_start_screen()
 
 void update_player_name_textfields()
 {
-    int player_count = (size_t)get_Num_Of_Players();
+    int player_count = (int)get_Num_Of_Players();
     int start_index = PLAYER_NAME_TEXTFIELD_START;
 
-    for (size_t i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
+    for (int i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
     {
         textField *tf = &loaded_textfields_in_scene[start_index + i];
 
@@ -343,7 +343,7 @@ void update_player_name_textfields()
         }
     }
 
-    for (size_t i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
+    for (int i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
     {
         textField *tf = &loaded_textfields_in_scene[i + start_index];
 
@@ -394,7 +394,7 @@ void update_buttons(SDL_Event *event)
     int mx, my;
     SDL_GetMouseState(&mx, &my);
 
-    for (size_t i = 0; i < MAX_BUTTONS_PER_SCENE; i++)
+    for (int i = 0; i < MAX_BUTTONS_PER_SCENE; i++)
     {
         button *btn = &loaded_buttons_in_scene[i];
 
@@ -449,7 +449,7 @@ void init_scoreCounter()
                                                             {.h = 50, .w = 125, .x = 0, .y = (h - 50)},
                                                             {.h = 50, .w = 125, .x = (w - 125), .y = (h - 50)}};
 
-    for (size_t i = 0; i < get_Num_Of_Players(); i++)
+    for (int i = 0; i < get_Num_Of_Players(); i++)
     {
         player *players = get_Players();
 
@@ -466,7 +466,7 @@ void render_scoreCounter()
 {
     player *players = get_Players();
     SDL_Renderer *renderer = eng_get()->renderer;
-    for (size_t i = 0; i < get_Num_Of_Players(); i++)
+    for (int i = 0; i < get_Num_Of_Players(); i++)
     {
         SDL_SetRenderDrawColor(renderer, players[i].player_color->r, players[i].player_color->g, players[i].player_color->b, players[i].player_color->a);
         SDL_RenderFillRect(renderer, &scoreCounters[i].bg_pos);
@@ -488,7 +488,7 @@ void render_scoreCounter()
 void update_scoreCounter()
 {
     player *players = get_Players();
-    for (size_t i = 0; i < get_Num_Of_Players(); i++)
+    for (int i = 0; i < get_Num_Of_Players(); i++)
     {
         if (players[i].score != scoreCounters[i].score || scoreCounters[i].score_text_texture == NULL)
         {
@@ -510,7 +510,7 @@ void update_scoreCounter()
 
 void clear_scoreCounter()
 {
-    for (size_t i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
+    for (int i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
     {
         SDL_DestroyTexture(scoreCounters[i].score_text_texture);
         SDL_DestroyTexture(scoreCounters[i].weapon_text_texture);

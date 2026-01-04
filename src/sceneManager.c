@@ -393,7 +393,7 @@ int scm_load_textures()
 {
     SDL_Renderer *renderer = eng_get()->renderer;
 
-    for (size_t i = 0; i < MAX_SCENES; i++)
+    for (int i = 0; i < MAX_SCENES; i++)
     {
         SDL_Surface *background_sur = IMG_Load(scenes[i].bg_texture_address);
         if (background_sur == NULL)
@@ -415,7 +415,7 @@ int scm_load_textures()
 
 void scm_destroy_textures()
 {
-    for (size_t i = 0; i < MAX_SCENES; i++)
+    for (int i = 0; i < MAX_SCENES; i++)
     {
         SDL_DestroyTexture(scenes[i].bg_texture);
     }
@@ -427,9 +427,9 @@ void scm_render_collisionMap()
 
     SDL_Renderer *renderer = eng_get()->renderer;
 
-    for (size_t y = 0; y < colMap->height; y++)
+    for (int y = 0; y < colMap->height; y++)
     {
-        for (size_t x = 0; x < colMap->width; x++)
+        for (int x = 0; x < colMap->width; x++)
         {
             if (colMap->tiles[y * colMap->width + x] == 0)
             {

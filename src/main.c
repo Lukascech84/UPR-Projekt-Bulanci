@@ -1,6 +1,6 @@
 #include "engine.h"
 
-int main(int argc, char *argv[])
+int main()
 {
     if (eng_init("Bulánci", 1024, 576))
     {

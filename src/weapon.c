@@ -35,7 +35,7 @@ void change_weapon(player *p, int w)
 
 void init_bullet()
 {
-    for (size_t i = 0; i < MAX_BULLETS; i++)
+    for (int i = 0; i < MAX_BULLETS; i++)
     {
         fired_bullets[i].active = 0;
     }
@@ -45,7 +45,7 @@ void spawn_bullet(player *p)
 {
     SDL_Renderer *renderer = eng_get()->renderer;
 
-    for (size_t i = 0; i < MAX_BULLETS; i++)
+    for (int i = 0; i < MAX_BULLETS; i++)
     {
         if (fired_bullets[i].active == 0)
         {
@@ -72,7 +72,7 @@ void render_bullet()
     SDL_Renderer *renderer = eng_get()->renderer;
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-    for (size_t i = 0; i < MAX_BULLETS; i++)
+    for (int i = 0; i < MAX_BULLETS; i++)
     {
         if (fired_bullets[i].active)
         {
@@ -83,7 +83,7 @@ void render_bullet()
 
 void update_bullet()
 {
-    for (size_t i = 0; i < MAX_BULLETS; i++)
+    for (int i = 0; i < MAX_BULLETS; i++)
     {
         if (!fired_bullets[i].active)
         {
@@ -113,7 +113,7 @@ void update_bullet()
             destroy_bullet(i);
         }
 
-        for (size_t j = 0; j < get_Num_Of_Players(); j++)
+        for (int j = 0; j < get_Num_Of_Players(); j++)
         {
             if (fired_bullets[i].playerID == j || !get_Players()[j].isAlive)
             {
@@ -125,7 +125,7 @@ void update_bullet()
                 get_Players()[fired_bullets[i].playerID].score++;
                 kill_Player(j);
                 destroy_bullet(i);
-                printf("Player %ld got killed by player %d with score %d\n", j, fired_bullets[i].playerID, get_Players()[fired_bullets[i].playerID].score);
+                printf("Player %d got killed by player %d with score %d\n", j, fired_bullets[i].playerID, get_Players()[fired_bullets[i].playerID].score);
                 break;
             }
         }

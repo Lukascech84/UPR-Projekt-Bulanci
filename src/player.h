@@ -68,7 +68,7 @@ void kill_Player(int);
 
 void update_Player_Respawn(player *);
 
-void respawn_Player(size_t);
+void respawn_Player(int);
 
 SDL_Rect get_random_spawn(int, int);
 
