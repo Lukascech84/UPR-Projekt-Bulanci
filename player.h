@@ -19,7 +19,7 @@ typedef struct
 typedef struct player
 {
     int playerID;
-    char *playerName;
+    char playerName[MAX_PLAYER_NAME_LEN + 1];
     int player_speed;
     float posX;
     float posY;
@@ -43,6 +43,12 @@ void init_Players();
 void clear_Players();
 
 int get_Num_Of_Players();
+
+int *get_Num_Of_Players_Pointer();
+
+SDL_Color *get_player_color_pointer(int);
+
+void set_Num_Of_Players(int);
 
 player *get_Players();
 

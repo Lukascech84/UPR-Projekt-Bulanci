@@ -8,9 +8,6 @@
 #include "weapon.h"
 #include "player.h"
 
-#define MAX_SCENES 6
-#define MAX_TEXTFIELDS_PER_SCENE 10
-
 static scene scenes[MAX_SCENES];
 static sceneManager scm = {.current_Scene = NULL};
 
@@ -80,7 +77,8 @@ scene create_menu_scene()
         .text = "Welcome to Bulanci!",
         .text_box_color = {0, 0, 0, 150},
         .text_box = {512 - 250, 0, 500, 50},
-        .isActive = 1};
+        .isActive = 1,
+    };
     s.colMap.width = 0;
     s.colMap.height = 0;
     s.colMap.tiles = NULL;
@@ -124,12 +122,83 @@ scene create_start_screen_scene()
         },
         .onClick = on_back,
         .state = BUTTON_NORMAL};
+    s.buttons[2] = (button){
+        .isActive = 1,
+        .button = {25, 150, 75, 50},
+        .button_color = {100, 100, 100, 255},
+        .hover_color = {140, 140, 140, 255},
+        .pressed_color = {180, 180, 180, 255},
+        .textField = {
+            .text = "<-",
+            .text_color = {255, 255, 255, 255},
+            .text_box = {25, 150, 75, 50},
+        },
+        .onClick = on_decrease_player_count,
+        .state = BUTTON_NORMAL};
+    s.buttons[3] = (button){
+        .isActive = 1,
+        .button = {250, 150, 75, 50},
+        .button_color = {100, 100, 100, 255},
+        .hover_color = {140, 140, 140, 255},
+        .pressed_color = {180, 180, 180, 255},
+        .textField = {
+            .text = "->",
+            .text_color = {255, 255, 255, 255},
+            .text_box = {250, 150, 75, 50},
+        },
+        .onClick = on_increase_player_count,
+        .state = BUTTON_NORMAL};
+    s.buttons[4] = (button){
+        .isActive = 1,
+        .button = {25, 225, 75, 50},
+        .button_color = {100, 100, 100, 255},
+        .hover_color = {140, 140, 140, 255},
+        .pressed_color = {180, 180, 180, 255},
+        .textField = {
+            .text = "<-",
+            .text_color = {255, 255, 255, 255},
+            .text_box = {25, 225, 75, 50},
+        },
+        .onClick = on_decrease_map_index,
+        .state = BUTTON_NORMAL};
+    s.buttons[5] = (button){
+        .isActive = 1,
+        .button = {250, 225, 75, 50},
+        .button_color = {100, 100, 100, 255},
+        .hover_color = {140, 140, 140, 255},
+        .pressed_color = {180, 180, 180, 255},
+        .textField = {
+            .text = "->",
+            .text_color = {255, 255, 255, 255},
+            .text_box = {250, 225, 75, 50},
+        },
+        .onClick = on_increase_max_index,
+        .state = BUTTON_NORMAL};
     s.textFields[0] = (textField){
         .text_color = {255, 255, 255, 255},
         .text = "Select Map",
         .text_box_color = {0, 0, 0, 150},
         .text_box = {512 - 150, 0, 300, 50},
-        .isActive = 1};
+        .isActive = 1,
+        .isEditable = 0};
+    s.textFields[1] = (textField){
+        .text_color = {255, 255, 255, 255},
+        .text = "",
+        .number_value = get_Num_Of_Players_Pointer(),
+        .text_box_color = {0, 0, 0, 150},
+        .text_box = {125, 150, 100, 50},
+        .isActive = 1,
+        .isEditable = 0,
+    };
+    s.textFields[2] = (textField){
+        .text_color = {255, 255, 255, 255},
+        .text = "",
+        .number_value = &scm_get_scm()->selected_map_index,
+        .text_box_color = {0, 0, 0, 150},
+        .text_box = {125, 225, 100, 50},
+        .isActive = 1,
+        .isEditable = 0,
+    };
     s.colMap.width = 0;
     s.colMap.height = 0;
     s.colMap.tiles = NULL;
@@ -166,6 +235,16 @@ scene create_settings_scene()
         .text_box_color = {0, 0, 0, 150},
         .text_box = {512 - 150, 0, 300, 50},
         .isActive = 1};
+    s.textFields[1] = (textField){
+        .text_color = {255, 255, 255, 255},
+        .text = "Player Name:",
+        .text_box_color = {0, 0, 0, 150},
+        .text_box = {512 - 250, 150, 500, 50},
+        .isActive = 1,
+        .isEditable = 1,
+        .max_length = 20,
+        .text_box_focused_color = {50, 50, 50, 150},
+    };
     s.colMap.width = 0;
     s.colMap.height = 0;
     s.colMap.tiles = NULL;
@@ -281,11 +360,17 @@ void init_scenes()
     scenes[5] = create_map2_scene();
 
     scm.current_Scene = &scenes[0];
+    scm.selected_map_index = 1;
 }
 
 sceneManager *scm_get_scm()
 {
     return &scm;
+}
+
+int *scm_get_selected_map_index_pointer()
+{
+    return &scm.selected_map_index;
 }
 
 scene *scm_get_scene(int index)
@@ -299,7 +384,8 @@ void scm_load_scene(int scene_index)
 
     clear_ui();
     scm.current_Scene = &scenes[scene_index];
-    printf("Loading scene: %s\n", scm_get_scene(scene_index)->scene_name);
+    scm.current_Scene->scene_index = scene_index;
+    printf("Loading scene: %s[%d]\n", scm_get_scene(scene_index)->scene_name, scene_index);
     load_ui();
 }
 

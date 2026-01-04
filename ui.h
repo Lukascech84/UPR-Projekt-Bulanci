@@ -3,6 +3,9 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
 
+#define PLAYER_NAME_TEXTFIELD_START (MAX_TEXTFIELDS_PER_SCENE - MAX_NUMBER_OF_PLAYERS)
+#define MAX_PLAYER_NAME_LEN 10
+
 typedef enum
 {
     BUTTON_NORMAL,
@@ -15,13 +18,19 @@ typedef void (*ButtonCallback)();
 typedef struct
 {
     int isActive;
+    int isEditable;
+    int isFocused;
+    int max_length;
 
     SDL_Rect text_box;
     SDL_Rect text_pos;
+
     SDL_Color text_box_color;
+    SDL_Color text_box_focused_color;
     SDL_Color text_color;
 
     char text[128];
+    int *number_value;
 
     SDL_Texture *text_texture;
 } textField;
@@ -68,24 +77,39 @@ void render_ui();
 
 void clear_ui();
 
+int is_mouse_over_rect(SDL_Rect *, int, int);
+
+void render_players_in_start_screen();
+
+void update_player_name_textfields();
+
+char *get_player_names(int i);
+
+// BUTTON FUNCTIONS
 void load_buttons();
 
 void render_buttons();
 
 void clear_buttons();
 
+void update_buttons(SDL_Event *);
+
+void writable_textfield_input(SDL_Event *, textField *);
+
+// TEXTFIELD FUNCTIONS
 void load_textfields();
 
 void render_textfields();
 
 void clear_textfields();
 
+void update_textfields(SDL_Event *);
+
 void create_textfield_texture(textField *);
 
-int is_mouse_over_button(button *, int, int);
+void init_playerNames();
 
-void update_buttons(SDL_Event *);
-
+// SCORE COUNTER FUNCTIONS
 void init_scoreCounter();
 
 void render_scoreCounter();
@@ -111,5 +135,13 @@ void on_quit();
 
 // START SCENE CALLBACKS
 void on_start_game();
+
+void on_decrease_player_count();
+
+void on_increase_player_count();
+
+void on_decrease_map_index();
+
+void on_increase_max_index();
 
 void on_back();

@@ -5,8 +5,9 @@
 #include "engine.h"
 #include "weapon.h"
 #include "player.h"
+#include "ui.h"
 
-static int num_of_players = 4;
+static int num_of_players = 2;
 
 static SDL_Color player_colors[4] = {
     {.r = 128, .g = 0, .b = 0, .a = 255},
@@ -26,8 +27,8 @@ void init_Players()
 
     for (size_t i = 0; i < num_of_players; i++)
     {
-        players[i].playerID = i;
-        players[i].playerName = i;
+        players[i].playerID = (int)i;
+        strcpy(players[i].playerName, get_player_names(i));
         players[i].player_speed = 125;
         players[i].directionX = 1;
         players[i].directionY = 0;
@@ -59,6 +60,29 @@ void clear_Players()
 int get_Num_Of_Players()
 {
     return num_of_players;
+}
+
+int *get_Num_Of_Players_Pointer()
+{
+    return &num_of_players;
+}
+
+SDL_Color *get_player_color_pointer(int playerID)
+{
+    return &player_colors[playerID];
+}
+
+void set_Num_Of_Players(int n)
+{
+    if (n < 1)
+    {
+        n = 1;
+    }
+    else if (n > MAX_NUMBER_OF_PLAYERS)
+    {
+        n = MAX_NUMBER_OF_PLAYERS;
+    }
+    num_of_players = n;
 }
 
 player *get_Players()

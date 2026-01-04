@@ -3,18 +3,20 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
-#include "engine.h"
 #include "ui.h"
+#include "engine.h"
 #include "sceneManager.h"
 #include "player.h"
 
 #define FONT_ADDRESS "./assets/fonts/Jersey_Pixelated/Jersey10-Regular.ttf"
 
-scoreCounter scoreCounters[MAX_NUMBER_OF_PLAYERS];
+static scoreCounter scoreCounters[MAX_NUMBER_OF_PLAYERS];
 
-button loaded_buttons_in_scene[MAX_BUTTONS_PER_SCENE];
+static button loaded_buttons_in_scene[MAX_BUTTONS_PER_SCENE];
 
-textField loaded_textfields_in_scene[MAX_TEXTFIELDS_PER_SCENE];
+static textField loaded_textfields_in_scene[MAX_TEXTFIELDS_PER_SCENE];
+
+static char player_name_buffers[MAX_NUMBER_OF_PLAYERS][MAX_PLAYER_NAME_LEN + 1];
 
 TTF_Font *font = NULL;
 TTF_Font *font_smaller = NULL;
@@ -28,6 +30,10 @@ void init_ui()
         printf("Font load error: %s\n", TTF_GetError());
         return;
     }
+    if (MAX_NUMBER_OF_PLAYERS > 0)
+    {
+        init_playerNames();
+    }
 }
 
 void load_ui()
@@ -38,9 +44,17 @@ void load_ui()
 
 void render_ui()
 {
+    int scene_index = scm_get_scm()->current_Scene->scene_index;
+
     render_buttons();
     render_textfields();
-    if (get_Players() != NULL)
+
+    if (scene_index == SCENE_START_SCREEN)
+    {
+        render_players_in_start_screen();
+    }
+
+    if (scene_index >= PLAYABLE_SCENES_START_INDEX)
     {
         render_scoreCounter();
     }
@@ -140,7 +154,12 @@ void render_textfields()
             continue;
         }
 
-        SDL_SetRenderDrawColor(renderer, tf->text_box_color.r, tf->text_box_color.g, tf->text_box_color.b, tf->text_box_color.a);
+        SDL_Color box_color = tf->text_box_color;
+        if (tf->isFocused)
+        {
+            box_color = tf->text_box_focused_color;
+        }
+        SDL_SetRenderDrawColor(renderer, box_color.r, box_color.g, box_color.b, box_color.a);
         SDL_RenderFillRect(renderer, &tf->text_box);
 
         if (tf->text_texture)
@@ -164,6 +183,62 @@ void clear_textfields()
     }
 }
 
+void update_textfields(SDL_Event *event)
+{
+    int mx, my;
+    SDL_GetMouseState(&mx, &my);
+
+    for (size_t i = 0; i < MAX_TEXTFIELDS_PER_SCENE; i++)
+    {
+        textField *tf = &loaded_textfields_in_scene[i];
+
+        if (tf->isActive && tf->isEditable && tf->isFocused)
+        {
+            writable_textfield_input(event, tf);
+        }
+        else if (!tf->isActive || !tf->isEditable)
+        {
+            continue;
+        }
+
+        int hover = is_mouse_over_rect(&tf->text_box, mx, my);
+
+        if (hover && event->type == SDL_MOUSEBUTTONDOWN && event->button.button == SDL_BUTTON_LEFT)
+        {
+            tf->isFocused = 1;
+        }
+        else if (!hover && event->type == SDL_MOUSEBUTTONDOWN && event->button.button == SDL_BUTTON_LEFT)
+        {
+            tf->isFocused = 0;
+        }
+    }
+}
+
+void writable_textfield_input(SDL_Event *event, textField *tf)
+{
+    if (!tf->isActive || !tf->isEditable || !tf->isFocused)
+    {
+        return;
+    }
+
+    if (event->type == SDL_TEXTINPUT)
+    {
+        if (strlen(tf->text) + strlen(event->text.text) < tf->max_length)
+        {
+            strcat(tf->text, event->text.text);
+            create_textfield_texture(tf);
+        }
+    }
+    else if (event->type == SDL_KEYDOWN)
+    {
+        if (event->key.keysym.sym == SDLK_BACKSPACE && strlen(tf->text) > 0)
+        {
+            tf->text[strlen(tf->text) - 1] = '\0';
+            create_textfield_texture(tf);
+        }
+    }
+}
+
 void create_textfield_texture(textField *tf)
 {
     SDL_Renderer *renderer = eng_get()->renderer;
@@ -174,12 +249,20 @@ void create_textfield_texture(textField *tf)
         tf->text_texture = NULL;
     }
 
-    if (tf->text[0] == '\0')
+    if (tf->text[0] == '\0' && tf->number_value == NULL)
     {
         return;
     }
 
-    SDL_Surface *surface = TTF_RenderUTF8_Blended(font, tf->text, tf->text_color);
+    char *text = tf->text;
+    if (tf->number_value != NULL)
+    {
+        static char number_text[20];
+        snprintf(number_text, sizeof(number_text), "%d", *(tf->number_value));
+        text = number_text;
+    }
+
+    SDL_Surface *surface = TTF_RenderUTF8_Blended(font, text, tf->text_color);
     if (!surface)
     {
         printf("Error creating surface for text");
@@ -203,12 +286,107 @@ void create_textfield_texture(textField *tf)
     tf->text_pos.y = tf->text_box.y + (tf->text_box.h - tf->text_pos.h) / 2;
 }
 
-int is_mouse_over_button(button *btn, int mx, int my)
+void init_playerNames()
 {
-    return (mx >= btn->button.x &&
-            mx <= btn->button.x + btn->button.w &&
-            my >= btn->button.y &&
-            my <= btn->button.y + btn->button.h);
+    for (size_t i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
+    {
+        snprintf(player_name_buffers[i], sizeof(player_name_buffers[i]), "Player %d", (int)(i + 1));
+    }
+}
+
+int is_mouse_over_rect(SDL_Rect *rect, int mx, int my)
+{
+    return (mx >= rect->x &&
+            mx <= rect->x + rect->w &&
+            my >= rect->y &&
+            my <= rect->y + rect->h);
+}
+
+void render_players_in_start_screen()
+{
+    sceneManager *scm = scm_get_scm();
+
+    if (scm->current_Scene->scene_index != SCENE_START_SCREEN)
+    {
+        return;
+    }
+
+    for (size_t i = 0; i < get_Num_Of_Players(); i++)
+    {
+        SDL_Renderer *renderer = eng_get()->renderer;
+        SDL_Color *color = get_player_color_pointer(i);
+
+        SDL_Rect player_rect = {.x = 475 + (i * 325), .y = 100, .w = 100, .h = 100};
+        if (player_rect.x + player_rect.w > 1024)
+        {
+            player_rect.x = 475 + ((i - 2) * 325);
+            player_rect.y += 200;
+        }
+
+        SDL_SetRenderDrawColor(renderer, color->r, color->g, color->b, color->a);
+        SDL_RenderFillRect(renderer, &player_rect);
+    }
+}
+
+void update_player_name_textfields()
+{
+    int player_count = (size_t)get_Num_Of_Players();
+    int start_index = PLAYER_NAME_TEXTFIELD_START;
+
+    for (size_t i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
+    {
+        textField *tf = &loaded_textfields_in_scene[start_index + i];
+
+        if (tf->isActive)
+        {
+            strcpy(player_name_buffers[i], tf->text);
+        }
+    }
+
+    for (size_t i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
+    {
+        textField *tf = &loaded_textfields_in_scene[i + start_index];
+
+        if (i < player_count)
+        {
+
+            tf->isActive = 1;
+            tf->isEditable = 1;
+            tf->max_length = MAX_PLAYER_NAME_LEN;
+
+            snprintf(tf->text, sizeof(tf->text), "%s", player_name_buffers[i]);
+
+            tf->text_box = (SDL_Rect){.x = 400 + (i * 325), .y = 225, .w = 275, .h = 50};
+            if (tf->text_box.x + tf->text_box.w > 1024)
+            {
+                tf->text_box.x = 400 + ((i - 2) * 325);
+                tf->text_box.y += 200;
+            }
+
+            tf->text_box_color = (SDL_Color){200, 200, 200, 255};
+            tf->text_box_focused_color = (SDL_Color){255, 255, 255, 255};
+            tf->text_color = (SDL_Color){0, 0, 0, 255};
+
+            create_textfield_texture(tf);
+        }
+        else
+        {
+            tf->isActive = 0;
+            tf->isEditable = 0;
+            tf->text[0] = '\0';
+
+            if (tf->text_texture)
+            {
+                SDL_DestroyTexture(tf->text_texture);
+                tf->text_texture = NULL;
+            }
+        }
+    }
+}
+
+char *get_player_names(int i)
+{
+    return player_name_buffers[i];
 }
 
 void update_buttons(SDL_Event *event)
@@ -225,7 +403,7 @@ void update_buttons(SDL_Event *event)
             continue;
         }
 
-        int hover = is_mouse_over_button(btn, mx, my);
+        int hover = is_mouse_over_rect(&btn->button, mx, my);
 
         if (!hover)
         {
@@ -425,17 +603,18 @@ void create_scoreCounter_ammo_text_texture(scoreCounter *sc)
 
 void on_start()
 {
-    scm_load_scene(1);
+    scm_load_scene(SCENE_START_SCREEN);
+    update_player_name_textfields();
 }
 
 void on_settings()
 {
-    scm_load_scene(2);
+    scm_load_scene(SCENE_SETTINGS);
 }
 
 void on_leaderboard()
 {
-    scm_load_scene(3);
+    scm_load_scene(SCENE_LEADERBOARD);
 }
 
 void on_quit()
@@ -446,6 +625,44 @@ void on_quit()
 void on_start_game()
 {
     start_game();
+}
+
+void on_decrease_player_count()
+{
+    if (get_Num_Of_Players() > 1)
+    {
+        set_Num_Of_Players(get_Num_Of_Players() - 1);
+        create_textfield_texture(&loaded_textfields_in_scene[SCENE_START_SCREEN]);
+        update_player_name_textfields();
+    }
+}
+
+void on_increase_player_count()
+{
+    if (get_Num_Of_Players() < MAX_NUMBER_OF_PLAYERS)
+    {
+        set_Num_Of_Players(get_Num_Of_Players() + 1);
+        create_textfield_texture(&loaded_textfields_in_scene[SCENE_START_SCREEN]);
+        update_player_name_textfields();
+    }
+}
+
+void on_decrease_map_index()
+{
+    if (scm_get_scm()->selected_map_index > 1)
+    {
+        scm_get_scm()->selected_map_index--;
+        create_textfield_texture(&loaded_textfields_in_scene[2]);
+    }
+}
+
+void on_increase_max_index()
+{
+    if (scm_get_scm()->selected_map_index < MAX_SCENES - PLAYABLE_SCENES_START_INDEX)
+    {
+        scm_get_scm()->selected_map_index++;
+        create_textfield_texture(&loaded_textfields_in_scene[2]);
+    }
 }
 
 void on_back()

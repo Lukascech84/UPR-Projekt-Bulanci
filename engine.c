@@ -93,7 +93,7 @@ void start_game()
     sceneManager *scm = scm_get_scm();
 
     printf("Game started\n");
-    scm_load_scene(5);
+    scm_load_scene(scm->selected_map_index + PLAYABLE_SCENES_START_INDEX - 1);
     scm->weapon_pickup.isActive = 0;
     scm->weapon_pickup.weaponID = -1;
     scm->weapon_pickup.respawn_timer_elapsed = 0.0f;
@@ -114,6 +114,7 @@ void eng_run()
         while (SDL_PollEvent(&event))
         {
             update_buttons(&event);
+            update_textfields(&event);
 
             if (event.type == SDL_QUIT)
             {
@@ -161,13 +162,14 @@ void eng_run()
         }
 
         // scm_render_collisionMap(); // Debug render kolizí
-        render_ui(eng.renderer);
+        render_ui();
 
         // Debug
-
-        // printf("Current scene: %s\n", sceneManager.current_Scene.scene_name);
-        // printf("%dx%d\n", SDL_GetWindowSurface(window)->w, SDL_GetWindowSurface(window)->h);
-        printf("FPS: %.2f\r", 1.0 / eng.deltaTime);
+        // printf("Current selected scene: %d\n", scm_get_scm()->selected_map_index);
+        // printf("Current scene: %d\n", scm_get_scm()->current_Scene->scene_index);
+        //  printf("%dx%d\n", SDL_GetWindowSurface(window)->w, SDL_GetWindowSurface(window)->h);
+        //  printf("%d\n", get_Num_Of_Players());
+        //  printf("FPS: %.2f\r", 1.0 / eng.deltaTime);
 
         eng.lastTicks = now;
         // SDL_SetRenderDrawColor(eng.renderer, 0, 0, 0, 255);
