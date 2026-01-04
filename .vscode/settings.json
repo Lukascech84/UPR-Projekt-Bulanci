@@ -1,7 +1,0 @@
-{
-  "files.associations": {
-    "*.tga": "code-text-binary",
-    "sdl_ttf.h": "c",
-    "scenemanager.h": "c"
-  }
-}
