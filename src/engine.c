@@ -10,6 +10,7 @@
 #include "sceneManager.h"
 #include "weaponPickup.h"
 #include "weapon.h"
+#include "time.h"
 
 static engine eng;
 
@@ -83,6 +84,7 @@ void update()
     update_bullet();
     update_weapon_pickup_respawn_timer();
     update_scoreCounter();
+    scm_update_timer();
     render_Players();
     render_bullet();
     render_weapon_pickup();
@@ -99,6 +101,22 @@ void start_game()
     scm->weapon_pickup.weaponID = -1;
     scm->weapon_pickup.respawn_timer_elapsed = 0.0f;
     scm->weapon_pickup.respawn_timer = WEAPON_PICKUP_RESPAWN_TIME;
+    scm_start_timer();
+    scm_init_after_game_stats_array();
+}
+
+void stop_game()
+{
+    sceneManager *scm = scm_get_scm();
+    printf("Game stopped\n");
+    scm_save_stats_after_game();
+    scm_load_scene(SCENE_END_SCREEN);
+    scm->isTimerRunning = 0;
+    scm->players_spawned = 0;
+    scm->weapon_pickup.isActive = 0;
+    scm->timer_elapsed = 0.0f;
+    scm->timer = 180;
+    update_playerNames_in_end_screen();
 }
 
 void eng_run()

@@ -2,6 +2,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
+#include <time.h>
 #include "sceneManager.h"
 #include "engine.h"
 #include "ui.h"
@@ -11,11 +12,13 @@
 static scene scenes[MAX_SCENES];
 static sceneManager scm = {.current_Scene = NULL};
 
+static AfterGameStats aftStats[MAX_NUMBER_OF_PLAYERS];
+
 scene create_menu_scene()
 {
     scene s = {0};
 
-    s.scene_index = 0;
+    s.scene_index = SCENE_MENU;
     s.scene_name = "Menu";
     s.have_players = 0;
     s.respawn_timer = 0.0f;
@@ -90,7 +93,7 @@ scene create_start_screen_scene()
 {
     scene s = {0};
 
-    s.scene_index = 1;
+    s.scene_index = SCENE_START_SCREEN;
     s.scene_name = "Start screen";
     s.have_players = 0;
     s.respawn_timer = 0.0f;
@@ -174,6 +177,32 @@ scene create_start_screen_scene()
         },
         .onClick = on_increase_max_index,
         .state = BUTTON_NORMAL};
+    s.buttons[6] = (button){
+        .isActive = 1,
+        .button = {25, 300, 75, 50},
+        .button_color = {100, 100, 100, 255},
+        .hover_color = {140, 140, 140, 255},
+        .pressed_color = {180, 180, 180, 255},
+        .textField = {
+            .text = "<-",
+            .text_color = {255, 255, 255, 255},
+            .text_box = {25, 300, 75, 50},
+        },
+        .onClick = on_decrease_timer,
+        .state = BUTTON_NORMAL};
+    s.buttons[7] = (button){
+        .isActive = 1,
+        .button = {250, 300, 75, 50},
+        .button_color = {100, 100, 100, 255},
+        .hover_color = {140, 140, 140, 255},
+        .pressed_color = {180, 180, 180, 255},
+        .textField = {
+            .text = "->",
+            .text_color = {255, 255, 255, 255},
+            .text_box = {250, 300, 75, 50},
+        },
+        .onClick = on_increase_timer,
+        .state = BUTTON_NORMAL};
     s.textFields[0] = (textField){
         .text_color = {255, 255, 255, 255},
         .text = "Select Map",
@@ -199,6 +228,15 @@ scene create_start_screen_scene()
         .isActive = 1,
         .isEditable = 0,
     };
+    s.textFields[3] = (textField){
+        .text_color = {255, 255, 255, 255},
+        .text = "",
+        .number_value = &scm_get_scm()->timer,
+        .text_box_color = {0, 0, 0, 150},
+        .text_box = {125, 300, 100, 50},
+        .isActive = 1,
+        .isEditable = 0,
+    };
     s.colMap.width = 0;
     s.colMap.height = 0;
     s.colMap.tiles = NULL;
@@ -210,7 +248,7 @@ scene create_settings_scene()
 {
     scene s = {0};
 
-    s.scene_index = 2;
+    s.scene_index = SCENE_SETTINGS;
     s.scene_name = "Settings";
     s.have_players = 0;
     s.respawn_timer = 0.0f;
@@ -235,16 +273,6 @@ scene create_settings_scene()
         .text_box_color = {0, 0, 0, 150},
         .text_box = {512 - 150, 0, 300, 50},
         .isActive = 1};
-    s.textFields[1] = (textField){
-        .text_color = {255, 255, 255, 255},
-        .text = "Player Name:",
-        .text_box_color = {0, 0, 0, 150},
-        .text_box = {512 - 250, 150, 500, 50},
-        .isActive = 1,
-        .isEditable = 1,
-        .max_length = 20,
-        .text_box_focused_color = {50, 50, 50, 150},
-    };
     s.colMap.width = 0;
     s.colMap.height = 0;
     s.colMap.tiles = NULL;
@@ -256,7 +284,7 @@ scene create_leaderboard_scene()
 {
     scene s = {0};
 
-    s.scene_index = 3;
+    s.scene_index = SCENE_LEADERBOARD;
     s.scene_name = "Leaderboard";
     s.have_players = 0;
     s.respawn_timer = 0.0f;
@@ -277,9 +305,45 @@ scene create_leaderboard_scene()
         .state = BUTTON_NORMAL};
     s.textFields[0] = (textField){
         .text_color = {255, 255, 255, 255},
-        .text = "Select Map",
+        .text = "Leaderboard",
         .text_box_color = {0, 0, 0, 150},
-        .text_box = {512 - 150, 0, 300, 50},
+        .text_box = {512 - 200, 0, 400, 50},
+        .isActive = 1};
+    s.colMap.width = 0;
+    s.colMap.height = 0;
+    s.colMap.tiles = NULL;
+
+    return s;
+}
+
+scene create_end_screen_scene()
+{
+    scene s = {0};
+
+    s.scene_index = SCENE_END_SCREEN;
+    s.scene_name = "End Screen";
+    s.have_players = 0;
+    s.respawn_timer = 0.0f;
+    s.bg_texture_address = "assets/maps/00_Menu/menu.jpg";
+
+    s.buttons[0] = (button){
+        .isActive = 1,
+        .button = {25, 425, 200, 75},
+        .button_color = {100, 100, 100, 255},
+        .hover_color = {140, 140, 140, 255},
+        .pressed_color = {180, 180, 180, 255},
+        .textField = {
+            .text = "Back",
+            .text_color = {255, 255, 255, 255},
+            .text_box = {25, 425, 200, 75},
+        },
+        .onClick = on_menu,
+        .state = BUTTON_NORMAL};
+    s.textFields[0] = (textField){
+        .text_color = {255, 255, 255, 255},
+        .text = "End of the Game!",
+        .text_box_color = {0, 0, 0, 150},
+        .text_box = {512 - 250, 0, 500, 50},
         .isActive = 1};
     s.colMap.width = 0;
     s.colMap.height = 0;
@@ -292,24 +356,32 @@ scene create_map1_scene()
 {
     scene s = {0};
 
-    s.scene_index = 1;
+    s.scene_index = SCENE_MAP_TEST;
     s.scene_name = "Grass";
     s.have_players = 1;
     s.respawn_timer = 5.0f;
     s.bg_texture_address = "assets/maps/01_Grass/map1_scaled.png";
-    s.colMap.width = 17;
-    s.colMap.height = 10;
+    s.colMap.width = 32;
+    s.colMap.height = 18;
     static int map1[] = {
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2,
+        2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2,
+        2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 2, 2,
+        2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2,
+        2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2,
+        2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2,
+        2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1};
     s.colMap.tiles = map1;
 
     return s;
@@ -319,7 +391,7 @@ scene create_map2_scene()
 {
     scene s = {0};
 
-    s.scene_index = 1;
+    s.scene_index = SCENE_MAP_DOBROU_NOC;
     s.scene_name = "Na dobrou noc";
     s.have_players = 1;
     s.respawn_timer = 5.0f;
@@ -352,25 +424,25 @@ scene create_map2_scene()
 
 void init_scenes()
 {
-    scenes[0] = create_menu_scene();
-    scenes[1] = create_start_screen_scene();
-    scenes[2] = create_settings_scene();
-    scenes[3] = create_leaderboard_scene();
-    scenes[4] = create_map1_scene();
-    scenes[5] = create_map2_scene();
+    scenes[SCENE_MENU] = create_menu_scene();
+    scenes[SCENE_START_SCREEN] = create_start_screen_scene();
+    scenes[SCENE_SETTINGS] = create_settings_scene();
+    scenes[SCENE_LEADERBOARD] = create_leaderboard_scene();
+    scenes[SCENE_END_SCREEN] = create_end_screen_scene();
+    scenes[SCENE_MAP_TEST] = create_map1_scene();
+    scenes[SCENE_MAP_DOBROU_NOC] = create_map2_scene();
 
     scm.current_Scene = &scenes[0];
     scm.selected_map_index = 1;
+    scm.timer = 180;
+    scm.timer_elapsed = 0;
+    scm.isTimerRunning = 0;
+    scm.num_of_active_players_in_last_game = 0;
 }
 
 sceneManager *scm_get_scm()
 {
     return &scm;
-}
-
-int *scm_get_selected_map_index_pointer()
-{
-    return &scm.selected_map_index;
 }
 
 scene *scm_get_scene(int index)
@@ -450,4 +522,79 @@ void scm_render_collisionMap()
             SDL_RenderFillRect(renderer, &colBox);
         }
     }
+}
+
+void scm_start_timer()
+{
+    scm.timer_elapsed = 0;
+    scm.isTimerRunning = 1;
+}
+
+void scm_update_timer()
+{
+    if (!scm.isTimerRunning)
+    {
+        return;
+    }
+    if (scm.timer_elapsed >= scm.timer)
+    {
+        scm.isTimerRunning = 0;
+        stop_game();
+        return;
+    }
+
+    scm.timer_elapsed += eng_get()->deltaTime;
+    // printf("Timer: %.2f / %d\n", scm.timer_elapsed, scm.timer);
+}
+
+void scm_save_stats_after_game()
+{
+    sceneManager *scm = scm_get_scm();
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    AfterGameStats *stats = get_AftStats();
+
+    scm->num_of_active_players_in_last_game = get_Num_Of_Players();
+
+    player *p = get_Players();
+    for (int i = 0; i < get_Num_Of_Players(); i++)
+    {
+        stats[i].wasPlayerActive = 1;
+        stats[i].playerID = i;
+        strcpy(stats[i].playerName, p[i].playerName);
+        stats[i].score = p[i].score;
+    }
+
+    FILE *stats_file = fopen(STATS_FILE, "a");
+    if (stats_file == NULL)
+    {
+        printf("Error opening stats file, results will not be saved\n");
+        return;
+    }
+
+    fprintf(stats_file, "MATCH ON MAP %s [%02d-%02d-%d-%02d:%02d]\n", scm->current_Scene->scene_name, tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min);
+    for (int i = 0; i < get_Num_Of_Players(); i++)
+    {
+        fprintf(stats_file, "Player[%d] with name %s ended with score %d\n", i, stats[i].playerName, stats[i].score);
+    }
+    fprintf(stats_file, "----------------------------------------------------\n");
+
+    fclose(stats_file);
+}
+
+void scm_init_after_game_stats_array()
+{
+    AfterGameStats *stats = get_AftStats();
+    for (int i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
+    {
+        stats[i].playerID = 0;
+        strcpy(stats[i].playerName, "");
+        stats[i].score = 0;
+        stats[i].wasPlayerActive = 0;
+    }
+}
+
+AfterGameStats *get_AftStats()
+{
+    return aftStats;
 }

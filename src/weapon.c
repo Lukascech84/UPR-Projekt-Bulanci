@@ -43,8 +43,6 @@ void init_bullet()
 
 void spawn_bullet(player *p)
 {
-    SDL_Renderer *renderer = eng_get()->renderer;
-
     for (int i = 0; i < MAX_BULLETS; i++)
     {
         if (fired_bullets[i].active == 0)
@@ -125,7 +123,7 @@ void update_bullet()
                 get_Players()[fired_bullets[i].playerID].score++;
                 kill_Player(j);
                 destroy_bullet(i);
-                printf("Player %ld got killed by player %d with score %d\n", j, fired_bullets[i].playerID, get_Players()[fired_bullets[i].playerID].score);
+                printf("Player %d got killed by player %d with score %d\n", j, fired_bullets[i].playerID, get_Players()[fired_bullets[i].playerID].score);
                 break;
             }
         }

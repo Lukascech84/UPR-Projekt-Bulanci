@@ -3,7 +3,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
 
-#define PLAYER_NAME_TEXTFIELD_START (MAX_TEXTFIELDS_PER_SCENE - MAX_NUMBER_OF_PLAYERS)
+#define PLAYER_NAME_TEXTFIELD_START (MAX_TEXTFIELDS_PER_SCENE - (MAX_NUMBER_OF_PLAYERS * 2))
 #define MAX_PLAYER_NAME_LEN 10
 
 typedef enum
@@ -85,6 +85,12 @@ void update_player_name_textfields();
 
 char *get_player_names(int i);
 
+void render_timer_in_game();
+
+void render_stats_in_end_screen();
+
+void update_playerNames_in_end_screen();
+
 // BUTTON FUNCTIONS
 void load_buttons();
 
@@ -143,5 +149,13 @@ void on_increase_player_count();
 void on_decrease_map_index();
 
 void on_increase_max_index();
+
+void on_decrease_timer();
+
+void on_increase_timer();
+
+// END SCREEN CALLBACKS
+
+void on_menu();
 
 void on_back();

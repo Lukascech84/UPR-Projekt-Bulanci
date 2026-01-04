@@ -2,6 +2,14 @@
 
 ## Tento projekt je napodobenina hry Bulánci s použítím SDL2, projekt byl vypracován do předmětu Úvod do Programování
 
+## TODO list
+
+- pozadí renderovat ve dvou vrstvách
+- ikonky, animace, textury všeho
+- AI
+- nastavení
+- leaderboard
+
 # Návod jak hru přeložit
 
 ## Požadavky(pro linux):
@@ -24,18 +32,18 @@
 - Windows operační systém
 - nainstalovaný cmake
 - nainstalovaný vcpkg
-    - git clone https://github.com/microsoft/vcpkg.git
-    - cd vcpkg
-    - bootstrap-vcpkg.bat
+  - git clone https://github.com/microsoft/vcpkg.git
+  - cd vcpkg
+  - bootstrap-vcpkg.bat
 - nainstalované SDL knihovny
-    - vcpkg install sdl2 libjpeg-turbo sdl2-image[libjpeg-turbo] sdl2-ttf
-    - vcpkg integrate install
+  - vcpkg install sdl2 libjpeg-turbo sdl2-image[libjpeg-turbo] sdl2-ttf
+  - vcpkg integrate install
 
 ## Návod(pro windows):
 
 - ./PROJEKT_BULANCI
 - mkdir build
 - cd .\build
-- cmake -S ..\src -B . -DCMAKE_TOOLCHAIN_FILE=C:\Users\lukas_t5auslz\vcpkg\scripts\buildsystems\vcpkg.cmake       !!! VAŠE CESTA SE MŮŽE LIŠIT
-- cmake --build . --config Release 
+- cmake -S ..\src -B . -DCMAKE_TOOLCHAIN_FILE=C:\Users\lukas_t5auslz\vcpkg\scripts\buildsystems\vcpkg.cmake !!! VAŠE CESTA SE MŮŽE LIŠIT
+- cmake --build . --config Release
 - .\Release\Bulanci.exe

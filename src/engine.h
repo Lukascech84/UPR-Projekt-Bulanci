@@ -22,6 +22,8 @@ void update();
 
 void start_game();
 
+void stop_game();
+
 void eng_run();
 
 void eng_quit();

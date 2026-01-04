@@ -49,7 +49,7 @@ void render_ui()
     render_buttons();
     render_textfields();
 
-    if (scene_index == SCENE_START_SCREEN)
+    if (scene_index == SCENE_START_SCREEN || scene_index == SCENE_END_SCREEN)
     {
         render_players_in_start_screen();
     }
@@ -57,6 +57,11 @@ void render_ui()
     if (scene_index >= PLAYABLE_SCENES_START_INDEX)
     {
         render_scoreCounter();
+        render_timer_in_game();
+    }
+    if (scene_index == SCENE_END_SCREEN)
+    {
+        render_stats_in_end_screen();
     }
 }
 
@@ -389,6 +394,154 @@ char *get_player_names(int i)
     return player_name_buffers[i];
 }
 
+void render_timer_in_game()
+{
+    sceneManager *scm = scm_get_scm();
+
+    if (scm->current_Scene->scene_index < PLAYABLE_SCENES_START_INDEX)
+    {
+        return;
+    }
+
+    SDL_Renderer *renderer = eng_get()->renderer;
+
+    int remaining_time = (int)(scm->timer - scm->timer_elapsed);
+    if (remaining_time < 0)
+    {
+        remaining_time = 0;
+    }
+    int minutes = remaining_time / 60;
+    int seconds = remaining_time % 60;
+
+    char timer_text[16];
+    snprintf(timer_text, sizeof(timer_text), "%02d:%02d", minutes, seconds);
+
+    SDL_Surface *surface = TTF_RenderUTF8_Blended(font, timer_text, (SDL_Color){255, 255, 255, 255});
+    if (!surface)
+    {
+        return;
+    }
+
+    SDL_Texture *timer_texture = SDL_CreateTextureFromSurface(renderer, surface);
+    if (!timer_texture)
+    {
+        SDL_FreeSurface(surface);
+        return;
+    }
+
+    SDL_Rect timer_rect = {.w = surface->w, .h = surface->h, .x = (1024 - surface->w) / 2, .y = 20};
+
+    SDL_FreeSurface(surface);
+
+    SDL_RenderCopy(renderer, timer_texture, NULL, &timer_rect);
+
+    SDL_DestroyTexture(timer_texture);
+}
+
+void render_stats_in_end_screen()
+{
+    sceneManager *scm = scm_get_scm();
+    AfterGameStats *aftStats = get_AftStats();
+    if (scm->current_Scene->scene_index != SCENE_END_SCREEN)
+    {
+        return;
+    }
+
+    // printf("Number of active players in last game %d\n", scm.num_of_active_players_in_last_game);
+
+    for (int i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
+    {
+        if (aftStats[i].wasPlayerActive)
+        {
+            SDL_Renderer *renderer = eng_get()->renderer;
+            SDL_Color *color = get_player_color_pointer(i);
+
+            SDL_Rect player_rect = {.x = ((1024 / (scm->num_of_active_players_in_last_game + 1)) * (i + 1) - get_Players()[0].hitbox.w), .y = 100, .w = 100, .h = 100};
+
+            SDL_SetRenderDrawColor(renderer, color->r, color->g, color->b, color->a);
+            SDL_RenderFillRect(renderer, &player_rect);
+        }
+    }
+}
+
+void update_playerNames_in_end_screen()
+{
+    int start_index = PLAYER_NAME_TEXTFIELD_START;
+
+    sceneManager *scm = scm_get_scm();
+    AfterGameStats *aftStats = get_AftStats();
+    int active_players = scm->num_of_active_players_in_last_game;
+
+    for (int i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
+    {
+        textField *tf = &loaded_textfields_in_scene[start_index + i];
+
+        if (tf->isActive)
+        {
+            strcpy(player_name_buffers[i], tf->text);
+        }
+    }
+
+    for (int i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
+    {
+        textField *tf_name = &loaded_textfields_in_scene[i + start_index];
+        textField *tf_score = &loaded_textfields_in_scene[i + start_index + MAX_NUMBER_OF_PLAYERS];
+
+        if (i < active_players)
+        {
+            // TextField pro jméno
+            tf_name->isActive = 1;
+            tf_name->isEditable = 0;
+            tf_name->max_length = MAX_PLAYER_NAME_LEN;
+
+            snprintf(tf_name->text, sizeof(tf_name->text), "%s", aftStats[i].playerName);
+
+            tf_name->text_box = (SDL_Rect){.x = ((1024 / (scm_get_scm()->num_of_active_players_in_last_game + 1)) * (i + 1) - 100), .y = 225, .w = 200, .h = 50};
+
+            tf_name->text_box_color = (SDL_Color){200, 200, 200, 255};
+            tf_name->text_color = (SDL_Color){0, 0, 0, 255};
+
+            create_textfield_texture(tf_name);
+
+            // TextField pro skóre
+            tf_score->isActive = 1;
+            tf_score->isEditable = 0;
+            tf_score->max_length = 10;
+
+            snprintf(tf_score->text, sizeof(tf_score->text), "%d", aftStats[i].score);
+
+            tf_score->text_box = (SDL_Rect){.x = tf_name->text_box.x, .y = tf_name->text_box.y + tf_name->text_box.h + 10, .w = tf_name->text_box.w, .h = tf_name->text_box.h};
+
+            tf_score->text_box_color = (SDL_Color){100, 100, 100, 255};
+            tf_score->text_color = (SDL_Color){0, 0, 0, 255};
+
+            create_textfield_texture(tf_score);
+        }
+        else
+        {
+            tf_name->isActive = 0;
+            tf_name->isEditable = 0;
+            tf_name->text[0] = '\0';
+
+            if (tf_name->text_texture)
+            {
+                SDL_DestroyTexture(tf_name->text_texture);
+                tf_name->text_texture = NULL;
+            }
+
+            tf_score->isActive = 0;
+            tf_score->isEditable = 0;
+            tf_score->text[0] = '\0';
+
+            if (tf_score->text_texture)
+            {
+                SDL_DestroyTexture(tf_score->text_texture);
+                tf_score->text_texture = NULL;
+            }
+        }
+    }
+}
+
 void update_buttons(SDL_Event *event)
 {
     int mx, my;
@@ -624,6 +777,7 @@ void on_quit()
 
 void on_start_game()
 {
+    update_player_name_textfields();
     start_game();
 }
 
@@ -663,6 +817,29 @@ void on_increase_max_index()
         scm_get_scm()->selected_map_index++;
         create_textfield_texture(&loaded_textfields_in_scene[2]);
     }
+}
+
+void on_decrease_timer()
+{
+    if (scm_get_scm()->timer > TIMER_MIN)
+    {
+        scm_get_scm()->timer -= 30;
+        create_textfield_texture(&loaded_textfields_in_scene[3]);
+    }
+}
+
+void on_increase_timer()
+{
+    if (scm_get_scm()->timer < TIMER_MAX)
+    {
+        scm_get_scm()->timer += 30;
+        create_textfield_texture(&loaded_textfields_in_scene[3]);
+    }
+}
+
+void on_menu()
+{
+    scm_load_scene(SCENE_MENU);
 }
 
 void on_back()

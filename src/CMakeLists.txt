@@ -3,6 +3,8 @@ project(Bulanci C)
 
 set(CMAKE_C_STANDARD 11)
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wpedantic -Werror -fsanitize=address")
+
 find_package(SDL2 CONFIG REQUIRED)
 find_package(SDL2_image CONFIG REQUIRED)
 find_package(SDL2_ttf CONFIG REQUIRED)
@@ -23,6 +25,7 @@ target_link_libraries(Bulanci PRIVATE
     SDL2::SDL2main
     SDL2_image::SDL2_image
     SDL2_ttf::SDL2_ttf
+    m
 )
 
 add_custom_command(TARGET Bulanci POST_BUILD

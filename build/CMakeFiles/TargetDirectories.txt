@@ -1,0 +1,3 @@
+/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles/Bulanci.dir
+/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles/edit_cache.dir
+/home/lukas/UPR/Projekt_Bulanci/build/CMakeFiles/rebuild_cache.dir
